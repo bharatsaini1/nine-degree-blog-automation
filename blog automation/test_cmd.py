@@ -1,0 +1,35 @@
+import json
+import subprocess
+
+wf = {
+    "nodes": [
+        {
+            "parameters": {},
+            "id": "manual-trigger",
+            "name": "When clicking Test workflow",
+            "type": "n8n-nodes-base.manualTrigger",
+            "typeVersion": 1,
+            "position": [100, 100]
+        },
+        {
+            "parameters": {
+                "command": 'powershell -Command "Write-Output Hello"'
+            },
+            "id": "cmd-node",
+            "name": "Execute Command",
+            "type": "n8n-nodes-base.executeCommand",
+            "typeVersion": 1,
+            "position": [300, 100]
+        }
+    ],
+    "connections": {
+        "When clicking Test workflow": {
+            "main": [[{"node": "Execute Command", "type": "main", "index": 0}]]
+        }
+    }
+}
+
+with open(r"D:\n8n workflows\test_cmd.json", "w") as f:
+    json.dump(wf, f, indent=2)
+
+print("Saved test_cmd.json")

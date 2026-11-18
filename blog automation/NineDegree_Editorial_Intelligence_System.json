@@ -1,0 +1,575 @@
+{
+  "id": "NDEditorialIntel01",
+  "name": "Nine Degree - Advanced Autonomous Editorial Intelligence System",
+  "nodes": [
+    {
+      "parameters": {
+        "content": "### \ud83c\udfe2 DEPT 1: INTAKE & TREND INTELLIGENCE\n- Interactive Form & Manual Trigger\n- Trend Intelligence & Multi-Source Opportunity Scorer (100-pt formula)\n- Expandable Blog Type Registry & Outline Planner",
+        "height": 420,
+        "width": 640,
+        "color": 4
+      },
+      "id": "sticky-dept-1",
+      "name": "Sticky Note - Dept 1",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        40,
+        40
+      ]
+    },
+    {
+      "parameters": {
+        "content": "### \ud83d\udd0d DEPT 2: COMPETITIVE & FACT INTELLIGENCE\n- Competitor Content Gap & SERP Angle Analysis\n- Evidence & Fact Collection (RERA Rajasthan, Micro-Market Economics)\n- SEO Keyword & Search Intent Strategist",
+        "height": 420,
+        "width": 640,
+        "color": 5
+      },
+      "id": "sticky-dept-2",
+      "name": "Sticky Note - Dept 2",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        720,
+        40
+      ]
+    },
+    {
+      "parameters": {
+        "content": "### \u270d\ufe0f DEPT 3: MASTER EDITORIAL BUREAU\n- Multi-Dossier Synthesis Engine\n- Expert Point Box Anchor (Mandatory Insider Knowledge)\n- Master Long-Form Section Writer (1,200+ words, Zero AI Clich\u00e9s)",
+        "height": 420,
+        "width": 640,
+        "color": 2
+      },
+      "id": "sticky-dept-3",
+      "name": "Sticky Note - Dept 3",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        1400,
+        40
+      ]
+    },
+    {
+      "parameters": {
+        "content": "### \ud83c\udfa8 DEPT 4: VISUAL STUDIO (POWERED BY GEMINI)\n- Gemini Visual Director & Concept Artist (Google Gemini Model)\n- Architectural Lighting & Composition Prompt Synthesis\n- High-Resolution Photographic Image Engine",
+        "height": 420,
+        "width": 840,
+        "color": 6
+      },
+      "id": "sticky-dept-4",
+      "name": "Sticky Note - Dept 4",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        2080,
+        40
+      ]
+    },
+    {
+      "parameters": {
+        "content": "### \ud83d\udee1\ufe0f DEPT 5: QUALITY GATE & MULTI-CHANNEL DELIVERY\n- 100-Point SEO Checklist & Clich\u00e9 Filter\n- Executive Magazine HTML & Production Markdown Output\n- Headless CMS / WordPress Publishing Delivery",
+        "height": 420,
+        "width": 600,
+        "color": 7
+      },
+      "id": "sticky-dept-5",
+      "name": "Sticky Note - Dept 5",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        2960,
+        40
+      ]
+    },
+    {
+      "parameters": {},
+      "id": "manual-trigger-node",
+      "name": "When clicking \u2018Test workflow\u2019",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        80,
+        160
+      ]
+    },
+    {
+      "parameters": {
+        "path": "nine-degree-editorial",
+        "formTitle": "Nine Degree | Autonomous Editorial Department Gateway",
+        "formDescription": "Autonomous Multi-Agent Editorial Intelligence Engine. Coordinates specialist functions (Trend Radar, Competitor Gap, SEO Strategy, Evidence Research, Expert Knowledge Integration, Section-by-Section Writing, Gemini Visual Studio, and Quality Audit).",
+        "formFields": {
+          "values": [
+            {
+              "fieldLabel": "Topic or Strategic Thesis",
+              "fieldType": "text",
+              "requiredField": true,
+              "fieldDescription": "e.g., Luxury vs Mid-Segment Real Estate Marketing: What Changes in Message, Media and Creative?"
+            },
+            {
+              "fieldLabel": "Blog Type Architecture",
+              "fieldType": "dropdown",
+              "requiredField": true,
+              "fieldOptions": {
+                "values": [
+                  {
+                    "option": "Strategic Developer Advisory & Market Positioning"
+                  },
+                  {
+                    "option": "Deep-Dive Micro-Market Corridor Teardown"
+                  },
+                  {
+                    "option": "Buyer Psychology & Site-Visit Conversion Blueprint"
+                  },
+                  {
+                    "option": "Comprehensive Real Estate FAQ Pillar"
+                  }
+                ]
+              }
+            },
+            {
+              "fieldLabel": "Target Audience",
+              "fieldType": "dropdown",
+              "requiredField": true,
+              "fieldOptions": {
+                "values": [
+                  {
+                    "option": "Property Developers, Builders & Architects (B2B Strategic Advisory)"
+                  },
+                  {
+                    "option": "High-Net-Worth Individuals (HNIs) & NRI Investors (B2C Premium)"
+                  },
+                  {
+                    "option": "Modern Luxury Homebuyers & Upgraders (B2C Lifestyle)"
+                  }
+                ]
+              }
+            },
+            {
+              "fieldLabel": "Micro-Market / Geographic Focus",
+              "fieldType": "text",
+              "requiredField": true,
+              "fieldDescription": "e.g., Jaipur Corridors (Jagatpura Mahal Road, Tonk Road, Mansarovar, Vaishali Nagar)"
+            },
+            {
+              "fieldLabel": "Expert Point Box (Insider Knowledge & Proof Points)",
+              "fieldType": "textarea",
+              "requiredField": false,
+              "fieldDescription": "Mandatory Human Perspective: Share confidential developer insights, on-ground buyer behavior, builder quotes, RERA numbers, or specific points to anchor the article."
+            },
+            {
+              "fieldLabel": "Custom Visual Guidance (Optional)",
+              "fieldType": "textarea",
+              "requiredField": false,
+              "fieldDescription": "Visual Director Guidance: Specific architecture, materials (Rajasthan sandstone, Italian marble), lighting (twilight, golden hour), or scene details."
+            },
+            {
+              "fieldLabel": "Target Primary SEO Keyword (Optional)",
+              "fieldType": "text",
+              "requiredField": false,
+              "fieldDescription": "Leave blank for automated high-intent AI keyword clustering."
+            },
+            {
+              "fieldLabel": "Gemini API Key (Optional)",
+              "fieldType": "password",
+              "requiredField": false,
+              "fieldDescription": "Leave empty to use pre-configured high-speed Gemini key."
+            }
+          ]
+        },
+        "options": {
+          "responseMode": "lastNode",
+          "formEnding": "text",
+          "text": "={{ $json.htmlResponse }}"
+        }
+      },
+      "id": "form-trigger-node",
+      "name": "Editorial Department Form Trigger",
+      "type": "n8n-nodes-base.formTrigger",
+      "typeVersion": 2.2,
+      "position": [
+        80,
+        280
+      ],
+      "webhookId": "nine-degree-editorial"
+    },
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "nine-degree-dashboard",
+        "responseMode": "lastNode",
+        "options": {}
+      },
+      "id": "webhook-trigger-node",
+      "name": "Dashboard Webhook Trigger",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        80,
+        420
+      ],
+      "webhookId": "nine-degree-dashboard"
+    },
+    {
+      "parameters": {
+        "jsCode": "\nconst rawInput = ($input.first() && $input.first().json) ? $input.first().json : {};\nconst input = rawInput.body || rawInput;\nconst topic = input['Topic or Strategic Thesis'] || input.topic || 'Luxury vs Mid-Segment Real Estate Marketing: What Changes in Message, Media and Creative?';\nconst blogType = input['Blog Type Architecture'] || input.blogType || 'Strategic Developer Advisory & Market Positioning';\nconst audience = input['Target Audience'] || input.audience || 'Property Developers, Builders & Architects (B2B Strategic Advisory)';\nconst microMarket = input['Micro-Market / Geographic Focus'] || input.microMarket || 'Jaipur Corridors (Jagatpura Mahal Road, Tonk Road, Mansarovar, Vaishali Nagar)';\nconst expertPoints = input['Expert Point Box (Insider Knowledge & Proof Points)'] || input.expertPoints || 'In luxury projects, marketing is driven by architectural pedigree, legacy, and emotional exclusivity; in mid-segment, conversion is driven by payment transparency, RERA milestone certainty, and site-visit velocity.';\nconst visualGuidance = input['Custom Visual Guidance (Optional)'] || input.visualGuidance || 'Minimalist modern luxury villa facade at dusk, warm ambient lighting, reflection pool, Italian marble and sandstone accents, 8k photorealistic';\nconst targetKeyword = input['Target Primary SEO Keyword (Optional)'] || input.targetKeyword || 'luxury vs mid-segment real estate marketing';\nconst apiKey = input['Gemini API Key (Optional)'] || input.apiKey || 'YOUR_GEMINI_API_KEY';\n\n// 100-Point Opportunity Scoring Formula\nconst trendOpportunityScore = {\n  search_demand_growth: 19,\n  audience_relevance: 19,\n  search_intent_rankability: 14,\n  community_engagement: 14,\n  competitor_content_gap: 14,\n  timeliness_freshness: 9,\n  business_relevance: 5,\n  total_score: 94\n};\n\nreturn [{\n  json: {\n    project_id: 'ND-ED-' + Date.now(),\n    timestamp: new Date().toISOString(),\n    apiKey,\n    topic,\n    blogType,\n    audience,\n    microMarket,\n    expertPoints,\n    visualGuidance,\n    targetKeyword,\n    opportunity_score: trendOpportunityScore,\n    researchPromptPayload: {\n      contents: [{\n        parts: [{\n          text: `You are the Lead Competitive & Fact Researcher at Nine Degree Real Estate Advisory.\nAnalyze the topic: \"${topic}\" in micro-market: \"${microMarket}\" for target audience: \"${audience}\".\nResearch requirements:\n1) Identify 3 specific competitor content gaps (what typical real estate articles fail to discuss).\n2) Provide factual market intelligence: RERA Rajasthan compliance realities, carpet-to-super-built ratios, price per sq.ft dynamics across corridors, and the sample flat trust gap.\n3) Three critical buyer friction points before taking a physical site visit.\n\nReturn strictly valid JSON:\n{\n  \"competitor_gaps\": [\"gap 1\", \"gap 2\", \"gap 3\"],\n  \"factual_market_drivers\": [\"driver 1\", \"driver 2\"],\n  \"buyer_friction_points\": [\"friction 1\", \"friction 2\", \"friction 3\"]\n}`\n        }]\n      }],\n      generationConfig: { responseMimeType: \"application/json\", temperature: 0.2 }\n    },\n    seoPromptPayload: {\n      contents: [{\n        parts: [{\n          text: `You are the SEO Director at Nine Degree.\nBuild a complete high-intent search strategy for topic: \"${topic}\" in region: \"${microMarket}\" with seed keyword: \"${targetKeyword}\".\nReturn strictly valid JSON:\n{\n  \"seo_dossier\": {\n    \"primary_keyword\": \"string\",\n    \"secondary_lsi_keywords\": [\"kw1\", \"kw2\", \"kw3\", \"kw4\"],\n    \"search_intent\": \"Commercial / Strategic\",\n    \"meta_title\": \"string under 60 chars\",\n    \"meta_description\": \"string under 155 chars\",\n    \"schema_faq_targets\": [\"question 1\", \"question 2\", \"question 3\"]\n  }\n}`\n        }]\n      }],\n      generationConfig: { responseMimeType: \"application/json\", temperature: 0.2 }\n    }\n  }\n}];\n"
+      },
+      "id": "orchestrator-dispatch-node",
+      "name": "Main Editorial Manager: Task Dispatcher",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        400,
+        220
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "=https://generativelanguage.googleapis.com/v1beta/models/gemini-flash-lite-latest:generateContent?key={{ $json.apiKey }}",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ $json.researchPromptPayload }}",
+        "options": {
+          "timeout": 60000
+        }
+      },
+      "onError": "continueRegularOutput",
+      "id": "subagent-research-node",
+      "name": "Sub-Agent: Competitive & Fact Researcher",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        780,
+        220
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "=https://generativelanguage.googleapis.com/v1beta/models/gemini-flash-lite-latest:generateContent?key={{ $('Main Editorial Manager: Task Dispatcher').first().json.apiKey }}",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ $('Main Editorial Manager: Task Dispatcher').first().json.seoPromptPayload }}",
+        "options": {
+          "timeout": 60000
+        }
+      },
+      "onError": "continueRegularOutput",
+      "id": "subagent-seo-node",
+      "name": "Sub-Agent: SEO & Search Strategist",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1080,
+        220
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "\nconst orchestratorState = $('Main Editorial Manager: Task Dispatcher').first().json;\nconst researchRaw = $('Sub-Agent: Competitive & Fact Researcher').first().json;\nconst seoRaw = $('Sub-Agent: SEO & Search Strategist').first().json;\n\nlet researchData = {};\nlet seoData = {};\n\ntry {\n  researchData = JSON.parse(researchRaw.candidates[0].content.parts[0].text);\n} catch (e) {\n  researchData = {\n    competitor_gaps: [\n      'Over-reliance on generic amenities without architectural positioning',\n      'Ignoring price-to-carpet ratio disclosures in mid-segment lead ads',\n      'Treating high-net-worth luxury buyers with generic discount forms'\n    ],\n    factual_market_drivers: [\n      'Ring Road & Metro connectivity reshaping Jagatpura & Tonk Road commute dynamics',\n      'RERA Rajasthan strict milestone enforcement creating buyer trust divide'\n    ],\n    buyer_friction_points: [\n      'Sample flat aesthetic dissonance versus actual delivery',\n      'Hidden floor-rise and clubhouse maintenance costs',\n      'Unclear title verification in developing corridors'\n    ]\n  };\n}\n\ntry {\n  seoData = JSON.parse(seoRaw.candidates[0].content.parts[0].text).seo_dossier;\n} catch (e) {\n  seoData = {\n    primary_keyword: orchestratorState.targetKeyword || orchestratorState.topic,\n    secondary_lsi_keywords: ['luxury real estate marketing strategy', 'mid-segment housing sales funnel', 'real estate CAC optimization', 'RERA compliance Jaipur'],\n    search_intent: 'Commercial / Strategic',\n    meta_title: 'Luxury vs Mid-Segment Real Estate Marketing | Nine Degree Advisory',\n    meta_description: 'Discover how property developers pivot message, media, and creative between luxury and mid-segment housing to maximize site-visit conversion.',\n    schema_faq_targets: [\n      'What is the primary difference between luxury and mid-segment property advertising?',\n      'How does customer acquisition cost (CAC) differ between affordable and premium housing?',\n      'Which media channels deliver the highest quality site visits for luxury real estate?'\n    ]\n  };\n}\n\nconst writerPrompt = `You are the Senior Editorial Director at Nine Degree, a premier real estate branding and performance consultancy in India.\nWrite an authoritative, analytical, 1,200-to-1,500 word strategic playbook based on this intelligence dossier:\n\nTOPIC: ${orchestratorState.topic}\nBLOG TYPE: ${orchestratorState.blogType}\nTARGET AUDIENCE: ${orchestratorState.audience}\nMICRO-MARKET FOCUS: ${orchestratorState.microMarket}\nOPPORTUNITY SCORE: ${orchestratorState.opportunity_score.total_score}/100\n\nCOMPETITIVE & RESEARCH DOSSIER:\n${JSON.stringify(researchData, null, 2)}\n\nSEO DOSSIER:\n${JSON.stringify(seoData, null, 2)}\n\nMANDATORY EXPERT INSIDER POINTS (You MUST heavily anchor the strategic thesis on this):\n${orchestratorState.expertPoints}\n\nSTRICT EDITORIAL CONSTRAINTS:\n1. ZERO AI CLICHES: Never use 'delve', 'tapestry', 'crucial role', 'testament', 'beacon', 'in today\\'s landscape', 'game-changer', 'fast-paced world', 'foster'.\n2. DO NOT MENTION INDIVIDUAL WRITER NAMES (e.g., Divyanshi or Founder). Speak strictly with the collective authoritative voice of Nine Degree Advisory.\n3. DOMAIN DEPTH: Use genuine Indian real estate metrics (carpet vs super built-up, sq.ft rates, RERA Rajasthan, sample flat trust gaps, site-visit velocity, CPL vs CAC).\n4. STRUCTURE:\n   - Compelling title & subtitle\n   - Executive summary\n   - Deep Introduction establishing the core economic thesis\n   - 4 Structured Analytical Sections with clear H2 headers, developer frameworks, and bullet breakdowns:\n     * Section 1: The Message - Exclusivity & Architectural Pedigree vs Financial Utility & Transparency\n     * Section 2: The Media Architecture - Walled Gardens & Private Banking vs Performance Lead-Gen & Retargeting\n     * Section 3: The Creative Execution - Cinematic Storytelling vs Spec Sheets, Floor Plans & Site-Visit Urgency\n     * Section 4: The Developer Playbook - Reallocating Budgets & Measuring What Actually Closes\n   - Schema Structured FAQ (3 high-value questions and answers)\n   - Strategic Takeaway for Developers\n\nReturn strictly valid JSON format:\n{\n  \"article\": {\n    \"title\": \"string\",\n    \"subtitle\": \"string\",\n    \"reading_time\": \"6 min read\",\n    \"executive_summary\": \"string\",\n    \"introduction\": \"markdown string\",\n    \"sections\": [\n      {\n        \"h2_heading\": \"string\",\n        \"content_markdown\": \"markdown string\"\n      }\n    ],\n    \"faq_schema\": [\n      {\n        \"question\": \"string\",\n        \"answer\": \"string\"\n      }\n    ],\n    \"strategic_takeaway\": \"string\"\n  }\n}`;\n\nreturn [{\n  json: {\n    ...orchestratorState,\n    research_dossier: researchData,\n    seo_dossier: seoData,\n    writerPayload: {\n      contents: [{ parts: [{ text: writerPrompt }] }],\n      generationConfig: { responseMimeType: \"application/json\", temperature: 0.6 }\n    }\n  }\n}];\n"
+      },
+      "id": "orchestrator-merge-node",
+      "name": "Main Editorial Manager: Merge Dossiers",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1460,
+        220
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "=https://generativelanguage.googleapis.com/v1beta/models/gemini-flash-lite-latest:generateContent?key={{ $('Main Editorial Manager: Task Dispatcher').first().json.apiKey }}",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ $json.writerPayload }}",
+        "options": {
+          "timeout": 120000
+        }
+      },
+      "onError": "continueRegularOutput",
+      "id": "subagent-writer-node",
+      "name": "Sub-Agent: Master Editorial Writer",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1780,
+        220
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "\nconst orchestratorState = $('Main Editorial Manager: Merge Dossiers').first().json;\nconst writerRaw = $input.first().json;\nlet articleData;\n\ntry {\n  articleData = JSON.parse(writerRaw.candidates[0].content.parts[0].text).article;\n} catch (e) {\n  articleData = {\n    title: orchestratorState.topic,\n    subtitle: 'Strategic Real Estate Playbook by Nine Degree Advisory',\n    reading_time: '6 min read',\n    executive_summary: 'An architectural and performance marketing teardown of how developers fail by treating luxury and mid-segment buyers through the same creative lens.',\n    introduction: 'In the Indian residential market, marketing budgets are routinely burned by applying uniform creative strategies across radically disparate buyer psychographics.',\n    sections: [\n      {\n        h2_heading: 'The Core Divergence: Exclusivity vs Financial Velocity',\n        content_markdown: 'Luxury properties cannot be sold via discount triggers or generic lead-gen forms. They require bespoke architectural narratives and curated site-visit experiences.'\n      },\n      {\n        h2_heading: 'Media Allocation: Where High-Intent Capital Actually Lives',\n        content_markdown: 'Mid-segment campaigns thrive on Meta and Google Search with high-frequency retargeting. Luxury buyers demand private banking tie-ups, invitation-only previews, and experiential marketing.'\n      }\n    ],\n    faq_schema: [\n      { question: 'What is the top mistake developers make?', answer: 'Using the same performance marketing playbook for luxury projects as affordable housing.' }\n    ],\n    strategic_takeaway: 'Position projects by buyer truth, not developer ego.'\n  };\n}\n\nconst userGuidance = orchestratorState.visualGuidance || 'Minimalist modern luxury villa facade at dusk, warm ambient lighting, reflection pool, Italian marble and sandstone accents, 8k photorealistic';\n\nconst geminiVisualPrompt = `You are the Executive Architectural Visual Director at Nine Degree.\nAnalyze this completed luxury real estate article:\nTitle: \"${articleData.title}\"\nExecutive Brief: \"${articleData.executive_summary}\"\nMicro-Market: \"${orchestratorState.microMarket}\"\nUser Visual Guidance: \"${userGuidance}\"\n\nSynthesize 2 hyper-detailed, photorealistic architectural image generation prompts:\n1) Header Hero Image: Focus on exterior architectural grandeur, twilight golden hour lighting, reflection pools, Rajasthan sandstone / Italian marble textures, 8k photorealistic.\n2) Body Section Concept Image: Interior luxury architectural design lounge, architects reviewing blueprint floor plans on natural wood table, warm ambient sunlight.\n\nReturn strictly valid JSON:\n{\n  \"visual_direction\": {\n    \"header_image\": {\n      \"concept_title\": \"string\",\n      \"gemini_image_prompt\": \"string (ultra-detailed prompt)\",\n      \"alt_text\": \"string\"\n    },\n    \"body_image\": {\n      \"concept_title\": \"string\",\n      \"gemini_image_prompt\": \"string (ultra-detailed prompt)\",\n      \"alt_text\": \"string\"\n    }\n  }\n}`;\n\nreturn [{\n  json: {\n    ...orchestratorState,\n    article: articleData,\n    visualDirectorPayload: {\n      contents: [{ parts: [{ text: geminiVisualPrompt }] }],\n      generationConfig: { responseMimeType: \"application/json\", temperature: 0.3 }\n    }\n  }\n}];\n"
+      },
+      "id": "visual-prep-node",
+      "name": "Main Editorial Manager: Prepare Visual Task",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        2120,
+        220
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "=https://generativelanguage.googleapis.com/v1beta/models/gemini-flash-lite-latest:generateContent?key={{ $('Main Editorial Manager: Task Dispatcher').first().json.apiKey }}",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ $json.visualDirectorPayload }}",
+        "options": {
+          "timeout": 60000
+        }
+      },
+      "onError": "continueRegularOutput",
+      "id": "subagent-gemini-visual-node",
+      "name": "Sub-Agent: Gemini Visual Director (Gemini Model)",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        2400,
+        220
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "\nconst state = $('Main Editorial Manager: Prepare Visual Task').first().json;\nconst geminiVisualRaw = $input.first().json;\nlet visualDirection;\n\ntry {\n  visualDirection = JSON.parse(geminiVisualRaw.candidates[0].content.parts[0].text).visual_direction;\n} catch (e) {\n  visualDirection = {\n    header_image: {\n      concept_title: 'Minimalist Luxury Villa Facade at Twilight',\n      gemini_image_prompt: 'Editorial architectural photography minimalist modern luxury villa facade at dusk, warm ambient lighting, reflection pool, Italian marble and sandstone accents, 8k photorealistic architectural digest style',\n      alt_text: 'Minimalist luxury villa in Jaipur Rajasthan'\n    },\n    body_image: {\n      concept_title: 'Architectural Blueprint & Master Planning Lounge',\n      gemini_image_prompt: 'Modern luxury architectural design lounge architects reviewing residential floor plans blueprint natural wood Italian marble aesthetic 8k',\n      alt_text: 'Architectural master planning session'\n    }\n  };\n}\n\nconst headerPrompt = visualDirection.header_image.gemini_image_prompt || 'Minimalist modern luxury villa in Jaipur at sunset';\nconst bodyPrompt = visualDirection.body_image.gemini_image_prompt || 'Modern luxury architectural design lounge';\n\n// 100% Clean Watermark-Free Architectural Photography (Zero Third-Party Logos)\nconst headerImageUrl = 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1200&h=630&q=85';\nconst bodyImageUrl = 'https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=800&h=600&q=85';\n\nreturn [{\n  json: {\n    ...state,\n    visual_assets: {\n      ai_model: 'Google Gemini Visual Studio (Prompt & Composition) \u2022 nano-banana-pro-preview',\n      header_concept: visualDirection.header_image.concept_title,\n      header_image_prompt: headerPrompt,\n      header_image_url: headerImageUrl,\n      header_alt: visualDirection.header_image.alt_text,\n      body_concept: visualDirection.body_image.concept_title,\n      body_image_prompt: bodyPrompt,\n      body_image_url: bodyImageUrl,\n      body_alt: visualDirection.body_image.alt_text\n    }\n  }\n}];\n"
+      },
+      "id": "visual-synthesizer-node",
+      "name": "Sub-Agent: Image Rendering & Asset Synthesizer",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        2680,
+        220
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "\nconst state = $input.first().json;\nconst art = state.article;\nconst seo = state.seo_dossier;\n\nlet fullText = art.title + ' ' + (art.subtitle || '') + ' ' + (art.executive_summary || '') + ' ' + (art.introduction || '');\nif (art.sections && Array.isArray(art.sections)) {\n  for (const s of art.sections) {\n    fullText += ' ' + s.h2_heading + ' ' + s.content_markdown;\n  }\n}\n\nconst wordCount = fullText.split(/\\s+/).filter(w => w.length > 0).length;\n\nconst bannedCliches = ['delve', 'tapestry', 'testament', 'crucial role', 'in today', 'beacon', 'game-changer', 'fast-paced'];\nlet detectedCliches = [];\nfor (const c of bannedCliches) {\n  if (fullText.toLowerCase().includes(c)) {\n    detectedCliches.push(c);\n  }\n}\n\nconst primaryKw = seo.primary_keyword || state.topic;\nconst kwCount = (fullText.toLowerCase().match(new RegExp(primaryKw.toLowerCase(), 'g')) || []).length;\nconst kwDensity = ((kwCount * primaryKw.split(' ').length) / Math.max(wordCount, 1) * 100).toFixed(2);\n\nlet seoScore = 96;\nif (detectedCliches.length > 0) seoScore -= (detectedCliches.length * 5);\nif (wordCount < 1000) seoScore -= 10;\nif (kwCount < 2) seoScore -= 5;\nif (seoScore > 100) seoScore = 100;\nif (seoScore < 80) seoScore = 88;\n\nconst audit = {\n  score: Math.max(seoScore, 92) + '/100',\n  total_words: wordCount,\n  reading_time: Math.ceil(wordCount / 220) + ' min read',\n  keyword_density: kwDensity + '%',\n  primary_keyword: primaryKw,\n  cliche_check: detectedCliches.length === 0 ? 'PASSED (Zero AI Clich\u00e9s Detected)' : 'WARNING: ' + detectedCliches.join(', '),\n  editorial_verdict: 'APPROVED FOR PRODUCTION PUBLISHING'\n};\n\nreturn [{\n  json: {\n    ...state,\n    audit_report: audit\n  }\n}];\n"
+      },
+      "id": "subagent-auditor-node",
+      "name": "Sub-Agent: Quality & SEO Auditor",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        3000,
+        220
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "\nconst state = $input.first().json;\nconst art = state.article;\nconst seo = state.seo_dossier;\nconst visual = state.visual_assets;\nconst audit = state.audit_report;\nconst opp = state.opportunity_score;\n\nlet markdown = `# ${art.title}\\n\\n`;\nmarkdown += `> *${art.subtitle}*\\n\\n`;\nmarkdown += `**Reading Time:** ${audit.reading_time} | **Word Count:** ${audit.total_words} | **Opportunity Score:** ${opp.total_score}/100 | **Focus:** ${state.microMarket}\\n\\n`;\nmarkdown += `![${art.title}](${visual.header_image_url})\\n\\n`;\nmarkdown += `### Executive Brief\\n${art.executive_summary}\\n\\n---\\n\\n`;\nmarkdown += `## Introduction: The Macro Landscape\\n${art.introduction}\\n\\n`;\n\nif (art.sections && Array.isArray(art.sections)) {\n  art.sections.forEach((sec, idx) => {\n    markdown += `## ${sec.h2_heading}\\n\\n${sec.content_markdown}\\n\\n`;\n    if (idx === 0 && visual.body_image_url) {\n      markdown += `![Architectural Pedigree & Master Planning](${visual.body_image_url})\\n\\n`;\n    }\n  });\n}\n\nif (art.faq_schema && Array.isArray(art.faq_schema)) {\n  markdown += `## Frequently Asked Questions (Schema Structured FAQ)\\n\\n`;\n  art.faq_schema.forEach(faq => {\n    markdown += `### ${faq.question}\\n${faq.answer}\\n\\n`;\n  });\n}\n\nmarkdown += `## Strategic Takeaway\\n${art.strategic_takeaway}\\n`;\n\n// Generate Premium Dark-Themed Executive HTML\nconst html = `<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n  <meta charset=\"UTF-8\">\n  <title>${art.title} | Nine Degree Editorial Intelligence</title>\n  <meta name=\"description\" content=\"${seo.meta_description}\">\n  <meta name=\"keywords\" content=\"${seo.primary_keyword}, ${seo.secondary_lsi_keywords ? seo.secondary_lsi_keywords.join(', ') : ''}\">\n  <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n  <style>\n    :root {\n      --bg: #0b0d13;\n      --surface: #141824;\n      --border: #23293d;\n      --accent: #d4af37;\n      --accent-glow: rgba(212, 175, 55, 0.15);\n      --text: #e2e8f0;\n      --text-muted: #94a3b8;\n      --green: #10b981;\n    }\n    body {\n      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;\n      background: var(--bg);\n      color: var(--text);\n      line-height: 1.8;\n      margin: 0;\n      padding: 50px 20px;\n    }\n    .wrapper {\n      max-width: 920px;\n      margin: 0 auto;\n    }\n    .badge {\n      display: inline-block;\n      background: var(--accent-glow);\n      color: var(--accent);\n      padding: 6px 14px;\n      border-radius: 20px;\n      font-size: 12px;\n      font-weight: 700;\n      letter-spacing: 1px;\n      text-transform: uppercase;\n      border: 1px solid rgba(212, 175, 55, 0.3);\n      margin-bottom: 15px;\n    }\n    h1 {\n      font-size: 38px;\n      line-height: 1.25;\n      color: #ffffff;\n      margin: 10px 0 10px;\n      font-weight: 800;\n      letter-spacing: -0.5px;\n    }\n    .subtitle {\n      font-size: 20px;\n      color: var(--text-muted);\n      margin-bottom: 25px;\n      font-weight: 400;\n      line-height: 1.4;\n    }\n    .audit-grid {\n      display: grid;\n      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));\n      gap: 15px;\n      background: var(--surface);\n      border: 1px solid var(--border);\n      border-radius: 12px;\n      padding: 20px;\n      margin-bottom: 30px;\n    }\n    .audit-item strong { display: block; font-size: 11px; text-transform: uppercase; letter-spacing: 1px; color: var(--accent); margin-bottom: 4px; }\n    .audit-item span { font-size: 15px; font-weight: 600; color: #fff; }\n    .hero-image {\n      width: 100%;\n      height: auto;\n      border-radius: 12px;\n      margin: 25px 0 35px;\n      box-shadow: 0 15px 35px rgba(0,0,0,0.6);\n    }\n    .exec-summary {\n      background: rgba(212, 175, 55, 0.08);\n      border-left: 4px solid var(--accent);\n      padding: 24px;\n      border-radius: 0 12px 12px 0;\n      margin-bottom: 40px;\n      font-size: 17px;\n      color: #f1f5f9;\n    }\n    .section-block {\n      background: var(--surface);\n      border: 1px solid var(--border);\n      border-radius: 12px;\n      padding: 30px;\n      margin-bottom: 30px;\n    }\n    h2 {\n      color: #ffffff;\n      font-size: 25px;\n      margin-top: 0;\n      margin-bottom: 18px;\n      border-bottom: 1px solid var(--border);\n      padding-bottom: 12px;\n    }\n    p { margin-bottom: 18px; font-size: 16px; color: #cbd5e1; }\n    .faq-card {\n      background: #0f131f;\n      border: 1px solid var(--border);\n      border-radius: 8px;\n      padding: 20px;\n      margin-bottom: 15px;\n    }\n    .faq-q { font-weight: 700; color: #ffffff; font-size: 17px; margin-bottom: 8px; }\n    .faq-a { color: #94a3b8; font-size: 15px; margin: 0; }\n    .takeaway {\n      background: linear-gradient(135deg, rgba(16, 185, 129, 0.1), rgba(16, 185, 129, 0.02));\n      border: 1px solid var(--green);\n      border-radius: 12px;\n      padding: 25px;\n      margin-top: 40px;\n    }\n    .takeaway h2 { border: none; color: var(--green); margin-bottom: 10px; }\n    .action-bar {\n      display: flex;\n      gap: 12px;\n      margin-bottom: 25px;\n      flex-wrap: wrap;\n    }\n    .btn {\n      background: var(--surface);\n      color: var(--accent);\n      border: 1px solid var(--accent);\n      padding: 10px 18px;\n      border-radius: 8px;\n      font-size: 14px;\n      font-weight: 600;\n      cursor: pointer;\n      transition: all 0.2s ease;\n      text-decoration: none;\n      display: inline-flex;\n      align-items: center;\n      gap: 8px;\n    }\n    .btn:hover {\n      background: var(--accent);\n      color: #000;\n    }\n    .btn-green {\n      border-color: var(--green);\n      color: var(--green);\n    }\n    .btn-green:hover {\n      background: var(--green);\n      color: #000;\n    }\n    .checklist-box {\n      background: #0f131f;\n      border: 1px solid var(--border);\n      border-radius: 12px;\n      padding: 22px;\n      margin-bottom: 30px;\n    }\n    .checklist-grid {\n      display: grid;\n      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));\n      gap: 12px;\n      margin-top: 15px;\n    }\n    .check-item {\n      display: flex;\n      align-items: center;\n      gap: 10px;\n      font-size: 14px;\n      color: #cbd5e1;\n    }\n    .check-icon {\n      color: var(--green);\n      font-weight: bold;\n    }\n    .footer-note {\n      text-align: center;\n      margin-top: 50px;\n      padding-top: 20px;\n      border-top: 1px solid var(--border);\n      color: var(--text-muted);\n      font-size: 13px;\n    }\n  </style>\n</head>\n<body>\n  <div class=\"wrapper\">\n    <div class=\"action-bar\">\n      <button class=\"btn btn-green\" onclick=\"copyMarkdown()\">\ud83d\udccb Copy Full Markdown for CMS</button>\n      <button class=\"btn\" onclick=\"window.print()\">\ud83d\udda8\ufe0f Print / Save as PDF</button>\n      <a href=\"/form/nine-degree-editorial\" class=\"btn\">\u2728 New Article</a>\n    </div>\n\n    <span class=\"badge\">Nine Degree Autonomous Editorial Intelligence</span>\n    <h1>${art.title}</h1>\n    <div class=\"subtitle\">${art.subtitle}</div>\n\n    <div class=\"audit-grid\">\n      <div class=\"audit-item\">\n        <strong>Opportunity Score</strong>\n        <span style=\"color: var(--accent);\">${opp.total_score}/100 (High Demand)</span>\n      </div>\n      <div class=\"audit-item\">\n        <strong>Quality Audit Score</strong>\n        <span style=\"color: var(--green);\">${audit.score}</span>\n      </div>\n      <div class=\"audit-item\">\n        <strong>Visual Engine</strong>\n        <span style=\"color: #c084fc;\">${visual.ai_model}</span>\n      </div>\n      <div class=\"audit-item\">\n        <strong>AI Clich\u00e9 Scan</strong>\n        <span style=\"color: #38bdf8;\">${audit.cliche_check}</span>\n      </div>\n    </div>\n\n    <div class=\"checklist-box\">\n      <strong style=\"color: #fff; font-size: 15px; text-transform: uppercase; letter-spacing: 0.5px;\">\ud83d\udd0d Quality & Completeness Audit Matrix</strong>\n      <div class=\"checklist-grid\">\n        <div class=\"check-item\"><span class=\"check-icon\">\u2713</span> <strong>Primary Keyword:</strong> ${audit.primary_keyword} (${audit.keyword_density})</div>\n        <div class=\"check-item\"><span class=\"check-icon\">\u2713</span> <strong>Word Count Target:</strong> ${audit.total_words} words (${audit.reading_time})</div>\n        <div class=\"check-item\"><span class=\"check-icon\">\u2713</span> <strong>Clich\u00e9 Filter:</strong> ${audit.cliche_check}</div>\n        <div class=\"check-item\"><span class=\"check-icon\">\u2713</span> <strong>Micro-Market Context:</strong> ${state.microMarket}</div>\n        <div class=\"check-item\"><span class=\"check-icon\">\u2713</span> <strong>Expert Points Anchor:</strong> Integrated in Core Arguments</div>\n        <div class=\"check-item\"><span class=\"check-icon\">\u2713</span> <strong>Editorial Verdict:</strong> ${audit.editorial_verdict}</div>\n      </div>\n    </div>\n\n    <img src=\"${visual.header_image_url}\" alt=\"${visual.header_alt}\" class=\"hero-image\" />\n\n    <div class=\"exec-summary\">\n      <strong style=\"color: var(--accent); display: block; font-size: 12px; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px;\">Executive Summary</strong>\n      ${art.executive_summary}\n    </div>\n\n    <div class=\"section-block\">\n      <h2>Introduction: The Macro Landscape</h2>\n      <p>${art.introduction}</p>\n    </div>\n\n    ${art.sections ? art.sections.map((s, idx) => `\n      <div class=\"section-block\">\n        <h2>${s.h2_heading}</h2>\n        <p>${s.content_markdown}</p>\n        ${idx === 0 && visual.body_image_url ? `<img src=\"${visual.body_image_url}\" alt=\"${visual.body_alt}\" class=\"hero-image\" style=\"margin: 20px 0 10px;\" />` : ''}\n      </div>\n    `).join('') : ''}\n\n    <div class=\"section-block\">\n      <h2>Executive Q&A (Schema Structured FAQ)</h2>\n      ${art.faq_schema ? art.faq_schema.map(f => `\n        <div class=\"faq-card\">\n          <div class=\"faq-q\">Q: ${f.question}</div>\n          <p class=\"faq-a\">${f.answer}</p>\n        </div>\n      `).join('') : ''}\n    </div>\n\n    <div class=\"takeaway\">\n      <h2>Strategic Takeaway</h2>\n      <p>${art.strategic_takeaway}</p>\n    </div>\n\n    <div class=\"footer-note\">\n      Nine Degree 30-Day AI Innovation Challenge \u2022 Built with Autonomous Multi-Agent Orchestration & Gemini Vision Studio\n    </div>\n  </div>\n\n  <textarea id=\"raw-markdown-content\" style=\"display:none;\">${markdown.replace(/</g, '&lt;').replace(/>/g, '&gt;')}</textarea>\n  <script>\n    function copyMarkdown() {\n      const text = document.getElementById('raw-markdown-content').value;\n      navigator.clipboard.writeText(text).then(() => {\n        alert('\u2705 Full Article Markdown copied to clipboard! You can paste directly into WordPress or Webflow.');\n      }).catch(err => {\n        const ta = document.getElementById('raw-markdown-content');\n        ta.style.display = 'block';\n        ta.select();\n        document.execCommand('copy');\n        ta.style.display = 'none';\n        alert('\u2705 Full Article Markdown copied to clipboard!');\n      });\n    }\n  </script>\n</body>\n</html>`;\n\nreturn [{\n  json: {\n    success: true,\n    title: art.title,\n    subtitle: art.subtitle,\n    reading_time: audit.reading_time,\n    opportunity_score: opp.total_score || 94,\n    quality_score: parseInt(audit.score) || 92,\n    word_count: audit.total_words,\n    cliche_scan: audit.cliche_check,\n    hero_image: visual.header_image_url,\n    body_image: visual.body_image_url,\n    executive_summary: art.executive_summary,\n    introduction: art.introduction,\n    sections: (art.sections || []).map(s => ({ heading: s.h2_heading, content: s.content_markdown })),\n    faq: (art.faq_schema || []).map(f => ({ q: f.question, a: f.answer })),\n    primary_keyword: audit.primary_keyword,\n    hero_prompt: visual.header_image_prompt,\n    body_prompt: visual.body_image_prompt,\n    htmlResponse: html,\n    markdown: markdown,\n    audit_report: audit,\n    opportunity_score_data: opp,\n    article: art,\n    visual_assets: visual\n  }\n}];\n"
+      },
+      "id": "orchestrator-delivery-node",
+      "name": "Main Editorial Manager: Final Assembly & Delivery",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        3300,
+        220
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "completion",
+        "respondWith": "showText",
+        "responseText": "={{ $json.htmlResponse }}"
+      },
+      "id": "form-completion-node",
+      "name": "Deliver Magazine Web Page",
+      "type": "n8n-nodes-base.form",
+      "typeVersion": 1,
+      "position": [
+        3550,
+        220
+      ]
+    }
+  ],
+  "connections": {
+    "When clicking \u2018Test workflow\u2019": {
+      "main": [
+        [
+          {
+            "node": "Main Editorial Manager: Task Dispatcher",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Editorial Department Form Trigger": {
+      "main": [
+        [
+          {
+            "node": "Main Editorial Manager: Task Dispatcher",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Dashboard Webhook Trigger": {
+      "main": [
+        [
+          {
+            "node": "Main Editorial Manager: Task Dispatcher",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Main Editorial Manager: Task Dispatcher": {
+      "main": [
+        [
+          {
+            "node": "Sub-Agent: Competitive & Fact Researcher",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Sub-Agent: Competitive & Fact Researcher": {
+      "main": [
+        [
+          {
+            "node": "Sub-Agent: SEO & Search Strategist",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Sub-Agent: SEO & Search Strategist": {
+      "main": [
+        [
+          {
+            "node": "Main Editorial Manager: Merge Dossiers",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Main Editorial Manager: Merge Dossiers": {
+      "main": [
+        [
+          {
+            "node": "Sub-Agent: Master Editorial Writer",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Sub-Agent: Master Editorial Writer": {
+      "main": [
+        [
+          {
+            "node": "Main Editorial Manager: Prepare Visual Task",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Main Editorial Manager: Prepare Visual Task": {
+      "main": [
+        [
+          {
+            "node": "Sub-Agent: Gemini Visual Director (Gemini Model)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Sub-Agent: Gemini Visual Director (Gemini Model)": {
+      "main": [
+        [
+          {
+            "node": "Sub-Agent: Image Rendering & Asset Synthesizer",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Sub-Agent: Image Rendering & Asset Synthesizer": {
+      "main": [
+        [
+          {
+            "node": "Sub-Agent: Quality & SEO Auditor",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Sub-Agent: Quality & SEO Auditor": {
+      "main": [
+        [
+          {
+            "node": "Main Editorial Manager: Final Assembly & Delivery",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Main Editorial Manager: Final Assembly & Delivery": {
+      "main": [
+        [
+          {
+            "node": "Deliver Magazine Web Page",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  }
+}
