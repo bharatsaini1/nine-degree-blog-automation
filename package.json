@@ -1,0 +1,14 @@
+{
+  "name": "nine-degree-blog-automation",
+  "version": "2.0.0",
+  "private": true,
+  "description": "Nine Degree Strategic Editorial OS and Multi-Agent Publishing Engine",
+  "scripts": {
+    "build": "node build-cloudflare.js",
+    "deploy": "wrangler pages deploy \"blog automation/dashboard/dist\" --project-name=nine-degree-dashboard",
+    "preview": "cd \"blog automation/dashboard\" && npm run preview"
+  },
+  "engines": {
+    "node": ">=20.0.0"
+  }
+}
