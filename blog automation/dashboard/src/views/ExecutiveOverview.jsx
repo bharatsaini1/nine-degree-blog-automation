@@ -34,9 +34,8 @@ export const ExecutiveOverview = () => {
     }, 800);
   };
 
-  const perspectiveData = {
-    cmo: {
-      badge: 'CMO & Brand Growth Cockpit',
+  const activeBriefing = {
+    badge: 'Nine Degree Global Advisory',
       dateLabel: currentDate,
       title: 'Global Real Estate Brand Positioning, Media Allocation & GEO Dominance',
       summary:
@@ -84,110 +83,7 @@ export const ExecutiveOverview = () => {
           source: 'High commercial investigation volume from agency and developer CMOs.'
         }
       ]
-    },
-    strategist: {
-      badge: 'Chief Strategist & Editorial Underwriting',
-      dateLabel: currentDate,
-      title: 'Micro-Market Land Economics, Raj-RERA Escrow Audits & Competitive Moats',
-      summary:
-        'Ground-level corridor economics, RERA milestone compliance, and title transparency dictate sales velocity. Independent fiduciary advisory replaces generic broker listicles across Jaipur, Pune, and Mumbai.',
-      insights: [
-        {
-          label: 'Micro-Market Land Bank Friction',
-          icon: TrendingUp,
-          color: 'text-[#ff6a52]',
-          headline: 'Jaipur Jagatpura & Pune IT corridor land prices surged +32% YoY',
-          detail: 'Pragmatic buyers verify carpet area ratios and RERA escrow accounts before site visits.'
-        },
-        {
-          label: 'Regulatory Governance Wave',
-          icon: ShieldCheck,
-          color: 'text-emerald-400',
-          headline: 'Raj-RERA issued notices to 14 unregistered satellite corridor projects',
-          detail: 'Independent fiduciary advice on verifying RERA certificates builds immediate high-ticket trust.'
-        },
-        {
-          label: 'Competitor Content Moat',
-          icon: AlertCircle,
-          color: 'text-indigo-400',
-          headline: 'Knight Frank and PropTiger lack localized corridor yield granularity',
-          detail: 'Nine Degree captures high-intent traffic by auditing micro-markets competitors overlook.'
-        }
-      ],
-      deltas: [
-        {
-          tag: 'RERA Regulatory Enforcement',
-          color: 'text-emerald-400',
-          title: 'Rajasthan RERA mandates strict disclosure of developer escrow balances.',
-          source: 'Source: Rajasthan RERA Regulatory Authority Guidelines & Judicial Orders.'
-        },
-        {
-          tag: 'Competitor Reporting Gap',
-          color: 'text-[#ff8f7d]',
-          title: 'Housing.com published generic national price charts ignoring micro-corridors.',
-          source: 'Opportunity: Release Jagatpura vs Tonk Road Developer Economics Playbook.'
-        },
-        {
-          tag: 'Fiduciary Query Growth',
-          color: 'text-amber-400',
-          title: '"rera escrow account compliance audit checklist" query volume surged +62% YoY.',
-          source: 'High-intent search traffic ready for Nine Degree legal checklist.'
-        }
-      ]
-    },
-    vc: {
-      badge: 'Institutional Capital Allocator & VC View',
-      dateLabel: currentDate,
-      title: 'Cross-Border NRI Capital Inflows, Rental Yields & Land Bank Predictability',
-      summary:
-        'Institutional family offices and NRI allocators from Dubai, London, and Singapore are bypassing speculative highway plots in favor of low-density plotted enclaves and audited Grade-A developers.',
-      insights: [
-        {
-          label: 'Cross-Border Remittance Inflows',
-          icon: TrendingUp,
-          color: 'text-[#ff6a52]',
-          headline: 'NRI capital deployment in Indian luxury residential real estate grew +28% YoY',
-          detail: 'Foreign inward remittances demand tax transparency and clear legal repatriation.'
-        },
-        {
-          label: 'Yield Arbitrage Spread',
-          icon: AlertCircle,
-          color: 'text-indigo-400',
-          headline: 'Prime central enclaves yield 4.5% vs 2.2% on speculative peripheral plots',
-          detail: 'Capital allocators require corridor-level yield comparisons before deploying equity.'
-        },
-        {
-          label: 'Fiduciary Due-Diligence Premium',
-          icon: ShieldCheck,
-          color: 'text-emerald-400',
-          headline: 'Gated plotted communities with JDA/RERA clear titles command 35% higher liquidity',
-          detail: 'Institutional allocators avoid unapproved agricultural plot flips.'
-        }
-      ],
-      deltas: [
-        {
-          tag: 'Cross-Border Tax Policy Shift',
-          color: 'text-[#ff8f7d]',
-          title: 'RBI issued updated cross-border remittance guidelines for overseas buyers.',
-          source: 'Source: Reserve Bank of India Capital Outflow & Remittance Review.'
-        },
-        {
-          tag: 'Peripheral Resale Liquidity Gap',
-          color: 'text-amber-400',
-          title: 'Speculative plots without master plan connectivity face 18-month resale cycles.',
-          source: 'Advisory: Direct HNI capital toward approved Ring Road logistics corridors.'
-        },
-        {
-          tag: 'Institutional Investor Surge',
-          color: 'text-emerald-400',
-          title: '"cross border property investment advisory dubai india" grew 3.4x in search volume.',
-          source: 'High-net-worth allocators seeking verified Nine Degree fiduciary advisory.'
-        }
-      ]
-    }
   };
-
-  const activeBriefing = perspectiveData.cmo;
 
   return (
     <div className="space-y-6 max-w-7xl mx-auto">
@@ -262,7 +158,7 @@ export const ExecutiveOverview = () => {
           </div>
         </div>
 
-        {/* 3 Executive Bullet Insights (Perspective Driven) */}
+        {/* 3 Executive Strategic Insights */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-6 pt-5 border-t border-[#291b1b] relative z-10">
           {activeBriefing.insights.map((ins, i) => {
             const IconComponent = ins.icon;

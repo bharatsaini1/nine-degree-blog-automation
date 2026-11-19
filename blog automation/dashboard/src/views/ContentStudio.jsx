@@ -345,7 +345,7 @@ export const ContentStudio = () => {
             <div>
               <div className="flex items-center justify-between mb-1">
                 <label className="text-zinc-300 font-medium">
-                  Expert Perspective & Ground Observations
+                  Expert Observations & Fiduciary Ground Intelligence
                 </label>
                 <span className="text-[10px] font-mono text-[#ff6a52]">Swapnil Soni Directive</span>
               </div>

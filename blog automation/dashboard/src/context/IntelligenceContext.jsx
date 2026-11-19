@@ -11,9 +11,8 @@ import { generateExecutivePublication } from '../data/contentGenerator';
 const IntelligenceContext = createContext(null);
 
 export const IntelligenceProvider = ({ children }) => {
-  // Navigation & Perspective
+  // Navigation
   const [activeTab, setActiveTab] = useState('overview');
-  const [perspective, setPerspective] = useState('cmo'); // 'cmo' | 'strategist' | 'vc'
   const [activeWorkspace, setActiveWorkspace] = useState('Nine Degree Strategic Advisory');
 
   // Filters (Global Scope: UAE, UK, US, Singapore, Mumbai, Pune, Jaipur)
@@ -672,8 +671,6 @@ export const IntelligenceProvider = ({ children }) => {
       value={{
         activeTab,
         setActiveTab,
-        perspective,
-        setPerspective,
         activeWorkspace,
         setActiveWorkspace,
         selectedIndustry,
