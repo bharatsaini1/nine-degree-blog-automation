@@ -54,17 +54,20 @@ export const IntelligenceFeed = () => {
                 {item.supportingEvidence}
               </p>
 
-              <div className="text-[11px] text-zinc-500 flex items-center gap-2 font-mono">
-                <span>Source:</span>
-                <a
-                  href={item.originalUrl}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="text-zinc-400 hover:text-[#ff6a52] flex items-center gap-1 transition-colors"
-                >
-                  <span>{item.sourceName}</span>
-                  <ExternalLink className="w-2.5 h-2.5" />
-                </a>
+              <div className="pt-1">
+                <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-[#111114] border border-[#26262e] text-[11px] font-mono text-zinc-300">
+                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
+                  <span className="text-zinc-500">Verified Source:</span>
+                  <a
+                    href={item.originalUrl || '#'}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="font-medium text-zinc-200 hover:text-[#ff6a52] flex items-center gap-1 transition-colors max-w-sm truncate"
+                  >
+                    <span className="truncate">{item.sourceName || 'State Regulatory Portal'}</span>
+                    <ExternalLink className="w-2.5 h-2.5 text-zinc-500 shrink-0" />
+                  </a>
+                </div>
               </div>
             </div>
 

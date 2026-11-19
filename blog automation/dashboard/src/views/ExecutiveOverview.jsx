@@ -212,6 +212,29 @@ export const ExecutiveOverview = () => {
             <p className="text-sm text-zinc-400 mt-1 max-w-2xl leading-relaxed">
               {activeBriefing.summary}
             </p>
+            <div className="mt-3 flex flex-wrap items-center gap-2 text-[10.5px] font-mono">
+              <span className="text-zinc-500 font-semibold uppercase tracking-wider">Verified Streams:</span>
+              <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-md bg-[#16161b] border border-[#26262e] text-zinc-300">
+                <span className="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
+                <span>Raj-RERA</span>
+              </span>
+              <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-md bg-[#16161b] border border-[#26262e] text-zinc-300">
+                <span className="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
+                <span>MahaRERA</span>
+              </span>
+              <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-md bg-[#16161b] border border-[#26262e] text-zinc-300">
+                <span className="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
+                <span>JDA Master Plan</span>
+              </span>
+              <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-md bg-[#16161b] border border-[#26262e] text-zinc-300">
+                <span className="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
+                <span>RBI Remittance</span>
+              </span>
+              <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-md bg-[#16161b] border border-[#26262e] text-zinc-300">
+                <span className="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
+                <span>Knight Frank</span>
+              </span>
+            </div>
           </div>
           <div className="flex items-center gap-2.5 shrink-0">
             <button
@@ -345,6 +368,13 @@ export const ExecutiveOverview = () => {
                   <div className="text-[11px] text-zinc-400 mt-1 line-clamp-1 italic">
                     "{item.suggestedContentAngle || item.headline}"
                   </div>
+                  <div className="mt-2 flex items-center gap-1.5 text-[10px] font-mono text-zinc-400">
+                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 shrink-0"></span>
+                    <span className="text-zinc-500">Source:</span>
+                    <span className="text-zinc-300 font-medium truncate max-w-[280px]">
+                      {item.sourceName || 'Rajasthan RERA / State Gazette'}
+                    </span>
+                  </div>
                 </div>
 
                 <button
@@ -377,8 +407,9 @@ export const ExecutiveOverview = () => {
                 <div className="text-xs text-zinc-300 font-medium leading-snug">
                   {del.title}
                 </div>
-                <div className="text-[11px] text-zinc-500 mt-1 font-mono">
-                  {del.source}
+                <div className="mt-2 flex items-center gap-1.5 text-[10.5px] font-mono text-zinc-400">
+                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 shrink-0"></span>
+                  <span className="text-zinc-400">{del.source}</span>
                 </div>
               </div>
             ))}

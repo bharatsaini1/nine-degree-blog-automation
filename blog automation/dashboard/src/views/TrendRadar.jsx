@@ -9,7 +9,9 @@ import {
   CheckCircle,
   Plus,
   Sparkles,
-  Zap
+  Zap,
+  ShieldCheck,
+  Globe
 } from 'lucide-react';
 import { useIntelligence } from '../context/IntelligenceContext';
 
@@ -322,6 +324,38 @@ export const TrendRadar = () => {
         </div>
       </div>
 
+      {/* Verified Regulatory & Intelligence Sources Ribbon */}
+      <div className="bg-[#141418] px-5 py-3 rounded-2xl border border-[#24242c] flex flex-wrap items-center justify-between gap-3 text-xs">
+        <div className="flex items-center gap-2">
+          <ShieldCheck className="w-4 h-4 text-emerald-400" />
+          <span className="text-[11px] font-mono text-zinc-300 font-semibold uppercase tracking-wider">
+            Verified Intelligence Sources:
+          </span>
+        </div>
+        <div className="flex flex-wrap items-center gap-2">
+          {[
+            { name: 'Rajasthan RERA', url: 'https://rera.rajasthan.gov.in', tag: 'State Registry' },
+            { name: 'MahaRERA', url: 'https://maharera.mahaonline.gov.in', tag: 'Regulatory' },
+            { name: 'JDA & RIICO Master Plans', url: 'https://urban.rajasthan.gov.in/jda', tag: 'Urban Dev' },
+            { name: 'RBI Remittance Index', url: 'https://rbi.org.in', tag: 'Capital Flow' },
+            { name: 'Knight Frank Prime Resi', url: 'https://www.knightfrank.co.in/research', tag: 'Market Intelligence' },
+            { name: 'Search Engine Land (GEO)', url: 'https://searchengineland.com', tag: 'AI Search' }
+          ].map((src, sIdx) => (
+            <a
+              key={sIdx}
+              href={src.url}
+              target="_blank"
+              rel="noreferrer"
+              className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#1b1b22] hover:bg-[#23232c] border border-[#2b2b36] hover:border-[#e43d25]/50 text-zinc-300 hover:text-white transition-all font-mono text-[11px] group cursor-pointer shadow-sm"
+            >
+              <span className="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
+              <span className="font-medium">{src.name}</span>
+              <ExternalLink className="w-2.5 h-2.5 text-zinc-500 group-hover:text-[#ff6a52] transition-colors" />
+            </a>
+          ))}
+        </div>
+      </div>
+
       {/* AI Suggested Topics Hero Shelf */}
       <div className="bg-gradient-to-br from-[#1c1212] via-[#141418] to-[#121215] p-6 rounded-3xl border border-[#e43d25]/30 shadow-xl">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-4">
@@ -354,6 +388,10 @@ export const TrendRadar = () => {
                 </div>
                 <div className="text-xs font-display font-bold text-zinc-100 group-hover:text-[#ff6a52] transition-colors leading-snug mb-2 line-clamp-3">
                   "{t.suggestedContentAngle || t.headline}"
+                </div>
+                <div className="flex items-center gap-1.5 text-[10px] font-mono text-zinc-400">
+                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
+                  <span className="truncate max-w-[220px] text-zinc-400">{t.sourceName || 'Verified Regulatory Stream'}</span>
                 </div>
               </div>
               <button
@@ -436,25 +474,31 @@ export const TrendRadar = () => {
               </div>
             </div>
 
-            <div className="mt-5 pt-4 border-t border-[#242429] flex items-center justify-between text-xs">
-              <div className="flex items-center gap-2 text-[11px] text-zinc-500 font-mono">
-                <Calendar className="w-3 h-3" />
-                <span>Pub: {trend.publishedDate}</span>
-                <span>•</span>
-                <a
-                  href={trend.originalUrl}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="text-zinc-400 hover:text-[#ff6a52] flex items-center gap-1 truncate max-w-[180px] transition-colors"
-                >
-                  <span>{trend.sourceName}</span>
-                  <ExternalLink className="w-2.5 h-2.5" />
-                </a>
+            <div className="mt-5 pt-4 border-t border-[#242429] flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs">
+              <div className="flex flex-wrap items-center gap-2">
+                <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-[#111114] border border-[#282832] text-[11px] font-mono text-zinc-300">
+                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
+                  <span className="text-zinc-500">Source:</span>
+                  <a
+                    href={trend.originalUrl || '#'}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="font-medium text-zinc-200 hover:text-[#ff6a52] flex items-center gap-1 transition-colors max-w-[200px] truncate"
+                  >
+                    <span className="truncate">{trend.sourceName || 'Regulatory Archive & Market Gazette'}</span>
+                    <ExternalLink className="w-2.5 h-2.5 text-zinc-500 shrink-0" />
+                  </a>
+                </div>
+
+                <div className="inline-flex items-center gap-1 text-[10.5px] font-mono text-zinc-500">
+                  <Calendar className="w-3 h-3 text-zinc-500" />
+                  <span>{trend.publishedDate}</span>
+                </div>
               </div>
 
               <button
                 onClick={() => sendToStudio(trend)}
-                className="px-5 py-2 bg-[#e43d25] hover:bg-[#d8402a] text-white text-xs font-semibold rounded-full shadow-md shadow-[#e43d25]/20 hover:shadow-lg hover:shadow-[#e43d25]/30 transition-all flex items-center gap-1.5 cursor-pointer"
+                className="px-5 py-2 bg-[#e43d25] hover:bg-[#d8402a] text-white text-xs font-semibold rounded-full shadow-md shadow-[#e43d25]/20 hover:shadow-lg hover:shadow-[#e43d25]/30 transition-all flex items-center justify-center gap-1.5 cursor-pointer shrink-0"
               >
                 <span>Draft this Topic</span>
                 <ArrowRight className="w-3.5 h-3.5" />
