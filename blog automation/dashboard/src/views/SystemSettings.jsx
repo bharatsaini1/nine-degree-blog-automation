@@ -3,13 +3,15 @@ import { Settings, Download, Upload, RefreshCw, Activity, CheckCircle2, AlertTri
 import { useIntelligence } from '../context/IntelligenceContext';
 
 export const SystemSettings = () => {
-  const { backendOnline, activeWorkspace, pingBackend, importFullBackup, backendUrl, setBackendUrl } = useIntelligence();
+  const { backendOnline, activeWorkspace, pingBackend, importFullBackup, backendUrl, setBackendUrl, aiModels, updateModelKey } = useIntelligence();
   const [cleared, setCleared] = useState(false);
   const [pingResult, setPingResult] = useState(null);
   const [isPinging, setIsPinging] = useState(false);
   const [importStatus, setImportStatus] = useState(null);
   const [customUrlInput, setCustomUrlInput] = useState(backendUrl || '');
   const [urlSavedFeedback, setUrlSavedFeedback] = useState(false);
+  const [geminiKeyInput, setGeminiKeyInput] = useState('');
+  const [geminiSavedFeedback, setGeminiSavedFeedback] = useState(false);
   const fileInputRef = useRef(null);
 
   const handleReset = () => {
@@ -229,14 +231,46 @@ export const SystemSettings = () => {
             </div>
 
             {/* Gemini API Connector */}
-            <div className="p-3.5 bg-[#161619] rounded-xl border border-[#26262a] flex items-center justify-between">
-              <div>
-                <div className="font-semibold text-zinc-200 text-xs">Google Gemini 2.5 Flash / Pro API</div>
-                <div className="text-[10px] font-mono text-zinc-500">Default Multi-Agent Intelligence Foundation</div>
+            <div className="p-3.5 bg-[#161619] rounded-xl border border-[#26262a] space-y-2">
+              <div className="flex items-center justify-between">
+                <div>
+                  <div className="font-semibold text-zinc-200 text-xs">Google Gemini 2.5 Flash / Pro API</div>
+                  <div className="text-[10px] font-mono text-zinc-500">
+                    {aiModels?.gemini?.apiKeyMasked ? `Key: ${aiModels.gemini.apiKeyMasked}` : 'Default Intelligence Foundation'}
+                  </div>
+                </div>
+                <span className="px-2.5 py-0.5 rounded-full text-[10px] font-mono bg-emerald-500/15 text-emerald-400 border border-emerald-500/30 font-semibold">
+                  {aiModels?.gemini?.apiKeyRaw ? 'CUSTOM KEY ACTIVE' : 'ACTIVE'}
+                </span>
               </div>
-              <span className="px-2.5 py-0.5 rounded-full text-[10px] font-mono bg-emerald-500/15 text-emerald-400 border border-emerald-500/30 font-semibold">
-                ACTIVE
-              </span>
+              <div className="flex gap-2 pt-1 border-t border-[#222228]">
+                <input
+                  type="password"
+                  placeholder={aiModels?.gemini?.apiKeyRaw ? "Paste new key to replace..." : "Paste Gemini API Key (AIzaSy...)"}
+                  value={geminiKeyInput}
+                  onChange={(e) => setGeminiKeyInput(e.target.value)}
+                  className="flex-1 bg-[#101013] border border-[#27272e] rounded-lg px-2.5 py-1.5 text-[11px] text-zinc-200 font-mono placeholder:text-zinc-600 focus:outline-none focus:border-emerald-400/50"
+                />
+                <button
+                  type="button"
+                  onClick={() => {
+                    if (!geminiKeyInput.trim()) return;
+                    updateModelKey('gemini', geminiKeyInput.trim());
+                    setGeminiKeyInput('');
+                    setGeminiSavedFeedback(true);
+                    setTimeout(() => setGeminiSavedFeedback(false), 2500);
+                  }}
+                  disabled={!geminiKeyInput.trim()}
+                  className="px-3 py-1.5 bg-emerald-600 hover:bg-emerald-500 disabled:opacity-40 text-white rounded-lg text-[10.5px] font-semibold cursor-pointer transition-all shrink-0"
+                >
+                  Save Key
+                </button>
+              </div>
+              {geminiSavedFeedback && (
+                <div className="text-[10px] font-mono text-emerald-400">
+                  Google Gemini API Key saved to local storage!
+                </div>
+              )}
             </div>
 
             {/* Claude Adapter */}

@@ -359,7 +359,10 @@ export const IntelligenceProvider = ({ children }) => {
           idea: rawIdea,
           industry,
           geography,
-          modelProvider: aiModels.claude.status === 'connected' ? 'anthropic' : 'gemini'
+          modelProvider: aiModels.claude.status === 'connected' ? 'anthropic' : 'gemini',
+          apiKey: aiModels.gemini.apiKeyRaw || '',
+          gemini_key: aiModels.gemini.apiKeyRaw || '',
+          claude_key: aiModels.claude.apiKeyRaw || ''
         })
       });
 
@@ -571,8 +574,10 @@ export const IntelligenceProvider = ({ children }) => {
           keyword: editorialBrief.primaryKeyword,
           model_provider: isClaude ? 'anthropic' : 'google',
           model_name: assignedModel,
-          claude_key: aiModels.claude.apiKeyRaw || '',
-          gemini_key: aiModels.gemini.apiKeyRaw || ''
+          apiKey: aiModels.gemini.apiKeyRaw || '',
+          gemini_key: aiModels.gemini.apiKeyRaw || '',
+          'Gemini API Key (Optional)': aiModels.gemini.apiKeyRaw || '',
+          claude_key: aiModels.claude.apiKeyRaw || ''
         })
       });
 
