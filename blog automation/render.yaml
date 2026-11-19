@@ -1,4 +1,30 @@
 services:
+  # -------------------------------------------------------------
+  # 1. FRONTEND: Nine Degree Editorial OS Dashboard (React + Vite)
+  # -------------------------------------------------------------
+  - type: static
+    name: nine-degree-dashboard
+    plan: free
+    buildCommand: npm run build
+    staticPublishPath: dist
+    routes:
+      - type: rewrite
+        source: /*
+        destination: /index.html
+    headers:
+      - path: /*
+        name: X-Frame-Options
+        value: SAMEORIGIN
+      - path: /*
+        name: X-Content-Type-Options
+        value: nosniff
+      - path: /assets/*
+        name: Cache-Control
+        value: public, max-age=31536000, immutable
+
+  # -------------------------------------------------------------
+  # 2. BACKEND: n8n Multi-Agent Automation Engine (Docker)
+  # -------------------------------------------------------------
   - type: web
     name: nine-degree-n8n
     runtime: image
@@ -36,6 +62,9 @@ services:
       - key: N8N_ENFORCE_SETTINGS_FILE_PERMISSIONS
         value: "true"
 
+# -------------------------------------------------------------
+# 3. DATABASE: Persistent PostgreSQL Storage for n8n
+# -------------------------------------------------------------
 databases:
   - name: n8n-db
     plan: free
