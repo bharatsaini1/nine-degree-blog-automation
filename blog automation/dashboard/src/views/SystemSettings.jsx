@@ -3,11 +3,13 @@ import { Settings, Download, Upload, RefreshCw, Activity, CheckCircle2, AlertTri
 import { useIntelligence } from '../context/IntelligenceContext';
 
 export const SystemSettings = () => {
-  const { backendOnline, activeWorkspace, pingBackend, importFullBackup } = useIntelligence();
+  const { backendOnline, activeWorkspace, pingBackend, importFullBackup, backendUrl, setBackendUrl } = useIntelligence();
   const [cleared, setCleared] = useState(false);
   const [pingResult, setPingResult] = useState(null);
   const [isPinging, setIsPinging] = useState(false);
   const [importStatus, setImportStatus] = useState(null);
+  const [customUrlInput, setCustomUrlInput] = useState(backendUrl || '');
+  const [urlSavedFeedback, setUrlSavedFeedback] = useState(false);
   const fileInputRef = useRef(null);
 
   const handleReset = () => {
@@ -163,7 +165,7 @@ export const SystemSettings = () => {
                     <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-ping"></span>
                   </div>
                   <div className="text-[10px] font-mono text-zinc-500">
-                    Webhook: /n8n/webhook/nine-degree-dashboard
+                    Webhook: {backendUrl ? `${backendUrl}/webhook/nine-degree-dashboard` : '/n8n/webhook/nine-degree-dashboard'}
                   </div>
                 </div>
                 <span
@@ -175,6 +177,35 @@ export const SystemSettings = () => {
                 >
                   {backendOnline ? 'ONLINE' : 'DEGRADED / RECONNECTING'}
                 </span>
+              </div>
+
+              {/* Cloud n8n URL Config */}
+              <div className="pt-2 border-t border-[#222228] space-y-1.5">
+                <div className="text-[10px] font-mono text-zinc-400 flex items-center justify-between">
+                  <span>Remote Cloud n8n Backend URL:</span>
+                  {urlSavedFeedback && <span className="text-emerald-400">Saved to memory!</span>}
+                </div>
+                <div className="flex gap-2">
+                  <input
+                    type="url"
+                    value={customUrlInput}
+                    onChange={(e) => setCustomUrlInput(e.target.value)}
+                    placeholder="e.g. https://nine-degree-n8n.onrender.com"
+                    className="flex-1 bg-[#101013] border border-[#27272e] rounded-lg px-2.5 py-1.5 text-[11px] text-zinc-200 font-mono placeholder:text-zinc-600 focus:outline-none focus:border-[#e43d25]/50"
+                  />
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setBackendUrl(customUrlInput);
+                      setUrlSavedFeedback(true);
+                      setTimeout(() => setUrlSavedFeedback(false), 2500);
+                      handlePing();
+                    }}
+                    className="px-3 py-1.5 bg-[#e43d25] hover:bg-[#ff4e36] text-white rounded-lg text-[10.5px] font-semibold cursor-pointer transition-all shrink-0"
+                  >
+                    Save & Ping
+                  </button>
+                </div>
               </div>
 
               {pingResult && (

@@ -14,6 +14,28 @@ export const IntelligenceProvider = ({ children }) => {
   // Navigation
   const [activeTab, setActiveTab] = useState('overview');
   const [activeWorkspace, setActiveWorkspace] = useState('Nine Degree Strategic Advisory');
+  const [backendUrl, setBackendUrlState] = useState(() => {
+    return localStorage.getItem('nd_backend_url') || '';
+  });
+
+  const setBackendUrl = (url) => {
+    const clean = (url || '').trim().replace(/\/$/, '');
+    setBackendUrlState(clean);
+    if (clean) {
+      localStorage.setItem('nd_backend_url', clean);
+    } else {
+      localStorage.removeItem('nd_backend_url');
+    }
+  };
+
+  const getWebhookUrl = () => {
+    if (backendUrl) {
+      return backendUrl.endsWith('/webhook/nine-degree-dashboard')
+        ? backendUrl
+        : `${backendUrl}/webhook/nine-degree-dashboard`;
+    }
+    return '/n8n/webhook/nine-degree-dashboard';
+  };
 
   // Filters (Global Scope: UAE, UK, US, Singapore, Mumbai, Pune, Jaipur)
   const [selectedIndustry, setSelectedIndustry] = useState('Real Estate');
@@ -328,7 +350,7 @@ export const IntelligenceProvider = ({ children }) => {
     setActiveValidation(preliminary);
 
     try {
-      const response = await fetch('/n8n/webhook/nine-degree-dashboard', {
+      const response = await fetch(getWebhookUrl(), {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -533,7 +555,7 @@ export const IntelligenceProvider = ({ children }) => {
 
     try {
       const startTime = Date.now();
-      const response = await fetch('/n8n/webhook/nine-degree-dashboard', {
+      const response = await fetch(getWebhookUrl(), {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -630,7 +652,7 @@ export const IntelligenceProvider = ({ children }) => {
   const pingBackend = async () => {
     try {
       const start = Date.now();
-      const res = await fetch('/n8n/webhook/nine-degree-dashboard', {
+      const res = await fetch(getWebhookUrl(), {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ action: 'ping' })
@@ -721,7 +743,9 @@ export const IntelligenceProvider = ({ children }) => {
         addVoiceRule,
         removeVoiceRule,
         pingBackend,
-        importFullBackup
+        importFullBackup,
+        backendUrl,
+        setBackendUrl
       }}
     >
       {children}
