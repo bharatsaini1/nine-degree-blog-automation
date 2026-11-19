@@ -3,20 +3,7 @@ import { Sparkles } from 'lucide-react';
 import { useIntelligence } from '../../context/IntelligenceContext';
 
 export const Header = () => {
-  const { setActiveTab, aiModels, perspective } = useIntelligence();
-
-  const getPerspectiveLabel = () => {
-    switch (perspective) {
-      case 'cmo':
-        return 'CMO & Strategic Growth Cockpit';
-      case 'strategist':
-        return 'Head of Content & SEO Architecture';
-      case 'vc':
-        return 'VC, Real Estate Fund & Due Diligence';
-      default:
-        return 'Executive Editorial Bureau';
-    }
-  };
+  const { setActiveTab, aiModels } = useIntelligence();
 
   const isClaudeActive = aiModels.claude.status === 'connected';
 
@@ -28,7 +15,7 @@ export const Header = () => {
             Nine Degree Strategic Editorial OS
           </h1>
           <span className="text-[10px] font-mono px-2.5 py-0.5 rounded-full bg-[#e43d25]/15 text-[#ff573d] border border-[#e43d25]/30 font-medium">
-            {getPerspectiveLabel()}
+            Strategic Growth Cockpit
           </span>
         </div>
         <p className="text-[11px] text-zinc-400 font-sans">

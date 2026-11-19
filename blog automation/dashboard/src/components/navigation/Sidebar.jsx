@@ -18,7 +18,7 @@ import {
 import { useIntelligence } from '../../context/IntelligenceContext';
 
 export const Sidebar = () => {
-  const { activeTab, setActiveTab, perspective, setPerspective, backendOnline } = useIntelligence();
+  const { activeTab, setActiveTab, backendOnline } = useIntelligence();
 
   const navigationItems = [
     { id: 'overview', label: 'Executive Overview', icon: LayoutDashboard, group: 'Executive' },
@@ -59,48 +59,9 @@ export const Sidebar = () => {
               </div>
             </div>
           </div>
-
-          <div className="mt-4 pt-3 border-t border-[#1e1e24]">
-            <div className="text-[10px] uppercase font-mono tracking-wider text-zinc-400 mb-1.5 flex items-center justify-between">
-              <span>Executive Perspective</span>
-              <span className="text-[#e43d25] text-[10px] font-semibold">Active</span>
-            </div>
-            <div className="grid grid-cols-3 gap-1 bg-[#18181c] p-1 rounded-full border border-[#2a2a30]">
-              <button
-                onClick={() => setPerspective('cmo')}
-                className={`text-[10.5px] py-1 rounded-full font-medium transition-all cursor-pointer ${
-                  perspective === 'cmo'
-                    ? 'bg-[#e43d25] text-white shadow-sm shadow-[#e43d25]/30 font-semibold'
-                    : 'text-zinc-400 hover:text-zinc-200'
-                }`}
-              >
-                CMO/VP
-              </button>
-              <button
-                onClick={() => setPerspective('strategist')}
-                className={`text-[10.5px] py-1 rounded-full font-medium transition-all cursor-pointer ${
-                  perspective === 'strategist'
-                    ? 'bg-[#e43d25] text-white shadow-sm shadow-[#e43d25]/30 font-semibold'
-                    : 'text-zinc-400 hover:text-zinc-200'
-                }`}
-              >
-                Strategist
-              </button>
-              <button
-                onClick={() => setPerspective('vc')}
-                className={`text-[10.5px] py-1 rounded-full font-medium transition-all cursor-pointer ${
-                  perspective === 'vc'
-                    ? 'bg-[#e43d25] text-white shadow-sm shadow-[#e43d25]/30 font-semibold'
-                    : 'text-zinc-400 hover:text-zinc-200'
-                }`}
-              >
-                VC/Fund
-              </button>
-            </div>
-          </div>
         </div>
 
-        <div className="p-3 overflow-y-auto max-h-[calc(100vh-220px)] space-y-1">
+        <div className="p-3 overflow-y-auto max-h-[calc(100vh-140px)] space-y-1">
           {navigationItems.map((item) => {
             const Icon = item.icon;
             const isActive = activeTab === item.id;

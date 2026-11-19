@@ -16,7 +16,7 @@ import {
 import { useIntelligence } from '../context/IntelligenceContext';
 
 export const ExecutiveOverview = () => {
-  const { trends, competitors, backlog, setActiveTab, sendToStudio, perspective } = useIntelligence();
+  const { trends, competitors, backlog, setActiveTab, sendToStudio } = useIntelligence();
   const [isRefreshing, setIsRefreshing] = useState(false);
   const [refreshDelta, setRefreshDelta] = useState(0);
 
@@ -187,7 +187,7 @@ export const ExecutiveOverview = () => {
     }
   };
 
-  const activeBriefing = perspectiveData[perspective] || perspectiveData.cmo;
+  const activeBriefing = perspectiveData.cmo;
 
   return (
     <div className="space-y-6 max-w-7xl mx-auto">
