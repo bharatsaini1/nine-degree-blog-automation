@@ -76,27 +76,42 @@ export const INITIAL_KEYWORD_CLUSTERS = [
     pillar: 'Authority',
     description: 'High-trust, regulatory, and institutional due-diligence keywords that establish Nine Degree as the apex global advisory',
     keywords: [
-      { term: 'luxury real estate marketing strategy 2026', intent: 'Commercial Investigation', volume: 2900, kd: 'Low (22%)', cpc: '₹85' },
-      { term: 'rera escrow account compliance audit checklist', intent: 'Informational', volume: 1650, kd: 'Low (18%)', cpc: '₹45' },
-      { term: 'cross border property investment advisory dubai india', intent: 'Commercial Investigation', volume: 1200, kd: 'Low (20%)', cpc: '₹120' }
+      { term: 'luxury real estate marketing strategy 2026', intent: 'Commercial Investigation', volume: 2900, kd: 'Low (22%)', cpc: '₹85', geoScore: '98% GEO Citation', geography: 'Global / Metros', velocity: '+48%' },
+      { term: 'rera escrow account compliance audit checklist', intent: 'Informational', volume: 1650, kd: 'Low (18%)', cpc: '₹45', geoScore: '95% GEO Citation', geography: 'India (National)', velocity: '+62%' },
+      { term: 'cross border property investment advisory dubai india', intent: 'Commercial Investigation', volume: 1200, kd: 'Low (20%)', cpc: '₹120', geoScore: '97% GEO Citation', geography: 'Dubai / Global', velocity: '+54%' },
+      { term: 'rajasthan rera developer escrow verification online', intent: 'Transactional', volume: 1850, kd: 'Low (15%)', cpc: '₹55', geoScore: '93% GEO Citation', geography: 'Jaipur, Rajasthan', velocity: '+39%' },
+      { term: 'maharera project completion bank guarantee norms', intent: 'Informational', volume: 1420, kd: 'Low (19%)', cpc: '₹65', geoScore: '91% GEO Citation', geography: 'Pune & Mumbai', velocity: '+28%' }
     ]
   },
   {
     pillar: 'Acquisition',
     description: 'High-intent commercial queries entered by active capital allocators looking for luxury property and branding services',
     keywords: [
-      { term: 'pune luxury penthouses investment yield koregaon park', intent: 'Transactional', volume: 3400, kd: 'Medium (32%)', cpc: '₹95' },
-      { term: 'gated plotted enclave investment vs luxury apartments', intent: 'Commercial Investigation', volume: 2800, kd: 'Low (25%)', cpc: '₹68' },
-      { term: 'hni wealth allocation real estate advisory', intent: 'Commercial Investigation', volume: 920, kd: 'Low (19%)', cpc: '₹140' }
+      { term: 'pune luxury penthouses investment yield koregaon park', intent: 'Transactional', volume: 3400, kd: 'Medium (32%)', cpc: '₹95', geoScore: '96% GEO Citation', geography: 'Pune, Maharashtra', velocity: '+35%' },
+      { term: 'jaipur jagatpura luxury apartment price appreciation 2026', intent: 'Transactional', volume: 2600, kd: 'Low (21%)', cpc: '₹70', geoScore: '97% GEO Citation', geography: 'Jaipur, Rajasthan', velocity: '+44%' },
+      { term: 'c-scheme jaipur heritage villa private compound buy', intent: 'Commercial Investigation', volume: 1150, kd: 'Low (16%)', cpc: '₹135', geoScore: '94% GEO Citation', geography: 'Jaipur, Rajasthan', velocity: '+51%' },
+      { term: 'gated plotted enclave investment vs luxury apartments', intent: 'Commercial Investigation', volume: 2800, kd: 'Low (25%)', cpc: '₹68', geoScore: '93% GEO Citation', geography: 'Delhi NCR', velocity: '+40%' },
+      { term: 'hni wealth allocation real estate advisory', intent: 'Commercial Investigation', volume: 920, kd: 'Low (19%)', cpc: '₹140', geoScore: '98% GEO Citation', geography: 'Global / Metros', velocity: '+31%' }
     ]
   },
   {
     pillar: 'Advocacy',
     description: 'Thought leadership, Generative Engine Optimization (GEO), and market forecast queries that drive executive shares',
     keywords: [
-      { term: 'chatgpt conversational ads in real estate marketing', intent: 'Informational', volume: 4200, kd: 'Low (17%)', cpc: '₹75' },
-      { term: 'how do top property developers advertise on chatgpt search', intent: 'Informational', volume: 1850, kd: 'Low (14%)', cpc: '₹60' },
-      { term: 'autonomous ai multi agent systems proptech advisory', intent: 'Informational', volume: 1100, kd: 'Low (15%)', cpc: '₹90' }
+      { term: 'chatgpt conversational ads in real estate marketing', intent: 'Informational', volume: 4200, kd: 'Low (17%)', cpc: '₹75', geoScore: '99% GEO Citation', geography: 'Global', velocity: '+88%' },
+      { term: 'how do top property developers advertise on chatgpt search', intent: 'Informational', volume: 1850, kd: 'Low (14%)', cpc: '₹60', geoScore: '96% GEO Citation', geography: 'Global', velocity: '+72%' },
+      { term: 'generative engine optimization geo luxury brand benchmark', intent: 'Informational', volume: 2300, kd: 'Low (16%)', cpc: '₹95', geoScore: '98% GEO Citation', geography: 'Global', velocity: '+95%' },
+      { term: 'autonomous ai multi agent systems proptech advisory', intent: 'Informational', volume: 1100, kd: 'Low (15%)', cpc: '₹90', geoScore: '92% GEO Citation', geography: 'Global', velocity: '+45%' }
+    ]
+  },
+  {
+    pillar: 'Micro-Market',
+    description: 'Corridor-level land economics, infrastructure master plans, and hyper-local absorption queries',
+    keywords: [
+      { term: 'jagatpura vs tonk road real estate investment yield', intent: 'Commercial Investigation', volume: 2100, kd: 'Low (18%)', cpc: '₹58', geoScore: '96% GEO Citation', geography: 'Jaipur, Rajasthan', velocity: '+60%' },
+      { term: 'ring road expressway jaipur riico plotted township', intent: 'Commercial Investigation', volume: 1750, kd: 'Low (14%)', cpc: '₹52', geoScore: '94% GEO Citation', geography: 'Jaipur, Rajasthan', velocity: '+48%' },
+      { term: 'koregaon park vs kalyani nagar rental yield 2026', intent: 'Transactional', volume: 1980, kd: 'Low (22%)', cpc: '₹88', geoScore: '95% GEO Citation', geography: 'Pune, Maharashtra', velocity: '+33%' },
+      { term: 'jewar airport aerotropolis commercial land due diligence', intent: 'Commercial Investigation', volume: 3100, kd: 'Low (20%)', cpc: '₹110', geoScore: '97% GEO Citation', geography: 'Delhi NCR', velocity: '+82%' }
     ]
   }
 ];

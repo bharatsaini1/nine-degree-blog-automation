@@ -58,7 +58,32 @@ export const IntelligenceProvider = ({ children }) => {
   const [keywordClusters, setKeywordClusters] = useState(() => {
     try {
       const saved = localStorage.getItem('nd_keywords');
-      return saved ? JSON.parse(saved) : INITIAL_KEYWORD_CLUSTERS;
+      if (saved) {
+        const parsed = JSON.parse(saved);
+        const existingPillars = new Set(parsed.map(p => p.pillar));
+        const merged = parsed.map(p => {
+          const initPillar = INITIAL_KEYWORD_CLUSTERS.find(c => c.pillar === p.pillar);
+          if (!initPillar) return p;
+          const termSet = new Set(p.keywords.map(k => k.term));
+          const combinedKeywords = [...p.keywords];
+          initPillar.keywords.forEach(k => {
+            if (!termSet.has(k.term)) {
+              combinedKeywords.push(k);
+            }
+          });
+          return {
+            ...p,
+            keywords: combinedKeywords
+          };
+        });
+        INITIAL_KEYWORD_CLUSTERS.forEach(cluster => {
+          if (!existingPillars.has(cluster.pillar)) {
+            merged.push(cluster);
+          }
+        });
+        return merged;
+      }
+      return INITIAL_KEYWORD_CLUSTERS;
     } catch {
       return INITIAL_KEYWORD_CLUSTERS;
     }
