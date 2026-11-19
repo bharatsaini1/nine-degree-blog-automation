@@ -1,0 +1,22 @@
+name: Keep Render Services Awake
+
+on:
+  schedule:
+    # Runs every 10 minutes to prevent Render free instance from sleeping
+    - cron: '*/10 * * * *'
+  workflow_dispatch:
+
+jobs:
+  keep-awake:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Keep-Alive Ping
+        run: |
+          # 1. Ping Frontend Dashboard
+          curl -s -I -m 20 "https://nine-degree-blog-automation.onrender.com/" || echo "Frontend reached"
+          
+          # 2. Ping n8n Backend if configured
+          if [ -n "${{ secrets.RENDER_BACKEND_URL }}" ]; then
+            echo "Pinging backend at ${{ secrets.RENDER_BACKEND_URL }}..."
+            curl -s -I -m 20 "${{ secrets.RENDER_BACKEND_URL }}/healthz" || echo "Backend healthz pinged"
+          fi
