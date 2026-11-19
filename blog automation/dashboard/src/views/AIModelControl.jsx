@@ -41,11 +41,11 @@ export const AIModelControl = () => {
       <div className="bg-[#111113] p-6 rounded-2xl border border-[#222226] shadow-xl flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>
           <div className="flex items-center gap-2 mb-1">
-            <Cpu className="w-4 h-4 text-[#d4af37]" />
-            <h2 className="text-lg font-serif font-bold text-zinc-100">
+            <Cpu className="w-4 h-4 text-[#e43d25]" />
+            <h2 className="text-lg font-display font-bold text-zinc-100 tracking-tight">
               AI Model Control & Multi-Provider Hub
             </h2>
-            <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-indigo-500/10 text-indigo-400 border border-indigo-500/20">
+            <span className="text-[10px] font-mono px-2.5 py-0.5 rounded-full bg-indigo-500/10 text-indigo-400 border border-indigo-500/20 font-semibold">
               Gemini + Claude + OpenAI
             </span>
           </div>
@@ -54,7 +54,7 @@ export const AIModelControl = () => {
           </p>
         </div>
 
-        <div className="flex items-center gap-2 text-xs font-mono text-emerald-400 bg-emerald-500/10 px-3 py-1.5 rounded-xl border border-emerald-500/20">
+        <div className="flex items-center gap-2 text-xs font-mono text-emerald-400 bg-emerald-500/10 px-3.5 py-1.5 rounded-full border border-emerald-500/20">
           <ShieldCheck className="w-3.5 h-3.5" />
           <span>Encrypted Backend Storage • No Raw Key In Bundles</span>
         </div>
@@ -66,9 +66,9 @@ export const AIModelControl = () => {
             <div className="flex items-center justify-between mb-3">
               <div className="flex items-center gap-2">
                 <span className="w-2.5 h-2.5 rounded-full bg-emerald-400" />
-                <h3 className="text-sm font-bold text-zinc-100 font-serif">Google Gemini</h3>
+                <h3 className="text-sm font-bold text-zinc-100 font-display">Google Gemini</h3>
               </div>
-              <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-emerald-500/15 text-emerald-400 border border-emerald-500/30">
+              <span className="text-[10px] font-mono px-2.5 py-0.5 rounded-full bg-emerald-500/15 text-emerald-400 border border-emerald-500/30">
                 Default Active
               </span>
             </div>
@@ -120,10 +120,10 @@ export const AIModelControl = () => {
                     aiModels.claude.status === 'connected' ? 'bg-indigo-400' : 'bg-zinc-600'
                   }`}
                 />
-                <h3 className="text-sm font-bold text-zinc-100 font-serif">Anthropic Claude</h3>
+                <h3 className="text-sm font-bold text-zinc-100 font-display">Anthropic Claude</h3>
               </div>
               <span
-                className={`text-[10px] font-mono px-2 py-0.5 rounded ${
+                className={`text-[10px] font-mono px-2.5 py-0.5 rounded-full ${
                   aiModels.claude.status === 'connected'
                     ? 'bg-indigo-500/15 text-indigo-400 border border-indigo-500/30'
                     : 'bg-zinc-800 text-zinc-400'
@@ -201,10 +201,10 @@ export const AIModelControl = () => {
                     aiModels.openai.status === 'connected' ? 'bg-emerald-400' : 'bg-zinc-600'
                   }`}
                 />
-                <h3 className="text-sm font-bold text-zinc-100 font-serif">OpenAI</h3>
+                <h3 className="text-sm font-bold text-zinc-100 font-display">OpenAI</h3>
               </div>
               <span
-                className={`text-[10px] font-mono px-2 py-0.5 rounded ${
+                className={`text-[10px] font-mono px-2.5 py-0.5 rounded-full ${
                   aiModels.openai.status === 'connected'
                     ? 'bg-emerald-500/15 text-emerald-400 border border-emerald-500/30'
                     : 'bg-zinc-800 text-zinc-400'
@@ -275,8 +275,8 @@ export const AIModelControl = () => {
       </div>
 
       <div className="bg-[#111113] p-5 rounded-2xl border border-[#222226] shadow-xl">
-        <h3 className="text-sm font-semibold text-zinc-100 font-serif mb-1 flex items-center gap-2">
-          <Layers className="w-4 h-4 text-[#d4af37]" />
+        <h3 className="text-sm font-semibold text-zinc-100 font-display mb-1 flex items-center gap-2">
+          <Layers className="w-4 h-4 text-[#e43d25]" />
           <span>Per-Department Model Routing Matrix</span>
         </h3>
         <p className="text-xs text-zinc-400 mb-4">
@@ -309,7 +309,7 @@ export const AIModelControl = () => {
               <tr>
                 <td className="py-3 px-4 font-medium text-zinc-100">DPT 3: Master Editorial Bureau</td>
                 <td className="py-3 px-4 text-zinc-400">Authoritative long-form writing & expert synthesis</td>
-                <td className="py-3 px-4 font-mono text-[#d4af37]">
+                <td className="py-3 px-4 font-mono text-[#e43d25] font-semibold">
                   {editorialBrief.assignedWriterModel}
                 </td>
                 <td className="py-3 px-4 text-indigo-300 font-semibold">

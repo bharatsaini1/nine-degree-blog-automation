@@ -58,11 +58,11 @@ export const VisualStudio = () => {
       <div className="bg-[#111113] p-6 rounded-2xl border border-[#222226] shadow-xl flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>
           <div className="flex items-center gap-2 mb-1">
-            <ImageIcon className="w-4 h-4 text-[#d4af37]" />
-            <h2 className="text-lg font-serif font-bold text-zinc-100">
+            <ImageIcon className="w-4 h-4 text-[#e43d25]" />
+            <h2 className="text-lg font-display font-bold text-zinc-100 tracking-tight">
               Visual Studio & Architectural Image Bureau
             </h2>
-            <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-amber-500/10 text-amber-400 border border-amber-500/20">
+            <span className="text-[10px] font-mono px-2.5 py-0.5 rounded-full bg-[#e43d25]/10 text-[#ff6a52] border border-[#e43d25]/20 font-semibold">
               Watermark-Free 4K Stream
             </span>
           </div>
@@ -74,7 +74,7 @@ export const VisualStudio = () => {
         <button
           onClick={handleRegenerateHero}
           disabled={isGenerating}
-          className="px-4 py-2 bg-[#d4af37] text-black text-xs font-semibold rounded-xl hover:brightness-110 transition-all flex items-center gap-1.5 shadow-sm cursor-pointer disabled:opacity-50"
+          className="px-5 py-2.5 bg-gradient-to-r from-[#e43d25] to-[#d8402a] text-white text-xs font-semibold rounded-full hover:shadow-lg hover:shadow-[#e43d25]/25 hover:brightness-105 transition-all flex items-center gap-1.5 shadow-md shadow-[#e43d25]/20 cursor-pointer disabled:opacity-50"
         >
           <RefreshCw className={`w-3.5 h-3.5 ${isGenerating ? 'animate-spin' : ''}`} />
           <span>{isGenerating ? 'Synthesizing 4K Asset...' : 'Regenerate Cover Asset'}</span>
@@ -84,7 +84,7 @@ export const VisualStudio = () => {
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
         <div className="lg:col-span-5 bg-[#111113] p-5 rounded-2xl border border-[#222226] shadow-xl text-xs space-y-4">
           <div className="border-b border-[#202024] pb-3">
-            <h3 className="text-sm font-semibold text-zinc-100 font-serif">
+            <h3 className="text-sm font-semibold text-zinc-100 font-display">
               Visual Prompt Architecture
             </h3>
             <span className="text-[10px] font-mono text-zinc-500">Department 4 Engine</span>
@@ -94,7 +94,7 @@ export const VisualStudio = () => {
             <label className="block text-zinc-300 font-medium mb-1">
               Active Article Context:
             </label>
-            <div className="p-2.5 bg-[#17171a] rounded-xl border border-[#26262a] text-[11px] text-[#d4af37] font-serif">
+            <div className="p-2.5 bg-[#17171a] rounded-xl border border-[#26262a] text-[11px] text-[#ff6a52] font-sans font-medium">
               "{article.title}"
             </div>
           </div>
@@ -124,9 +124,9 @@ export const VisualStudio = () => {
                 <button
                   key={ratio}
                   onClick={() => setAspectRatio(ratio)}
-                  className={`py-1.5 rounded-lg font-mono text-xs transition-all cursor-pointer ${
+                  className={`py-1.5 rounded-full font-mono text-xs transition-all cursor-pointer ${
                     aspectRatio === ratio
-                      ? 'bg-[#d4af37] text-black font-semibold'
+                      ? 'bg-[#e43d25] text-white font-semibold shadow-sm shadow-[#e43d25]/30'
                       : 'bg-[#17171a] text-zinc-400 hover:text-zinc-200 border border-[#26262a]'
                   }`}
                 >
@@ -144,7 +144,7 @@ export const VisualStudio = () => {
               rows={4}
               value={customPrompt}
               onChange={(e) => setCustomPrompt(e.target.value)}
-              className="w-full bg-[#17171a] border border-[#2e2e34] rounded-xl p-3 text-xs font-mono text-zinc-200 outline-none focus:border-[#d4af37]"
+              className="w-full bg-[#17171a] border border-[#2e2e34] rounded-xl p-3 text-xs font-mono text-zinc-200 outline-none focus:border-[#e43d25]"
             />
           </div>
 
@@ -161,7 +161,7 @@ export const VisualStudio = () => {
         <div className="lg:col-span-7 space-y-4">
           <div className="bg-[#111113] p-5 rounded-2xl border border-[#222226] shadow-xl">
             <div className="flex items-center justify-between border-b border-[#202024] pb-3 mb-4">
-              <h3 className="text-sm font-semibold text-zinc-100 font-serif">
+              <h3 className="text-sm font-semibold text-zinc-100 font-display">
                 Active Cover Asset (Live in Article)
               </h3>
               <span className="text-[10px] font-mono text-emerald-400">100% Watermark Free</span>
@@ -175,7 +175,7 @@ export const VisualStudio = () => {
               />
               <div className="p-3 bg-[#141417] text-[11px] font-mono text-zinc-400 flex items-center justify-between">
                 <span>Alt: {article.title}</span>
-                <span className="text-[#d4af37]">Ratio: {aspectRatio}</span>
+                <span className="text-[#e43d25] font-semibold">Ratio: {aspectRatio}</span>
               </div>
             </div>
           </div>

@@ -9,11 +9,11 @@ export const KnowledgeBrandProfiles = () => {
     <div className="space-y-6 max-w-7xl mx-auto">
       <div className="bg-[#111113] p-6 rounded-2xl border border-[#222226] shadow-xl">
         <div className="flex items-center gap-2 mb-1">
-          <BookOpen className="w-4 h-4 text-[#d4af37]" />
-          <h2 className="text-lg font-serif font-bold text-zinc-100">
+          <BookOpen className="w-4 h-4 text-[#e43d25]" />
+          <h2 className="text-lg font-display font-bold text-zinc-100 tracking-tight">
             Brand Governance & Fiduciary Knowledge Base
           </h2>
-          <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-[#d4af37]/10 text-[#d4af37] border border-[#d4af37]/20">
+          <span className="text-[10px] font-mono px-2.5 py-0.5 rounded-full bg-[#e43d25]/10 text-[#ff6a52] border border-[#e43d25]/20 font-semibold">
             Nine Degree Global Standard
           </span>
         </div>
@@ -24,8 +24,8 @@ export const KnowledgeBrandProfiles = () => {
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <div className="bg-[#111113] p-5 rounded-2xl border border-[#222226] space-y-4 text-xs">
-          <h3 className="text-sm font-semibold text-zinc-100 font-serif flex items-center gap-2">
-            <Award className="w-4 h-4 text-[#d4af37]" />
+          <h3 className="text-sm font-semibold text-zinc-100 font-display flex items-center gap-2">
+            <Award className="w-4 h-4 text-[#e43d25]" />
             <span>Nine Degree Advisory Voice Rules</span>
           </h3>
 
@@ -46,9 +46,9 @@ export const KnowledgeBrandProfiles = () => {
               {brandProfile.keyMicroMarkets.map((m, i) => (
                 <span
                   key={i}
-                  className="px-2.5 py-1 rounded-lg bg-[#18181c] text-zinc-300 font-mono text-[10.5px] border border-[#26262a] flex items-center gap-1"
+                  className="px-3 py-1 rounded-full bg-[#18181c] text-zinc-300 font-mono text-[10.5px] border border-[#26262a] flex items-center gap-1"
                 >
-                  <MapPin className="w-2.5 h-2.5 text-[#d4af37]" />
+                  <MapPin className="w-2.5 h-2.5 text-[#e43d25]" />
                   <span>{m}</span>
                 </span>
               ))}
@@ -58,7 +58,7 @@ export const KnowledgeBrandProfiles = () => {
 
         <div className="bg-[#111113] p-5 rounded-2xl border border-[#222226] space-y-4 text-xs">
           <div className="flex items-center justify-between">
-            <h3 className="text-sm font-semibold text-zinc-100 font-serif flex items-center gap-2">
+            <h3 className="text-sm font-semibold text-zinc-100 font-display flex items-center gap-2">
               <ShieldAlert className="w-4 h-4 text-rose-400" />
               <span>Banned Generic AI Cliché Dictionary</span>
             </h3>
@@ -73,7 +73,7 @@ export const KnowledgeBrandProfiles = () => {
             {brandProfile.bannedCliches.map((word, i) => (
               <span
                 key={i}
-                className="px-2.5 py-1 rounded-lg bg-rose-500/10 text-rose-300 font-mono text-[11px] border border-rose-500/20"
+                className="px-3 py-1 rounded-full bg-rose-500/10 text-rose-300 font-mono text-[11px] border border-rose-500/20"
               >
                 ✕ "{word}"
               </span>

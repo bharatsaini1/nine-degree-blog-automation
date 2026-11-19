@@ -78,23 +78,23 @@ export const TopicValidator = () => {
 
   return (
     <div className="space-y-6 max-w-7xl mx-auto">
-      <div className="bg-[#111113] p-6 rounded-2xl border border-[#222226] shadow-xl">
+      <div className="bg-[#16161a] p-6 lg:p-8 rounded-3xl border border-[#26262b] shadow-xl">
         <div className="flex items-center gap-2 mb-1">
-          <Sparkles className="w-4 h-4 text-[#d4af37]" />
-          <h2 className="text-lg font-serif font-bold text-zinc-100">
+          <Sparkles className="w-4 h-4 text-[#e43d25]" />
+          <h2 className="text-lg font-display font-bold text-zinc-100 tracking-tight">
             Universal Topic & Hypothesis Validator
           </h2>
-          <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-[#d4af37]/10 text-[#d4af37] border border-[#d4af37]/20">
+          <span className="text-[10px] font-mono px-2.5 py-0.5 rounded-full bg-[#e43d25]/15 text-[#ff6a52] border border-[#e43d25]/30 font-medium">
             2-Stage Validation
           </span>
         </div>
-        <p className="text-xs text-zinc-400 max-w-2xl mb-4">
+        <p className="text-xs text-zinc-400 max-w-2xl mb-4 leading-relaxed">
           Submit any raw idea, blog title, or strategic thesis. The engine runs preliminary diagnosis instantly, then triggers deep research into search intent, competitor saturation, and content gaps.
         </p>
 
         <form onSubmit={handleValidate} className="space-y-4">
           <div>
-            <label className="block text-xs font-semibold text-zinc-300 mb-1">
+            <label className="block text-xs font-semibold text-zinc-300 mb-1.5">
               Topic, Hypothesis or Raw Idea *
             </label>
             <input
@@ -103,7 +103,7 @@ export const TopicValidator = () => {
               placeholder="e.g. How can B2B manufacturing companies use AI to improve sales conversion?"
               value={inputIdea}
               onChange={(e) => setInputIdea(e.target.value)}
-              className="w-full bg-[#17171a] border border-[#2e2e34] rounded-xl px-4 py-3 text-sm text-zinc-100 outline-none focus:border-[#d4af37] shadow-inner"
+              className="w-full bg-[#1b1b20] border border-[#2a2a32] rounded-2xl px-4 py-3 text-sm text-zinc-100 outline-none focus:border-[#e43d25] transition-colors shadow-inner"
             />
           </div>
 
@@ -115,7 +115,7 @@ export const TopicValidator = () => {
               <select
                 value={targetIndustry}
                 onChange={(e) => setTargetIndustry(e.target.value)}
-                className="w-full bg-[#17171a] border border-[#2e2e34] rounded-xl px-3 py-2 text-xs text-zinc-200 outline-none focus:border-[#d4af37]"
+                className="w-full bg-[#1b1b20] border border-[#2a2a32] rounded-xl px-3 py-2 text-xs text-zinc-200 outline-none focus:border-[#e43d25] transition-colors"
               >
                 <option value="Real Estate">Real Estate & Built Environment</option>
                 <option value="Technology & AI">Technology & AI</option>
@@ -134,7 +134,7 @@ export const TopicValidator = () => {
               <select
                 value={targetGeography}
                 onChange={(e) => setTargetGeography(e.target.value)}
-                className="w-full bg-[#17171a] border border-[#2e2e34] rounded-xl px-3 py-2 text-xs text-zinc-200 outline-none focus:border-[#d4af37]"
+                className="w-full bg-[#1b1b20] border border-[#2a2a32] rounded-xl px-3 py-2 text-xs text-zinc-200 outline-none focus:border-[#e43d25] transition-colors"
               >
                 <option value="Global / Cross-Border">Global / Cross-Border</option>
                 <option value="Dubai / UAE">Dubai / UAE</option>
@@ -155,7 +155,7 @@ export const TopicValidator = () => {
             <button
               type="submit"
               disabled={isValidating}
-              className="px-5 py-2.5 bg-gradient-to-r from-[#d4af37] to-[#b38317] text-black font-semibold text-xs rounded-xl hover:brightness-110 transition-all flex items-center gap-2 shadow-md shadow-[#d4af37]/15 disabled:opacity-50 cursor-pointer"
+              className="px-6 py-2.5 bg-[#e43d25] hover:bg-[#d8402a] text-white font-semibold text-xs rounded-full hover:shadow-lg hover:shadow-[#e43d25]/30 transition-all flex items-center gap-2 shadow-md shadow-[#e43d25]/20 disabled:opacity-50 cursor-pointer"
             >
               <Zap className={`w-4 h-4 ${isValidating ? 'animate-spin' : ''}`} />
               <span>{isValidating ? 'Executing Deep Research...' : 'Validate Idea Strength'}</span>
@@ -165,11 +165,11 @@ export const TopicValidator = () => {
       </div>
 
       {activeValidation && (
-        <div className="bg-[#111113] p-6 rounded-2xl border border-[#d4af37]/30 shadow-2xl relative">
-          <div className="flex items-center justify-between border-b border-[#242428] pb-4 mb-5">
+        <div className="bg-[#16161a] p-6 lg:p-8 rounded-3xl border border-[#e43d25]/35 shadow-2xl relative">
+          <div className="flex items-center justify-between border-b border-[#26262b] pb-4 mb-5">
             <div>
               <div className="flex items-center gap-2 text-[10px] font-mono mb-1">
-                <span className="px-2 py-0.5 rounded bg-emerald-500/15 text-emerald-400 font-semibold border border-emerald-500/30">
+                <span className="px-2.5 py-0.5 rounded-full bg-emerald-500/15 text-emerald-400 font-semibold border border-emerald-500/30">
                   {activeValidation.stage === 'preliminary' ? 'Stage 1: Preliminary' : 'Stage 2: Completed Dossier'}
                 </span>
                 <span className="text-zinc-500">•</span>
@@ -177,13 +177,13 @@ export const TopicValidator = () => {
                 <span className="text-zinc-500">•</span>
                 <span className="text-zinc-400">{activeValidation.geography}</span>
               </div>
-              <h3 className="text-lg font-serif font-bold text-zinc-100">
+              <h3 className="text-lg font-display font-bold text-zinc-100">
                 Validation Dossier: {activeValidation.detectedTopic}
               </h3>
             </div>
 
             <div className="text-right">
-              <div className="text-2xl font-serif font-bold text-[#d4af37]">
+              <div className="text-3xl font-display font-bold text-[#e43d25]">
                 {activeValidation.opportunityScore}/100
               </div>
               <div className="text-[10px] font-mono text-zinc-400">
@@ -193,8 +193,8 @@ export const TopicValidator = () => {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-5">
-            <div className="p-4 bg-[#161619] rounded-xl border border-[#26262a]">
-              <div className="text-[10px] font-mono text-zinc-400 uppercase tracking-wider mb-1 flex items-center gap-1">
+            <div className="p-4 bg-[#1b1b20] rounded-2xl border border-[#282830]">
+              <div className="text-[10px] font-mono text-zinc-400 uppercase tracking-wider mb-1 flex items-center gap-1 font-semibold">
                 <Share2 className="w-3.5 h-3.5 text-indigo-400" />
                 <span>Content Strategy</span>
               </div>
@@ -206,8 +206,8 @@ export const TopicValidator = () => {
               </div>
             </div>
 
-            <div className="p-4 bg-[#161619] rounded-xl border border-[#26262a]">
-              <div className="text-[10px] font-mono text-zinc-400 uppercase tracking-wider mb-1 flex items-center gap-1">
+            <div className="p-4 bg-[#1b1b20] rounded-2xl border border-[#282830]">
+              <div className="text-[10px] font-mono text-zinc-400 uppercase tracking-wider mb-1 flex items-center gap-1 font-semibold">
                 <Search className="w-3.5 h-3.5 text-amber-400" />
                 <span>Search Intent Demand</span>
               </div>
@@ -219,8 +219,8 @@ export const TopicValidator = () => {
               </div>
             </div>
 
-            <div className="p-4 bg-[#161619] rounded-xl border border-[#26262a]">
-              <div className="text-[10px] font-mono text-zinc-400 uppercase tracking-wider mb-1 flex items-center gap-1">
+            <div className="p-4 bg-[#1b1b20] rounded-2xl border border-[#282830]">
+              <div className="text-[10px] font-mono text-zinc-400 uppercase tracking-wider mb-1 flex items-center gap-1 font-semibold">
                 <ShieldCheck className="w-3.5 h-3.5 text-emerald-400" />
                 <span>Competitor Saturation</span>
               </div>
@@ -233,17 +233,17 @@ export const TopicValidator = () => {
             </div>
           </div>
 
-          <div className="space-y-3 bg-[#161619] p-4 rounded-xl border border-[#26262a] text-xs">
+          <div className="space-y-3 bg-[#1b1b20] p-5 rounded-2xl border border-[#282830] text-xs">
             <div>
-              <span className="font-semibold text-[#d4af37] font-mono uppercase text-[11px] tracking-wider block mb-1">
+              <span className="font-semibold text-[#ff6a52] font-mono uppercase text-[11px] tracking-wider block mb-1">
                 Recommended Nine Degree Winning Angle:
               </span>
-              <p className="text-sm font-medium text-zinc-100 font-serif">
+              <p className="text-sm font-semibold text-zinc-100 font-display">
                 "{activeValidation.winningAngle || activeValidation.recommendedAngle}"
               </p>
             </div>
 
-            <div className="pt-2 border-t border-[#222226]">
+            <div className="pt-2 border-t border-[#26262b]">
               <span className="font-semibold text-zinc-300 block mb-1">
                 Identified Market Content Gaps (To Exploit):
               </span>
@@ -255,7 +255,7 @@ export const TopicValidator = () => {
             </div>
           </div>
 
-          <div className="mt-5 flex items-center justify-end gap-3 pt-4 border-t border-[#222226]">
+          <div className="mt-5 flex items-center justify-end gap-3 pt-4 border-t border-[#26262b]">
             <button
               onClick={() =>
                 sendToStudio({
@@ -265,7 +265,7 @@ export const TopicValidator = () => {
                   supportingEvidence: (activeValidation.detailedGaps || []).join('; ')
                 })
               }
-              className="px-5 py-2.5 bg-[#d4af37] text-black text-xs font-semibold rounded-xl hover:brightness-110 transition-all flex items-center gap-1.5 shadow-md shadow-[#d4af37]/15 cursor-pointer"
+              className="px-6 py-2.5 bg-[#e43d25] hover:bg-[#d8402a] text-white text-xs font-semibold rounded-full hover:shadow-lg hover:shadow-[#e43d25]/30 transition-all flex items-center gap-2 shadow-md shadow-[#e43d25]/20 cursor-pointer"
             >
               <span>Promote to Content Studio & Generate Blog</span>
               <ArrowRight className="w-3.5 h-3.5" />
@@ -274,18 +274,18 @@ export const TopicValidator = () => {
         </div>
       )}
 
-      <div className="bg-[#111113] p-5 rounded-2xl border border-[#222226]">
+      <div className="bg-[#16161a] p-6 rounded-3xl border border-[#26262b]">
         <div className="flex items-center justify-between mb-4">
           <div>
-            <h3 className="text-sm font-semibold text-zinc-100 font-serif flex items-center gap-2">
-              <Layers className="w-4 h-4 text-[#d4af37]" />
+            <h3 className="text-sm font-bold text-zinc-100 font-display flex items-center gap-2">
+              <Layers className="w-4 h-4 text-[#e43d25]" />
               <span>Autonomous Topic Recommendations (Pre-Researched)</span>
             </h3>
             <p className="text-[11px] text-zinc-500">
               Formulated from Nine Degree's live blog archive and active regulatory and tech shifts.
             </p>
           </div>
-          <span className="text-[10px] font-mono text-emerald-400 bg-emerald-500/10 px-2.5 py-1 rounded-full border border-emerald-500/20">
+          <span className="text-[10px] font-mono text-emerald-400 bg-emerald-500/10 px-2.5 py-1 rounded-full border border-emerald-500/20 font-medium">
             5 Ready Opportunities
           </span>
         </div>
@@ -294,19 +294,19 @@ export const TopicValidator = () => {
           {autonomousSuggestions.map((item, index) => (
             <div
               key={index}
-              className="p-4 bg-[#161619] rounded-xl border border-[#242428] hover:border-[#d4af37]/40 transition-all flex flex-col md:flex-row md:items-center justify-between gap-4 group"
+              className="p-4 bg-[#1b1b20] rounded-2xl border border-[#282830] hover:border-[#e43d25]/40 transition-all flex flex-col md:flex-row md:items-center justify-between gap-4 group"
             >
               <div className="max-w-3xl">
                 <div className="flex items-center gap-2 text-[10px] font-mono text-zinc-400 mb-1">
-                  <span className="px-2 py-0.5 rounded bg-[#1f1f24] text-zinc-300 font-medium">
+                  <span className="px-2 py-0.5 rounded-full bg-[#24242c] text-zinc-300 font-medium border border-[#2d2d38]">
                     {item.industry}
                   </span>
                   <span>•</span>
                   <span className="text-indigo-400">{item.classification}</span>
                   <span>•</span>
-                  <span className="text-[#d4af37] font-semibold">Score: {item.opportunityScore}/100</span>
+                  <span className="text-[#ff6a52] font-semibold">Score: {item.opportunityScore}/100</span>
                 </div>
-                <h4 className="text-xs font-bold text-zinc-100 group-hover:text-[#d4af37] transition-colors leading-snug">
+                <h4 className="text-xs font-bold text-zinc-100 group-hover:text-[#ff6a52] transition-colors leading-snug">
                   {item.title}
                 </h4>
                 <p className="text-[11px] text-zinc-400 mt-1">
@@ -314,7 +314,7 @@ export const TopicValidator = () => {
                   {item.reason}
                 </p>
                 <p className="text-[11px] text-zinc-500 italic mt-0.5">
-                  <span className="text-[#d4af37]">Angle: </span>
+                  <span className="text-[#ff6a52]">Angle: </span>
                   {item.angle}
                 </p>
               </div>
@@ -325,7 +325,7 @@ export const TopicValidator = () => {
                     setInputIdea(item.title);
                     validateTopic(item.title, item.industry, 'Global / Cross-Border');
                   }}
-                  className="px-3 py-1.5 bg-[#202024] hover:bg-[#28282e] text-zinc-300 text-[11px] rounded-lg border border-[#2e2e34] transition-all cursor-pointer"
+                  className="px-3.5 py-1.5 bg-[#222228] hover:bg-[#2a2a32] text-zinc-300 text-[11px] rounded-full border border-[#2e2e36] transition-all cursor-pointer"
                 >
                   Re-audit
                 </button>
@@ -338,7 +338,7 @@ export const TopicValidator = () => {
                       supportingEvidence: item.reason
                     })
                   }
-                  className="px-3 py-1.5 bg-[#d4af37] text-black text-[11px] font-semibold rounded-lg hover:brightness-110 transition-all flex items-center gap-1 shadow-sm cursor-pointer"
+                  className="px-4 py-1.5 bg-[#e43d25] hover:bg-[#d8402a] text-white text-[11px] font-semibold rounded-full shadow-sm shadow-[#e43d25]/20 hover:shadow-md hover:shadow-[#e43d25]/30 transition-all flex items-center gap-1.5 cursor-pointer"
                 >
                   <span>Send to Studio</span>
                   <ArrowRight className="w-3 h-3" />

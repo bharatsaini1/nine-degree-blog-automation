@@ -21,11 +21,11 @@ export const PublishingPerformance = () => {
     <div className="space-y-6 max-w-7xl mx-auto">
       <div className="bg-[#111113] p-6 rounded-2xl border border-[#222226] shadow-xl">
         <div className="flex items-center gap-2 mb-1">
-          <Send className="w-4 h-4 text-[#d4af37]" />
-          <h2 className="text-lg font-serif font-bold text-zinc-100">
+          <Send className="w-4 h-4 text-[#e43d25]" />
+          <h2 className="text-lg font-display font-bold text-zinc-100 tracking-tight">
             Publishing Gate & Content Performance
           </h2>
-          <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-amber-500/10 text-amber-400 border border-amber-500/20">
+          <span className="text-[10px] font-mono px-2.5 py-0.5 rounded-full bg-[#e43d25]/10 text-[#ff6a52] border border-[#e43d25]/20 font-semibold">
             Principle 3: Human Authorization Required
           </span>
         </div>
@@ -37,17 +37,17 @@ export const PublishingPerformance = () => {
       <div className="bg-[#111113] p-6 rounded-2xl border border-[#222226] shadow-xl space-y-4">
         <div className="flex items-center justify-between border-b border-[#202024] pb-4">
           <div>
-            <span className="text-[10px] font-mono uppercase tracking-widest text-[#d4af37]">
+            <span className="text-[10px] font-mono uppercase tracking-widest text-[#e43d25] font-semibold">
               Ready for Human Sign-off
             </span>
-            <h3 className="text-base font-serif font-bold text-zinc-100 mt-0.5">
+            <h3 className="text-base font-display font-bold text-zinc-100 mt-0.5">
               {article.title}
             </h3>
-            <p className="text-xs text-zinc-400 font-serif italic mt-0.5">{article.subtitle}</p>
+            <p className="text-xs text-zinc-400 font-sans italic mt-0.5">{article.subtitle}</p>
           </div>
 
           <div className="text-right">
-            <div className="text-lg font-serif font-bold text-emerald-400">
+            <div className="text-lg font-display font-bold text-emerald-400">
               {article.qualityScore}
             </div>
             <div className="text-[10px] font-mono text-zinc-500">
@@ -63,7 +63,7 @@ export const PublishingPerformance = () => {
               id="vpSignOff"
               checked={approved}
               onChange={(e) => setApproved(e.target.checked)}
-              className="w-4 h-4 accent-[#d4af37] rounded cursor-pointer"
+              className="w-4 h-4 accent-[#e43d25] rounded cursor-pointer"
             />
             <label htmlFor="vpSignOff" className="text-xs text-zinc-200 cursor-pointer">
               <span className="font-semibold text-zinc-100">Executive Authorization: </span>
@@ -74,11 +74,11 @@ export const PublishingPerformance = () => {
           <button
             onClick={handlePublish}
             disabled={!approved || publishing || published}
-            className={`px-5 py-2.5 text-xs font-semibold rounded-xl transition-all flex items-center gap-2 cursor-pointer ${
+            className={`px-5 py-2.5 text-xs font-semibold rounded-full transition-all flex items-center gap-2 cursor-pointer ${
               published
-                ? 'bg-emerald-600 text-white'
+                ? 'bg-emerald-600 text-white shadow-md shadow-emerald-600/20'
                 : approved
-                ? 'bg-[#d4af37] text-black hover:brightness-110 shadow-md shadow-[#d4af37]/15'
+                ? 'bg-gradient-to-r from-[#e43d25] to-[#d8402a] text-white hover:shadow-lg hover:shadow-[#e43d25]/25 shadow-md shadow-[#e43d25]/20 hover:brightness-105'
                 : 'bg-[#202024] text-zinc-500 cursor-not-allowed'
             }`}
           >

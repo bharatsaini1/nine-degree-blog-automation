@@ -38,39 +38,39 @@ export const Sidebar = () => {
   ];
 
   return (
-    <aside className="w-72 bg-[#0c0c0e] border-r border-[#26262a] flex flex-col justify-between select-none h-screen sticky top-0">
+    <aside className="w-72 bg-[#111114] border-r border-[#26262b] flex flex-col justify-between select-none h-screen sticky top-0">
       <div>
         <div className="p-5 border-b border-[#202024]">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-[#d4af37] via-[#996515] to-[#593e10] p-[1px] shadow-lg shadow-[#d4af37]/10 flex items-center justify-center">
-              <div className="w-full h-full bg-[#0c0c0e] rounded-[11px] flex items-center justify-center font-serif text-lg font-bold text-[#d4af37]">
+            <div className="w-10 h-10 rounded-2xl bg-gradient-to-br from-[#ffb3a8] via-[#e43d25] to-[#8f1e10] p-[1.5px] shadow-lg shadow-[#e43d25]/25 flex items-center justify-center">
+              <div className="w-full h-full bg-[#111114] rounded-[14px] flex items-center justify-center font-bold text-lg text-[#e43d25] tracking-tighter">
                 9°
               </div>
             </div>
             <div>
-              <div className="text-sm font-semibold tracking-wide text-zinc-100 flex items-center gap-1.5 font-serif">
+              <div className="text-sm font-bold tracking-tight text-zinc-100 flex items-center gap-1.5 font-display">
                 Nine Degree
-                <span className="text-[10px] tracking-widest uppercase bg-[#d4af37]/10 text-[#d4af37] px-1.5 py-0.5 rounded font-mono font-normal">
+                <span className="text-[10px] tracking-widest uppercase bg-[#e43d25]/15 text-[#ff573d] border border-[#e43d25]/30 px-1.5 py-0.5 rounded-full font-mono font-medium">
                   OS 2.0
                 </span>
               </div>
-              <div className="text-[11px] text-zinc-500 font-mono tracking-tight">
-                Market & Editorial Intelligence
+              <div className="text-[11px] text-zinc-400 font-mono tracking-tight">
+                Real Estate Brand Advisory
               </div>
             </div>
           </div>
 
-          <div className="mt-4 pt-3 border-t border-[#1e1e22]">
+          <div className="mt-4 pt-3 border-t border-[#1e1e24]">
             <div className="text-[10px] uppercase font-mono tracking-wider text-zinc-400 mb-1.5 flex items-center justify-between">
               <span>Executive Perspective</span>
-              <span className="text-[#d4af37] text-[10px]">Active</span>
+              <span className="text-[#e43d25] text-[10px] font-semibold">Active</span>
             </div>
-            <div className="grid grid-cols-3 gap-1 bg-[#141417] p-1 rounded-lg border border-[#26262a]">
+            <div className="grid grid-cols-3 gap-1 bg-[#18181c] p-1 rounded-full border border-[#2a2a30]">
               <button
                 onClick={() => setPerspective('cmo')}
-                className={`text-[10.5px] py-1 rounded font-medium transition-all cursor-pointer ${
+                className={`text-[10.5px] py-1 rounded-full font-medium transition-all cursor-pointer ${
                   perspective === 'cmo'
-                    ? 'bg-[#d4af37] text-black shadow-sm font-semibold'
+                    ? 'bg-[#e43d25] text-white shadow-sm shadow-[#e43d25]/30 font-semibold'
                     : 'text-zinc-400 hover:text-zinc-200'
                 }`}
               >
@@ -78,9 +78,9 @@ export const Sidebar = () => {
               </button>
               <button
                 onClick={() => setPerspective('strategist')}
-                className={`text-[10.5px] py-1 rounded font-medium transition-all cursor-pointer ${
+                className={`text-[10.5px] py-1 rounded-full font-medium transition-all cursor-pointer ${
                   perspective === 'strategist'
-                    ? 'bg-[#d4af37] text-black shadow-sm font-semibold'
+                    ? 'bg-[#e43d25] text-white shadow-sm shadow-[#e43d25]/30 font-semibold'
                     : 'text-zinc-400 hover:text-zinc-200'
                 }`}
               >
@@ -88,9 +88,9 @@ export const Sidebar = () => {
               </button>
               <button
                 onClick={() => setPerspective('vc')}
-                className={`text-[10.5px] py-1 rounded font-medium transition-all cursor-pointer ${
+                className={`text-[10.5px] py-1 rounded-full font-medium transition-all cursor-pointer ${
                   perspective === 'vc'
-                    ? 'bg-[#d4af37] text-black shadow-sm font-semibold'
+                    ? 'bg-[#e43d25] text-white shadow-sm shadow-[#e43d25]/30 font-semibold'
                     : 'text-zinc-400 hover:text-zinc-200'
                 }`}
               >
@@ -108,26 +108,26 @@ export const Sidebar = () => {
               <button
                 key={item.id}
                 onClick={() => setActiveTab(item.id)}
-                className={`w-full flex items-center justify-between px-3 py-2 rounded-lg text-xs font-medium transition-all group cursor-pointer ${
+                className={`w-full flex items-center justify-between px-3 py-2 rounded-xl text-xs font-medium transition-all group cursor-pointer ${
                   isActive
-                    ? 'bg-[#1a1815] text-[#d4af37] border border-[#d4af37]/30 shadow-sm'
-                    : 'text-zinc-400 hover:text-zinc-200 hover:bg-[#141417]'
+                    ? 'bg-[#e43d25]/12 text-white border border-[#e43d25]/35 shadow-sm'
+                    : 'text-zinc-400 hover:text-zinc-200 hover:bg-[#18181d]'
                 }`}
               >
                 <div className="flex items-center gap-2.5">
                   <Icon
                     className={`w-4 h-4 transition-colors ${
-                      isActive ? 'text-[#d4af37]' : 'text-zinc-500 group-hover:text-zinc-300'
+                      isActive ? 'text-[#e43d25]' : 'text-zinc-500 group-hover:text-zinc-300'
                     }`}
                   />
                   <span>{item.label}</span>
                 </div>
                 {item.badge && (
                   <span
-                    className={`text-[9px] px-1.5 py-0.5 rounded font-mono ${
+                    className={`text-[9px] px-2 py-0.5 rounded-full font-mono font-medium ${
                       isActive
-                        ? 'bg-[#d4af37]/20 text-[#d4af37]'
-                        : 'bg-[#1f1f23] text-zinc-400'
+                        ? 'bg-[#e43d25]/25 text-[#ff6a52] border border-[#e43d25]/40'
+                        : 'bg-[#1e1e24] text-zinc-400 border border-[#2b2b32]'
                     }`}
                   >
                     {item.badge}
@@ -139,7 +139,7 @@ export const Sidebar = () => {
         </div>
       </div>
 
-      <div className="p-4 border-t border-[#202024] bg-[#09090b]">
+      <div className="p-4 border-t border-[#202026] bg-[#0c0c0f]">
         <div className="flex items-center justify-between text-[11px]">
           <div className="flex items-center gap-2">
             <span

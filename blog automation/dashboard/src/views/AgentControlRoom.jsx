@@ -40,11 +40,11 @@ STRICT EDITORIAL VOICE RULES:
       <div className="bg-[#111113] p-6 rounded-2xl border border-[#222226] shadow-xl flex items-center justify-between">
         <div>
           <div className="flex items-center gap-2 mb-1">
-            <Bot className="w-4 h-4 text-[#d4af37]" />
-            <h2 className="text-lg font-serif font-bold text-zinc-100">
+            <Bot className="w-4 h-4 text-[#e43d25]" />
+            <h2 className="text-lg font-display font-bold text-zinc-100 tracking-tight">
               Agent Control Room & Telemetry Bureau
             </h2>
-            <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
+            <span className="text-[10px] font-mono px-2.5 py-0.5 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 font-semibold">
               5 Live Orchestrated Sub-Agents
             </span>
           </div>
@@ -61,17 +61,17 @@ STRICT EDITORIAL VOICE RULES:
             <button
               key={ag.department}
               onClick={() => setSelectedAgent(ag)}
-              className={`p-3.5 rounded-xl border text-left transition-all cursor-pointer ${
+              className={`p-3.5 rounded-2xl border text-left transition-all cursor-pointer ${
                 isSelected
-                  ? 'bg-[#18181c] border-[#d4af37] shadow-lg shadow-[#d4af37]/5'
+                  ? 'bg-[#18181c] border-[#e43d25] shadow-lg shadow-[#e43d25]/10'
                   : 'bg-[#111113] border-[#222226] hover:border-[#33333a]'
               }`}
             >
               <div className="flex items-center justify-between text-[10px] font-mono mb-1">
-                <span className="text-[#d4af37] font-semibold">{ag.department.split(':')[0]}</span>
+                <span className="text-[#e43d25] font-semibold">{ag.department.split(':')[0]}</span>
                 <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
               </div>
-              <div className="text-xs font-serif font-bold text-zinc-100 truncate">
+              <div className="text-xs font-display font-bold text-zinc-100 truncate">
                 {ag.agent}
               </div>
               <div className="mt-2 text-[10px] font-mono text-zinc-500 space-y-0.5">
@@ -87,10 +87,10 @@ STRICT EDITORIAL VOICE RULES:
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
         <div className="lg:col-span-4 bg-[#111113] p-5 rounded-2xl border border-[#222226] text-xs space-y-4">
           <div className="border-b border-[#202024] pb-3">
-            <div className="text-[10px] font-mono text-[#d4af37] uppercase">
+            <div className="text-[10px] font-mono text-[#e43d25] uppercase font-semibold">
               {selectedAgent.department}
             </div>
-            <h3 className="text-sm font-bold text-zinc-100 font-serif mt-0.5">
+            <h3 className="text-sm font-bold text-zinc-100 font-display mt-0.5">
               {selectedAgent.agent}
             </h3>
           </div>
@@ -134,8 +134,8 @@ STRICT EDITORIAL VOICE RULES:
           <div>
             <div className="flex items-center justify-between border-b border-[#202024] pb-3 mb-4">
               <div className="flex items-center gap-2">
-                <FileCode className="w-4 h-4 text-[#d4af37]" />
-                <h3 className="text-sm font-semibold text-zinc-100 font-serif">
+                <FileCode className="w-4 h-4 text-[#e43d25]" />
+                <h3 className="text-sm font-semibold text-zinc-100 font-display">
                   System Prompt Editor (Version 2.4 Active)
                 </h3>
               </div>
@@ -146,7 +146,7 @@ STRICT EDITORIAL VOICE RULES:
               rows={12}
               value={promptContent}
               onChange={(e) => setPromptContent(e.target.value)}
-              className="w-full bg-[#161619] border border-[#2a2a30] rounded-xl p-4 text-xs font-mono text-zinc-200 outline-none focus:border-[#d4af37] leading-relaxed resize-none"
+              className="w-full bg-[#161619] border border-[#2a2a30] rounded-xl p-4 text-xs font-mono text-zinc-200 outline-none focus:border-[#e43d25] leading-relaxed resize-none"
             />
           </div>
 
@@ -164,7 +164,7 @@ STRICT EDITORIAL VOICE RULES:
 
             <button
               onClick={handleSavePrompt}
-              className="px-4 py-2 bg-[#d4af37] text-black font-semibold text-xs rounded-xl hover:brightness-110 transition-all flex items-center gap-1.5 shadow-sm cursor-pointer"
+              className="px-5 py-2.5 bg-gradient-to-r from-[#e43d25] to-[#d8402a] text-white font-semibold text-xs rounded-full hover:shadow-lg hover:shadow-[#e43d25]/25 hover:brightness-105 transition-all flex items-center gap-1.5 shadow-md shadow-[#e43d25]/20 cursor-pointer"
             >
               <Save className="w-3.5 h-3.5" />
               <span>Save & Version Prompt</span>

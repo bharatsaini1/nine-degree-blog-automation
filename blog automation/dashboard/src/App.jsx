@@ -57,7 +57,7 @@ const DashboardContent = () => {
   };
 
   return (
-    <div className="flex h-screen bg-[#070708] text-zinc-100 font-sans overflow-hidden">
+    <div className="flex h-screen bg-[#0a0a0c] text-zinc-100 font-sans overflow-hidden">
       {/* 14-Section Sidebar */}
       <Sidebar />
 
@@ -67,7 +67,7 @@ const DashboardContent = () => {
         <Header />
 
         {/* View Content Area */}
-        <main className="flex-1 overflow-y-auto p-6 lg:p-8 bg-gradient-to-b from-[#09090b] via-[#070708] to-[#040405]">
+        <main className="flex-1 overflow-y-auto p-6 lg:p-8 bg-gradient-to-b from-[#0e0e12] via-[#0a0a0c] to-[#070709]">
           {renderActiveView()}
         </main>
       </div>
