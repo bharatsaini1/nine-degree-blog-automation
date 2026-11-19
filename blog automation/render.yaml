@@ -15,15 +15,15 @@ services:
       - key: DB_POSTGRESDB_DATABASE
         value: n8n_ehpw
       - key: DB_POSTGRESDB_USER
-        value: n8n_ehpw_user
+        sync: false
       - key: DB_POSTGRESDB_PASSWORD
-        value: OeCknTO4FqiQRqeI7ieK1OXa9vGNGlE1
+        sync: false
       - key: N8N_BASIC_AUTH_ACTIVE
         value: "true"
       - key: N8N_BASIC_AUTH_USER
-        value: admin
+        sync: false
       - key: N8N_BASIC_AUTH_PASSWORD
-        value: mentriq123
+        sync: false
       - key: N8N_PROTOCOL
         value: https
       - key: GENERIC_TIMEZONE
