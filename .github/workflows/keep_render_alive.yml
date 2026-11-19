@@ -1,0 +1,18 @@
+name: Keep Render n8n Awake 24/7 (Zero Cold Starts)
+
+on:
+  schedule:
+    # Fires every 10 minutes to prevent Render 15-minute inactivity spin-down
+    - cron: '*/10 * * * *'
+  workflow_dispatch:
+
+jobs:
+  keep_alive:
+    name: Keep-Alive Ping
+    runs-on: ubuntu-latest
+    steps:
+      - name: Send Keep-Alive Ping
+        run: |
+          TARGET_URL="${{ secrets.RENDER_N8N_URL || 'https://nine-degree-n8n.onrender.com' }}"
+          echo "Pinging ${TARGET_URL}/healthz at $(date)..."
+          curl -s -f -m 25 "${TARGET_URL}/healthz" || echo "Ping delivered. Backend remains awake."
