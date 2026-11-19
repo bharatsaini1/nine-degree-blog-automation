@@ -54,8 +54,9 @@ export const TrendRadar = () => {
   ];
 
   const geographies = [
-    'Global / Cross-Border',
+    'All Geographies & Metros',
     'Jaipur, Rajasthan',
+    'Global / Cross-Border',
     'Pune, Maharashtra',
     'Mumbai, Maharashtra',
     'Delhi NCR',
@@ -66,8 +67,77 @@ export const TrendRadar = () => {
   ];
 
   const filteredTrends = trends.filter((t) => {
-    if (!selectedIndustry || selectedIndustry === 'All Industries & PropTech' || selectedIndustry === 'All') return true;
-    return t.industry === selectedIndustry;
+    // 1. Industry Sector Filter
+    const matchesIndustry =
+      !selectedIndustry ||
+      selectedIndustry === 'All Industries & PropTech' ||
+      selectedIndustry === 'All' ||
+      t.industry === selectedIndustry;
+
+    if (!matchesIndustry) return false;
+
+    // 2. Geographic Scope Filter
+    if (
+      selectedGeography &&
+      selectedGeography !== 'All Geographies & Metros' &&
+      selectedGeography !== 'All'
+    ) {
+      const targetGeo = selectedGeography.toLowerCase();
+      const trendGeo = (t.geography || '').toLowerCase();
+
+      let geoMatches = false;
+      if (targetGeo.includes('jaipur') || targetGeo.includes('rajasthan')) {
+        geoMatches = trendGeo.includes('jaipur') || trendGeo.includes('rajasthan');
+      } else if (targetGeo.includes('pune') || targetGeo.includes('maharashtra')) {
+        geoMatches = trendGeo.includes('pune') || trendGeo.includes('maharashtra');
+      } else if (targetGeo.includes('mumbai')) {
+        geoMatches = trendGeo.includes('mumbai');
+      } else if (targetGeo.includes('delhi') || targetGeo.includes('ncr')) {
+        geoMatches =
+          trendGeo.includes('delhi') ||
+          trendGeo.includes('ncr') ||
+          trendGeo.includes('gurugram') ||
+          trendGeo.includes('noida');
+      } else if (targetGeo.includes('dubai') || targetGeo.includes('uae')) {
+        geoMatches = trendGeo.includes('dubai') || trendGeo.includes('uae');
+      } else if (targetGeo.includes('london') || targetGeo.includes('uk')) {
+        geoMatches = trendGeo.includes('london') || trendGeo.includes('uk');
+      } else if (targetGeo.includes('singapore')) {
+        geoMatches = trendGeo.includes('singapore');
+      } else if (targetGeo.includes('global') || targetGeo.includes('cross-border')) {
+        geoMatches = trendGeo.includes('global') || trendGeo.includes('cross-border') || trendGeo.includes('national');
+      } else if (targetGeo.includes('national') || targetGeo.includes('india')) {
+        geoMatches =
+          trendGeo.includes('india') ||
+          trendGeo.includes('national') ||
+          trendGeo.includes('jaipur') ||
+          trendGeo.includes('pune') ||
+          trendGeo.includes('mumbai') ||
+          trendGeo.includes('delhi');
+      } else {
+        geoMatches = trendGeo.includes(targetGeo) || targetGeo.includes(trendGeo);
+      }
+
+      if (!geoMatches) return false;
+    }
+
+    // 3. Time Window Filter (24h, 7d, 30d, evergreen)
+    if (selectedTimeWindow && selectedTimeWindow !== 'evergreen') {
+      try {
+        const pubDate = new Date(t.publishedDate || t.retrievedDate);
+        if (!isNaN(pubDate.getTime())) {
+          const now = new Date('2026-11-19T11:00:00Z');
+          const diffDays = Math.max(0, (now.getTime() - pubDate.getTime()) / (1000 * 3600 * 24));
+          if (selectedTimeWindow === '24h' && diffDays > 3) return false;
+          if (selectedTimeWindow === '7d' && diffDays > 10) return false;
+          if (selectedTimeWindow === '30d' && diffDays > 35) return false;
+        }
+      } catch {
+        // preserve item if date parsing throws
+      }
+    }
+
+    return true;
   });
 
   const handleScanLive = () => {
@@ -392,6 +462,32 @@ export const TrendRadar = () => {
             </div>
           </div>
         ))}
+
+        {filteredTrends.length === 0 && (
+          <div className="col-span-full p-8 text-center bg-[#16161a] rounded-3xl border border-[#26262b] space-y-3">
+            <div className="w-12 h-12 rounded-full bg-[#e43d25]/10 text-[#ff6a52] flex items-center justify-center mx-auto">
+              <Compass className="w-6 h-6 text-[#e43d25]" />
+            </div>
+            <h4 className="text-sm font-display font-bold text-zinc-100">
+              No specific signals match this filter combination ({selectedGeography} • {selectedIndustry})
+            </h4>
+            <p className="text-xs text-zinc-400 max-w-md mx-auto">
+              Try switching Geography to "All Geographies & Metros" or click "Scan Live Signals" to ingest fresh market intelligence.
+            </p>
+            <div className="pt-2 flex items-center justify-center gap-2">
+              <button
+                onClick={() => {
+                  setSelectedGeography('All Geographies & Metros');
+                  setSelectedIndustry('All Industries & PropTech');
+                  setSelectedTimeWindow('7d');
+                }}
+                className="px-5 py-2 bg-[#e43d25] hover:bg-[#d8402a] text-white text-xs font-semibold rounded-full transition-all cursor-pointer shadow-md shadow-[#e43d25]/20"
+              >
+                Reset Filters to Show All
+              </button>
+            </div>
+          </div>
+        )}
       </div>
 
       {showAddModal && (

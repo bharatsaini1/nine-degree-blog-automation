@@ -27,12 +27,18 @@ export const IntelligenceProvider = ({ children }) => {
       const saved = localStorage.getItem('nd_trends');
       if (saved) {
         const parsed = JSON.parse(saved);
-        const existingIds = new Set(parsed.map(p => p.id));
-        const merged = [...parsed];
-        INITIAL_TRENDS.forEach(t => {
-          if (!existingIds.has(t.id)) merged.push(t);
+        const initialMap = new Map(INITIAL_TRENDS.map(t => [t.id, t]));
+        const updated = parsed.map(item => {
+          if (initialMap.has(item.id)) {
+            return initialMap.get(item.id);
+          }
+          return item;
         });
-        return merged;
+        const existingIds = new Set(parsed.map(p => p.id));
+        INITIAL_TRENDS.forEach(t => {
+          if (!existingIds.has(t.id)) updated.push(t);
+        });
+        return updated;
       }
       return INITIAL_TRENDS;
     } catch {
