@@ -25,7 +25,16 @@ export const IntelligenceProvider = ({ children }) => {
   const [trends, setTrends] = useState(() => {
     try {
       const saved = localStorage.getItem('nd_trends');
-      return saved ? JSON.parse(saved) : INITIAL_TRENDS;
+      if (saved) {
+        const parsed = JSON.parse(saved);
+        const existingIds = new Set(parsed.map(p => p.id));
+        const merged = [...parsed];
+        INITIAL_TRENDS.forEach(t => {
+          if (!existingIds.has(t.id)) merged.push(t);
+        });
+        return merged;
+      }
+      return INITIAL_TRENDS;
     } catch {
       return INITIAL_TRENDS;
     }
