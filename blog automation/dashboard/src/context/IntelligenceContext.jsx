@@ -315,8 +315,8 @@ export const IntelligenceProvider = ({ children }) => {
       stage: 'preliminary',
       timestamp: new Date().toISOString(),
       opportunityScore: 92,
-      classification: rawIdea.toLowerCase().includes('how') || rawIdea.toLowerCase().includes('guide') || rawIdea.toLowerCase().includes('vs') 
-        ? 'Searchable (High Organic Search Intent)' 
+      classification: rawIdea.toLowerCase().includes('how') || rawIdea.toLowerCase().includes('guide') || rawIdea.toLowerCase().includes('vs')
+        ? 'Searchable (High Organic Search Intent)'
         : 'Hybrid (Searchable + Shareable)',
       summary: `Preliminary assessment confirms high resonance in ${industry} across ${geography}. Competitor portals cover only promotional surfaces, creating an authority opportunity for Nine Degree.`,
       recommendedAngle: `The ${industry} Reality Check: Strategic Advisory Guide for ${geography}`,
@@ -574,11 +574,11 @@ export const IntelligenceProvider = ({ children }) => {
             introduction: data.introduction || prev.introduction,
             sections: (data.sections && data.sections.length > 0)
               ? data.sections.map(s => ({
-                  heading: s.heading || s.h2_heading,
-                  paragraphs: s.paragraphs || (s.content ? [s.content] : [s.content_markdown]),
-                  metric: s.metric || null,
-                  figure: s.figure || null
-                }))
+                heading: s.heading || s.h2_heading,
+                paragraphs: s.paragraphs || (s.content ? [s.content] : [s.content_markdown]),
+                metric: s.metric || null,
+                figure: s.figure || null
+              }))
               : prev.sections,
             faq: data.faq || prev.faq,
             strategicTakeaway: data.strategic_takeaway || prev.strategicTakeaway
