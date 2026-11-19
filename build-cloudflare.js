@@ -7,7 +7,19 @@ console.log('[Cloudflare Build] Starting Nine Degree Editorial Dashboard build..
 const dashboardDir = path.join(__dirname, 'blog automation', 'dashboard');
 console.log(`[Cloudflare Build] Target directory: ${dashboardDir}`);
 
-execSync('npm install', { cwd: dashboardDir, stdio: 'inherit' });
+const nodeModulesExist = fs.existsSync(path.join(dashboardDir, 'node_modules'));
+if (!nodeModulesExist) {
+  console.log('[Cloudflare Build] Installing dashboard dependencies...');
+  try {
+    execSync('npm install', { cwd: dashboardDir, stdio: 'inherit' });
+  } catch {
+    execSync('npm install --ignore-scripts', { cwd: dashboardDir, stdio: 'inherit' });
+  }
+} else {
+  console.log('[Cloudflare Build] Dashboard dependencies already installed.');
+}
+
+console.log('[Cloudflare Build] Compiling Vite production bundle...');
 execSync('npm run build', { cwd: dashboardDir, stdio: 'inherit' });
 
 const srcDist = path.join(dashboardDir, 'dist');
@@ -19,3 +31,4 @@ if (fs.existsSync(srcDist)) {
 }
 
 console.log('[Cloudflare Build] Cloudflare Pages build completed successfully!');
+
