@@ -288,53 +288,65 @@ export const ExecutiveOverview = () => {
 
       {/* Verified Intelligence Metrics */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-        <div className="bg-[#16161a] p-5 rounded-2xl border border-[#26262b] hover:border-[#383842] transition-colors">
-          <div className="text-[11px] font-mono text-zinc-400 uppercase tracking-wider">
+        <button
+          onClick={() => setActiveTab('trendRadar')}
+          className="bg-[#16161a] p-5 rounded-2xl border border-[#26262b] hover:border-[#e43d25]/50 transition-all text-left cursor-pointer group shadow-sm"
+        >
+          <div className="text-[11px] font-mono text-zinc-400 uppercase tracking-wider group-hover:text-zinc-300">
             Verified Trends Ingested
           </div>
-          <div className="text-2xl font-display font-bold text-zinc-100 mt-1">
+          <div className="text-2xl font-display font-bold text-zinc-100 mt-1 group-hover:text-[#ff6a52] transition-colors">
             {trends.length}
           </div>
           <div className="text-[11px] text-emerald-400 flex items-center gap-1 mt-1 font-mono">
             <span>● 7-day strict window verified</span>
           </div>
-        </div>
+        </button>
 
-        <div className="bg-[#16161a] p-5 rounded-2xl border border-[#26262b] hover:border-[#383842] transition-colors">
-          <div className="text-[11px] font-mono text-zinc-400 uppercase tracking-wider">
+        <button
+          onClick={() => setActiveTab('competitor')}
+          className="bg-[#16161a] p-5 rounded-2xl border border-[#26262b] hover:border-[#e43d25]/50 transition-all text-left cursor-pointer group shadow-sm"
+        >
+          <div className="text-[11px] font-mono text-zinc-400 uppercase tracking-wider group-hover:text-zinc-300">
             Competitors Monitored
           </div>
-          <div className="text-2xl font-display font-bold text-zinc-100 mt-1">
+          <div className="text-2xl font-display font-bold text-zinc-100 mt-1 group-hover:text-[#ff6a52] transition-colors">
             {competitors.length}
           </div>
-          <div className="text-[11px] text-zinc-500 flex items-center gap-1 mt-1 font-mono">
-            <span>Housing.com, Knight Frank, PropTiger</span>
+          <div className="text-[11px] text-zinc-400 truncate flex items-center gap-1 mt-1 font-mono">
+            <span>{competitors.map(c => c.name.split(' ')[0]).slice(0, 3).join(', ')}</span>
           </div>
-        </div>
+        </button>
 
-        <div className="bg-[#16161a] p-5 rounded-2xl border border-[#26262b] hover:border-[#383842] transition-colors">
-          <div className="text-[11px] font-mono text-zinc-400 uppercase tracking-wider">
+        <button
+          onClick={() => setActiveTab('backlog')}
+          className="bg-[#16161a] p-5 rounded-2xl border border-[#26262b] hover:border-[#e43d25]/50 transition-all text-left cursor-pointer group shadow-sm"
+        >
+          <div className="text-[11px] font-mono text-zinc-400 uppercase tracking-wider group-hover:text-zinc-300">
             Validated Backlog
           </div>
-          <div className="text-2xl font-display font-bold text-[#e43d25] mt-1">
+          <div className="text-2xl font-display font-bold text-[#e43d25] mt-1 group-hover:text-[#ff6a52] transition-colors">
             {backlog.length}
           </div>
-          <div className="text-[11px] text-zinc-500 flex items-center gap-1 mt-1 font-mono">
+          <div className="text-[11px] text-zinc-400 flex items-center gap-1 mt-1 font-mono">
             <span>Ready for 1-click Studio run</span>
           </div>
-        </div>
+        </button>
 
-        <div className="bg-[#16161a] p-5 rounded-2xl border border-[#26262b] hover:border-[#383842] transition-colors">
-          <div className="text-[11px] font-mono text-zinc-400 uppercase tracking-wider">
+        <button
+          onClick={() => setActiveTab('agents')}
+          className="bg-[#16161a] p-5 rounded-2xl border border-[#26262b] hover:border-[#e43d25]/50 transition-all text-left cursor-pointer group shadow-sm"
+        >
+          <div className="text-[11px] font-mono text-zinc-400 uppercase tracking-wider group-hover:text-zinc-300">
             Active Multi-Agent Depts
           </div>
-          <div className="text-2xl font-display font-bold text-zinc-100 mt-1">
+          <div className="text-2xl font-display font-bold text-zinc-100 mt-1 group-hover:text-[#ff6a52] transition-colors">
             5 / 5
           </div>
           <div className="text-[11px] text-emerald-400 flex items-center gap-1 mt-1 font-mono">
             <span>All n8n sub-agents online</span>
           </div>
-        </div>
+        </button>
       </div>
 
       {/* Two Column Section: Top Recommended Actions + What Changed */}

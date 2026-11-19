@@ -11,7 +11,8 @@ import {
   Sparkles,
   Zap,
   ShieldCheck,
-  Globe
+  Globe,
+  BookmarkPlus
 } from 'lucide-react';
 import { useIntelligence } from '../context/IntelligenceContext';
 
@@ -25,11 +26,13 @@ export const TrendRadar = () => {
     setSelectedGeography,
     selectedTimeWindow,
     setSelectedTimeWindow,
-    sendToStudio
+    sendToStudio,
+    addToBacklog
   } = useIntelligence();
 
   const [isScanning, setIsScanning] = useState(false);
   const [showAddModal, setShowAddModal] = useState(false);
+  const [toastMessage, setToastMessage] = useState(null);
   const [newSignal, setNewSignal] = useState({
     headline: '',
     category: 'Emerging Trend',
@@ -249,8 +252,31 @@ export const TrendRadar = () => {
     });
   };
 
+  const handleSaveToBacklog = (t) => {
+    addToBacklog({
+      title: t.suggestedContentAngle || t.headline,
+      industry: t.industry,
+      classification: 'Validated Radar Signal',
+      opportunityScore: t.opportunityScore,
+      geography: t.geography,
+      status: 'validated'
+    });
+    setToastMessage(`Saved "${(t.suggestedContentAngle || t.headline).slice(0, 45)}..." to Opportunity Backlog!`);
+    setTimeout(() => setToastMessage(null), 3000);
+  };
+
   return (
     <div className="space-y-6 max-w-7xl mx-auto">
+      {/* Toast Alert */}
+      {toastMessage && (
+        <div className="bg-gradient-to-r from-emerald-500/20 via-[#16161a] to-[#16161a] border border-emerald-500/40 px-5 py-3 rounded-2xl flex items-center justify-between shadow-lg text-xs font-mono text-emerald-300">
+          <div className="flex items-center gap-2">
+            <CheckCircle className="w-4 h-4 text-emerald-400" />
+            <span>{toastMessage}</span>
+          </div>
+          <span className="text-[10px] text-zinc-500">Backlog Sync</span>
+        </div>
+      )}
       <div className="bg-[#16161a] p-5 rounded-3xl border border-[#26262b] flex flex-wrap items-center justify-between gap-4">
         <div className="flex flex-wrap items-center gap-3">
           <div>
@@ -496,13 +522,23 @@ export const TrendRadar = () => {
                 </div>
               </div>
 
-              <button
-                onClick={() => sendToStudio(trend)}
-                className="px-5 py-2 bg-[#e43d25] hover:bg-[#d8402a] text-white text-xs font-semibold rounded-full shadow-md shadow-[#e43d25]/20 hover:shadow-lg hover:shadow-[#e43d25]/30 transition-all flex items-center justify-center gap-1.5 cursor-pointer shrink-0"
-              >
-                <span>Draft this Topic</span>
-                <ArrowRight className="w-3.5 h-3.5" />
-              </button>
+              <div className="flex items-center gap-2 shrink-0">
+                <button
+                  onClick={() => handleSaveToBacklog(trend)}
+                  title="Save to Opportunity Backlog"
+                  className="p-2 bg-[#1b1b20] hover:bg-[#232328] text-zinc-300 hover:text-white rounded-full border border-[#2a2a32] hover:border-[#e43d25]/40 transition-all cursor-pointer shadow-sm"
+                >
+                  <BookmarkPlus className="w-3.5 h-3.5 text-zinc-400 group-hover:text-white" />
+                </button>
+
+                <button
+                  onClick={() => sendToStudio(trend)}
+                  className="px-5 py-2 bg-[#e43d25] hover:bg-[#d8402a] text-white text-xs font-semibold rounded-full shadow-md shadow-[#e43d25]/20 hover:shadow-lg hover:shadow-[#e43d25]/30 transition-all flex items-center justify-center gap-1.5 cursor-pointer whitespace-nowrap"
+                >
+                  <span>Draft this Topic</span>
+                  <ArrowRight className="w-3.5 h-3.5" />
+                </button>
+              </div>
             </div>
           </div>
         ))}

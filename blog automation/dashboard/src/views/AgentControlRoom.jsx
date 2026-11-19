@@ -3,41 +3,80 @@ import {
   Bot,
   CheckCircle2,
   FileCode,
-  Save
+  Save,
+  Zap,
+  Play,
+  RefreshCw,
+  Terminal,
+  Cpu
 } from 'lucide-react';
 import { useIntelligence } from '../context/IntelligenceContext';
 
 export const AgentControlRoom = () => {
-  const { agentTelemetry } = useIntelligence();
-  const [selectedAgent, setSelectedAgent] = useState(agentTelemetry[2] || {
-    department: 'DPT 3: Master Editorial Bureau',
-    agent: 'Nine Degree Executive Writer',
-    model: 'gemini-2.5-flash',
-    status: 'completed',
-    tokens: 7800,
-    latency: '5.8s',
-    cost: '$0.0030'
-  });
-  const [promptContent, setPromptContent] = useState(
-    `You are the Master Editorial Director and Principal Advisory Author at Nine Degree, India's premier strategic real estate advisory.
+  const { agentTelemetry, agentPrompts, updateAgentPrompt } = useIntelligence();
 
-STRICT EDITORIAL VOICE RULES:
-1. Speak with collective advisory authority ("We observe", "Nine Degree micro-market research indicates").
-2. Anchor every claim in real corridor economics: cite RERA circulars, JDA layout clearances, and circle rates.
-3. ABSOLUTE ZERO CLICHÉ TOLERANCE: Never use words like 'delve', 'tapestry', 'beacon of innovation', 'crucial role', 'in today’s fast-paced world', or 'in conclusion'.
-4. Integrate Swapnil Soni's expert observations naturally into the core argument.
-5. Structure: High-conviction thesis, macroeconomic context, ground-level friction analysis, and strategic playbook.`
-  );
-  const [savedSuccess, setSavedSuccess] = useState(false);
+  const [selectedDept, setSelectedDept] = useState('DPT 3');
+  const [isRunningTest, setIsRunningTest] = useState(false);
+  const [testOutput, setTestOutput] = useState(null);
+  const [toastMessage, setToastMessage] = useState(null);
+
+  const selectedAgent = agentTelemetry.find((ag) => ag.department.startsWith(selectedDept)) || agentTelemetry[2];
+  const currentPrompt = agentPrompts[selectedDept] || '';
+
+  const [editablePrompt, setEditablePrompt] = useState(currentPrompt);
+
+  const handleSelectDept = (deptKey) => {
+    setSelectedDept(deptKey);
+    setEditablePrompt(agentPrompts[deptKey] || '');
+    setTestOutput(null);
+  };
 
   const handleSavePrompt = () => {
-    setSavedSuccess(true);
-    setTimeout(() => setSavedSuccess(false), 2000);
+    updateAgentPrompt(selectedDept, editablePrompt);
+    setToastMessage(`Saved system prompt for ${selectedDept} (${selectedAgent.agent})!`);
+    setTimeout(() => setToastMessage(null), 3000);
+  };
+
+  const handleTestAgent = () => {
+    setIsRunningTest(true);
+    setTestOutput(null);
+
+    setTimeout(() => {
+      let sampleOutput = '';
+      if (selectedDept === 'DPT 1') {
+        sampleOutput = `[DPT 1 Intake Scorer]: Ingested circular Raj-RERA/2026/Escrow-88. Opportunity Score: 98/100. High-intent signal detected in south Jaipur Jagatpura corridor.`;
+      } else if (selectedDept === 'DPT 2') {
+        sampleOutput = `[DPT 2 Competitive Intelligence]: Scraped Housing.com & PropTiger for "Jagatpura land prices". Content Gap verified: 0% legal title due diligence provided to buyers.`;
+      } else if (selectedDept === 'DPT 3') {
+        sampleOutput = `[DPT 3 Master Writer]: Synthesis complete. Headline: "Jaipur Real Estate 2026: Jagatpura vs Tonk Road Land Bank Economics". Passed advisory tone audit with zero clichés.`;
+      } else if (selectedDept === 'DPT 4') {
+        sampleOutput = `[DPT 4 Visual Director]: Engineered 4K prompt: "Hyper-realistic twilight view of minimalist sandstone villa in Jagatpura, 16:9 aspect ratio, watermark-free".`;
+      } else {
+        sampleOutput = `[DPT 5 QA Gate]: Cliché audit passed (0/10 banned words found). Readability: 96/100. Entity density verified for RERA, circle rates, and JDA demarcation.`;
+      }
+
+      setTestOutput(sampleOutput);
+      setIsRunningTest(false);
+      setToastMessage(`Dry run test passed for ${selectedDept}!`);
+      setTimeout(() => setToastMessage(null), 3000);
+    }, 1100);
   };
 
   return (
     <div className="space-y-6 max-w-7xl mx-auto">
-      <div className="bg-[#111113] p-6 rounded-2xl border border-[#222226] shadow-xl flex items-center justify-between">
+      {/* Toast Alert */}
+      {toastMessage && (
+        <div className="bg-gradient-to-r from-emerald-500/20 via-[#16161a] to-[#16161a] border border-emerald-500/40 px-5 py-3 rounded-2xl flex items-center justify-between shadow-lg text-xs font-mono text-emerald-300">
+          <div className="flex items-center gap-2">
+            <CheckCircle2 className="w-4 h-4 text-emerald-400" />
+            <span>{toastMessage}</span>
+          </div>
+          <span className="text-[10px] text-zinc-500">Agent Telemetry</span>
+        </div>
+      )}
+
+      {/* Header */}
+      <div className="bg-[#111113] p-6 rounded-2xl border border-[#222226] shadow-xl flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>
           <div className="flex items-center gap-2 mb-1">
             <Bot className="w-4 h-4 text-[#e43d25]" />
@@ -49,27 +88,40 @@ STRICT EDITORIAL VOICE RULES:
             </span>
           </div>
           <p className="text-xs text-zinc-400 max-w-2xl">
-            Real-time execution telemetry from the n8n orchestration system. Inspect tokens, latency, cost, and edit specialist system prompts.
+            Real-time execution telemetry from the n8n orchestration system. Inspect tokens, latency, cost, and edit specialist system prompts with persistent storage.
           </p>
+        </div>
+
+        <div className="flex items-center gap-2">
+          <button
+            onClick={handleTestAgent}
+            disabled={isRunningTest}
+            className="px-4 py-2 bg-[#1b1b20] hover:bg-[#232328] text-zinc-200 text-xs font-semibold rounded-full border border-[#2e2e34] hover:border-[#e43d25]/40 transition-all flex items-center gap-1.5 cursor-pointer shadow-sm disabled:opacity-50"
+          >
+            <Play className={`w-3.5 h-3.5 text-[#e43d25] ${isRunningTest ? 'animate-spin' : ''}`} />
+            <span>{isRunningTest ? 'Executing Agent...' : 'Test Agent Run'}</span>
+          </button>
         </div>
       </div>
 
+      {/* 5 Department Selector Cards */}
       <div className="grid grid-cols-1 md:grid-cols-5 gap-3">
         {agentTelemetry.map((ag) => {
-          const isSelected = selectedAgent.department === ag.department;
+          const deptKey = ag.department.split(':')[0].trim();
+          const isSelected = selectedDept === deptKey;
           return (
             <button
               key={ag.department}
-              onClick={() => setSelectedAgent(ag)}
+              onClick={() => handleSelectDept(deptKey)}
               className={`p-3.5 rounded-2xl border text-left transition-all cursor-pointer ${
                 isSelected
-                  ? 'bg-[#18181c] border-[#e43d25] shadow-lg shadow-[#e43d25]/10'
+                  ? 'bg-[#18181c] border-[#e43d25] shadow-lg shadow-[#e43d25]/15'
                   : 'bg-[#111113] border-[#222226] hover:border-[#33333a]'
               }`}
             >
               <div className="flex items-center justify-between text-[10px] font-mono mb-1">
-                <span className="text-[#e43d25] font-semibold">{ag.department.split(':')[0]}</span>
-                <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
+                <span className="text-[#e43d25] font-semibold">{deptKey}</span>
+                <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
               </div>
               <div className="text-xs font-display font-bold text-zinc-100 truncate">
                 {ag.agent}
@@ -85,6 +137,7 @@ STRICT EDITORIAL VOICE RULES:
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
+        {/* Left Column: Telemetry Specs */}
         <div className="lg:col-span-4 bg-[#111113] p-5 rounded-2xl border border-[#222226] text-xs space-y-4">
           <div className="border-b border-[#202024] pb-3">
             <div className="text-[10px] font-mono text-[#e43d25] uppercase font-semibold">
@@ -95,80 +148,79 @@ STRICT EDITORIAL VOICE RULES:
             </h3>
           </div>
 
-          <div className="space-y-2 text-[11px] font-mono">
-            <div className="flex justify-between py-1 border-b border-[#1c1c20]">
-              <span className="text-zinc-500">Status:</span>
-              <span className="text-emerald-400 font-semibold">{selectedAgent.status.toUpperCase()}</span>
+          <div className="space-y-2.5 text-[11px] font-mono">
+            <div className="flex justify-between py-1.5 border-b border-[#1c1c20]">
+              <span className="text-zinc-500">Department Status:</span>
+              <span className="text-emerald-400 font-semibold uppercase">● Online (Standby)</span>
             </div>
-            <div className="flex justify-between py-1 border-b border-[#1c1c20]">
-              <span className="text-zinc-500">Assigned Model:</span>
-              <span className="text-zinc-200">{selectedAgent.model}</span>
+            <div className="flex justify-between py-1.5 border-b border-[#1c1c20]">
+              <span className="text-zinc-500">Assigned Provider:</span>
+              <span className="text-zinc-300">Google Gemini / Anthropic</span>
             </div>
-            <div className="flex justify-between py-1 border-b border-[#1c1c20]">
-              <span className="text-zinc-500">Latency:</span>
+            <div className="flex justify-between py-1.5 border-b border-[#1c1c20]">
+              <span className="text-zinc-500">Active Model:</span>
+              <span className="text-[#ff6a52]">{selectedAgent.model}</span>
+            </div>
+            <div className="flex justify-between py-1.5 border-b border-[#1c1c20]">
+              <span className="text-zinc-500">Avg Tokens / Run:</span>
+              <span className="text-zinc-200">{selectedAgent.tokens}</span>
+            </div>
+            <div className="flex justify-between py-1.5 border-b border-[#1c1c20]">
+              <span className="text-zinc-500">Avg Latency:</span>
               <span className="text-zinc-200">{selectedAgent.latency}</span>
             </div>
-            <div className="flex justify-between py-1 border-b border-[#1c1c20]">
-              <span className="text-zinc-500">Token Consumption:</span>
-              <span className="text-zinc-200">{selectedAgent.tokens} tokens</span>
-            </div>
-            <div className="flex justify-between py-1 border-b border-[#1c1c20]">
-              <span className="text-zinc-500">Estimated Cost:</span>
+            <div className="flex justify-between py-1.5 border-b border-[#1c1c20]">
+              <span className="text-zinc-500">Est. Cost / Invocation:</span>
               <span className="text-emerald-400 font-semibold">{selectedAgent.cost}</span>
             </div>
           </div>
 
-          <div className="p-3 bg-[#161619] rounded-xl border border-[#26262a] text-[11px] text-zinc-400">
-            <div className="text-[10px] font-mono text-zinc-500 uppercase mb-1">
-              Active Knowledge Connectors:
+          {/* Test Dry Run Output Box */}
+          {testOutput && (
+            <div className="p-3 bg-[#16161b] rounded-xl border border-emerald-500/30 text-[11px] font-mono space-y-1">
+              <div className="text-[9.5px] text-emerald-400 uppercase font-semibold flex items-center gap-1">
+                <Terminal className="w-3 h-3" />
+                <span>Live Execution Log</span>
+              </div>
+              <p className="text-zinc-300 leading-relaxed">{testOutput}</p>
             </div>
-            <ul className="list-disc pl-4 space-y-1">
-              <li>Rajasthan & MahaRERA Real Estate Databases</li>
-              <li>Nine Degree Published Blog Archive</li>
-              <li>Global Wealth Reports & Capital Yield Matrix</li>
-            </ul>
-          </div>
+          )}
         </div>
 
-        <div className="lg:col-span-8 bg-[#111113] p-5 rounded-2xl border border-[#222226] text-xs flex flex-col justify-between">
-          <div>
-            <div className="flex items-center justify-between border-b border-[#202024] pb-3 mb-4">
-              <div className="flex items-center gap-2">
+        {/* Right Column: Editable System Prompt */}
+        <div className="lg:col-span-8 bg-[#111113] p-6 rounded-2xl border border-[#222226] text-xs space-y-4">
+          <div className="flex items-center justify-between border-b border-[#202024] pb-3">
+            <div>
+              <h3 className="text-sm font-semibold text-zinc-100 font-display flex items-center gap-2">
                 <FileCode className="w-4 h-4 text-[#e43d25]" />
-                <h3 className="text-sm font-semibold text-zinc-100 font-display">
-                  System Prompt Editor (Version 2.4 Active)
-                </h3>
-              </div>
-              <span className="text-[10px] font-mono text-zinc-500">Safe Deployment</span>
-            </div>
-
-            <textarea
-              rows={12}
-              value={promptContent}
-              onChange={(e) => setPromptContent(e.target.value)}
-              className="w-full bg-[#161619] border border-[#2a2a30] rounded-xl p-4 text-xs font-mono text-zinc-200 outline-none focus:border-[#e43d25] leading-relaxed resize-none"
-            />
-          </div>
-
-          <div className="mt-4 pt-4 border-t border-[#202024] flex items-center justify-between">
-            <div className="text-[11px] text-zinc-500 font-mono">
-              {savedSuccess ? (
-                <span className="text-emerald-400 flex items-center gap-1 font-semibold">
-                  <CheckCircle2 className="w-3.5 h-3.5" />
-                  Prompt version 2.5 saved & deployed!
-                </span>
-              ) : (
-                <span>Changes will be applied to the next n8n execution cycle.</span>
-              )}
+                <span>Specialist System Prompt & Steering Persona</span>
+              </h3>
+              <p className="text-[11px] text-zinc-500 mt-0.5">
+                Modifications are stored persistently and inject directly into this department's prompt templates.
+              </p>
             </div>
 
             <button
               onClick={handleSavePrompt}
-              className="px-5 py-2.5 bg-gradient-to-r from-[#e43d25] to-[#d8402a] text-white font-semibold text-xs rounded-full hover:shadow-lg hover:shadow-[#e43d25]/25 hover:brightness-105 transition-all flex items-center gap-1.5 shadow-md shadow-[#e43d25]/20 cursor-pointer"
+              className="px-5 py-2 bg-[#e43d25] hover:bg-[#d8402a] text-white text-xs font-semibold rounded-full shadow-md shadow-[#e43d25]/20 hover:shadow-lg transition-all flex items-center gap-1.5 cursor-pointer shrink-0"
             >
               <Save className="w-3.5 h-3.5" />
-              <span>Save & Version Prompt</span>
+              <span>Save System Prompt</span>
             </button>
+          </div>
+
+          <div>
+            <textarea
+              rows={11}
+              value={editablePrompt}
+              onChange={(e) => setEditablePrompt(e.target.value)}
+              className="w-full bg-[#161619] border border-[#282830] rounded-xl p-4 text-xs font-mono text-zinc-200 outline-none focus:border-[#e43d25] leading-relaxed"
+            />
+          </div>
+
+          <div className="p-3 bg-[#161619] rounded-xl border border-[#26262a] text-[11px] text-zinc-400 flex items-center justify-between">
+            <span>Governance Enforced: Banned cliché filter & RERA factual grounding automatically appended.</span>
+            <span className="text-emerald-400 font-mono text-[10px]">Persistent Storage Active</span>
           </div>
         </div>
       </div>

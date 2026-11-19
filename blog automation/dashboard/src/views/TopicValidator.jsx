@@ -9,7 +9,11 @@ import {
   ArrowRight,
   ShieldCheck,
   Zap,
-  Layers
+  Layers,
+  BookmarkPlus,
+  History,
+  Clock,
+  ExternalLink
 } from 'lucide-react';
 import { useIntelligence } from '../context/IntelligenceContext';
 
@@ -19,6 +23,8 @@ export const TopicValidator = () => {
     activeValidation,
     isValidating,
     sendToStudio,
+    addToBacklog,
+    validationHistory,
     selectedIndustry,
     selectedGeography
   } = useIntelligence();
@@ -26,11 +32,27 @@ export const TopicValidator = () => {
   const [inputIdea, setInputIdea] = useState('Luxury vs Mid-Segment Real Estate Marketing: Creative Positioning & Media Buying');
   const [targetIndustry, setTargetIndustry] = useState(selectedIndustry);
   const [targetGeography, setTargetGeography] = useState(selectedGeography);
+  const [toastMessage, setToastMessage] = useState(null);
 
   const handleValidate = (e) => {
     e.preventDefault();
     if (!inputIdea.trim()) return;
     validateTopic(inputIdea, targetIndustry, targetGeography);
+  };
+
+  const handleSaveActiveToBacklog = () => {
+    if (!activeValidation) return;
+    const item = {
+      title: activeValidation.winningAngle || activeValidation.recommendedAngle || activeValidation.rawIdea,
+      industry: activeValidation.industry,
+      classification: activeValidation.classification,
+      opportunityScore: activeValidation.opportunityScore,
+      geography: activeValidation.geography,
+      status: 'validated'
+    };
+    addToBacklog(item);
+    setToastMessage(`Saved "${item.title.slice(0, 45)}..." to Opportunity Backlog!`);
+    setTimeout(() => setToastMessage(null), 3000);
   };
 
   const autonomousSuggestions = [
@@ -78,6 +100,18 @@ export const TopicValidator = () => {
 
   return (
     <div className="space-y-6 max-w-7xl mx-auto">
+      {/* Toast Notification */}
+      {toastMessage && (
+        <div className="bg-gradient-to-r from-emerald-500/20 via-[#16161a] to-[#16161a] border border-emerald-500/40 px-5 py-3 rounded-2xl flex items-center justify-between shadow-lg text-xs font-mono text-emerald-300">
+          <div className="flex items-center gap-2">
+            <CheckCircle2 className="w-4 h-4 text-emerald-400" />
+            <span>{toastMessage}</span>
+          </div>
+          <span className="text-[10px] text-zinc-500">Backlog Sync</span>
+        </div>
+      )}
+
+      {/* Main Validation Input Form */}
       <div className="bg-[#16161a] p-6 lg:p-8 rounded-3xl border border-[#26262b] shadow-xl">
         <div className="flex items-center gap-2 mb-1">
           <Sparkles className="w-4 h-4 text-[#e43d25]" />
@@ -85,11 +119,11 @@ export const TopicValidator = () => {
             Universal Topic & Hypothesis Validator
           </h2>
           <span className="text-[10px] font-mono px-2.5 py-0.5 rounded-full bg-[#e43d25]/15 text-[#ff6a52] border border-[#e43d25]/30 font-medium">
-            2-Stage Validation
+            2-Stage Live Webhook
           </span>
         </div>
         <p className="text-xs text-zinc-400 max-w-2xl mb-4 leading-relaxed">
-          Submit any raw idea, blog title, or strategic thesis. The engine runs preliminary diagnosis instantly, then triggers deep research into search intent, competitor saturation, and content gaps.
+          Submit any raw idea, blog title, or strategic thesis. The engine runs preliminary diagnosis instantly, then triggers deep research into search intent, competitor saturation, and content gaps via the n8n multi-agent pipeline.
         </p>
 
         <form onSubmit={handleValidate} className="space-y-4">
@@ -129,7 +163,7 @@ export const TopicValidator = () => {
 
             <div>
               <label className="block text-[11px] font-mono uppercase tracking-wider text-zinc-400 mb-1">
-                Geographic Scope (Global / Metro)
+                Target Geography
               </label>
               <select
                 value={targetGeography}
@@ -137,66 +171,68 @@ export const TopicValidator = () => {
                 className="w-full bg-[#1b1b20] border border-[#2a2a32] rounded-xl px-3 py-2 text-xs text-zinc-200 outline-none focus:border-[#e43d25] transition-colors"
               >
                 <option value="Global / Cross-Border">Global / Cross-Border</option>
+                <option value="Jaipur, Rajasthan">Jaipur, Rajasthan</option>
+                <option value="Pune, Maharashtra">Pune, Maharashtra</option>
+                <option value="Mumbai, Maharashtra">Mumbai, Maharashtra</option>
+                <option value="Delhi NCR">Delhi NCR</option>
                 <option value="Dubai / UAE">Dubai / UAE</option>
                 <option value="London / UK">London / UK</option>
-                <option value="Mumbai, Maharashtra">Mumbai, Maharashtra</option>
-                <option value="Pune, Maharashtra">Pune, Maharashtra</option>
-                <option value="Delhi NCR">Delhi NCR</option>
-                <option value="Jaipur, Rajasthan">Jaipur, Rajasthan</option>
+                <option value="Singapore">Singapore</option>
                 <option value="India (National)">India (National)</option>
               </select>
             </div>
           </div>
 
           <div className="flex items-center justify-between pt-2">
-            <div className="text-[11px] text-zinc-500 font-mono flex items-center gap-1.5">
-              <span>● Principle 1: Evidence before conclusions. No fabricated search volume.</span>
-            </div>
+            <span className="text-[11px] font-mono text-zinc-500">
+              ⚡ Evaluates search volume, competitor saturation, and content gap
+            </span>
             <button
               type="submit"
               disabled={isValidating}
-              className="px-6 py-2.5 bg-[#e43d25] hover:bg-[#d8402a] text-white font-semibold text-xs rounded-full hover:shadow-lg hover:shadow-[#e43d25]/30 transition-all flex items-center gap-2 shadow-md shadow-[#e43d25]/20 disabled:opacity-50 cursor-pointer"
+              className="px-6 py-2.5 bg-[#e43d25] hover:bg-[#d8402a] text-white text-xs font-semibold rounded-full hover:shadow-lg hover:shadow-[#e43d25]/30 transition-all flex items-center gap-2 shadow-md shadow-[#e43d25]/20 disabled:opacity-50 cursor-pointer"
             >
-              <Zap className={`w-4 h-4 ${isValidating ? 'animate-spin' : ''}`} />
-              <span>{isValidating ? 'Executing Deep Research...' : 'Validate Idea Strength'}</span>
+              <Zap className={`w-3.5 h-3.5 ${isValidating ? 'animate-spin' : ''}`} />
+              <span>{isValidating ? 'Running Multi-Agent Validation...' : 'Run 2-Stage Validation'}</span>
             </button>
           </div>
         </form>
       </div>
 
+      {/* Active Validation Result Card */}
       {activeValidation && (
-        <div className="bg-[#16161a] p-6 lg:p-8 rounded-3xl border border-[#e43d25]/35 shadow-2xl relative">
-          <div className="flex items-center justify-between border-b border-[#26262b] pb-4 mb-5">
+        <div className="bg-[#16161a] p-6 lg:p-8 rounded-3xl border border-[#e43d25]/40 shadow-2xl space-y-5 animate-fadeIn">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-[#26262b] pb-4">
             <div>
-              <div className="flex items-center gap-2 text-[10px] font-mono mb-1">
-                <span className="px-2.5 py-0.5 rounded-full bg-emerald-500/15 text-emerald-400 font-semibold border border-emerald-500/30">
-                  {activeValidation.stage === 'preliminary' ? 'Stage 1: Preliminary' : 'Stage 2: Completed Dossier'}
+              <div className="flex items-center gap-2 mb-1">
+                <span className="px-2.5 py-0.5 rounded-full bg-[#e43d25]/15 text-[#ff6a52] text-[10px] font-mono font-semibold border border-[#e43d25]/30">
+                  {activeValidation.stage === 'completed' ? 'Stage 2 Completed (Verified)' : 'Stage 1 Preliminary'}
                 </span>
                 <span className="text-zinc-500">•</span>
-                <span className="text-zinc-400">{activeValidation.industry}</span>
+                <span className="text-zinc-400 text-xs font-mono">{activeValidation.industry}</span>
                 <span className="text-zinc-500">•</span>
-                <span className="text-zinc-400">{activeValidation.geography}</span>
+                <span className="text-zinc-400 text-xs font-mono">{activeValidation.geography}</span>
               </div>
-              <h3 className="text-lg font-display font-bold text-zinc-100">
-                Validation Dossier: {activeValidation.detectedTopic}
+              <h3 className="text-base font-display font-bold text-zinc-100">
+                "{activeValidation.detectedTopic || activeValidation.rawIdea}"
               </h3>
             </div>
 
             <div className="text-right">
-              <div className="text-3xl font-display font-bold text-[#e43d25]">
+              <div className="text-2xl font-display font-bold text-[#e43d25]">
                 {activeValidation.opportunityScore}/100
               </div>
-              <div className="text-[10px] font-mono text-zinc-400">
-                Feasibility & Opportunity Score
+              <div className="text-[10px] font-mono text-emerald-400 font-semibold uppercase">
+                Opportunity Score
               </div>
             </div>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-5">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             <div className="p-4 bg-[#1b1b20] rounded-2xl border border-[#282830]">
               <div className="text-[10px] font-mono text-zinc-400 uppercase tracking-wider mb-1 flex items-center gap-1 font-semibold">
-                <Share2 className="w-3.5 h-3.5 text-indigo-400" />
-                <span>Content Strategy</span>
+                <TrendingUp className="w-3.5 h-3.5 text-[#ff6a52]" />
+                <span>Search vs Share Classification</span>
               </div>
               <div className="text-xs font-semibold text-zinc-200">
                 {activeValidation.classification}
@@ -248,14 +284,22 @@ export const TopicValidator = () => {
                 Identified Market Content Gaps (To Exploit):
               </span>
               <ul className="list-disc pl-5 space-y-1 text-zinc-400">
-                {(activeValidation.detailedGaps || activeValidation.contentGaps).map((gap, i) => (
+                {(activeValidation.detailedGaps || activeValidation.contentGaps || []).map((gap, i) => (
                   <li key={i}>{gap}</li>
                 ))}
               </ul>
             </div>
           </div>
 
-          <div className="mt-5 flex items-center justify-end gap-3 pt-4 border-t border-[#26262b]">
+          <div className="mt-5 flex flex-wrap items-center justify-end gap-3 pt-4 border-t border-[#26262b]">
+            <button
+              onClick={handleSaveActiveToBacklog}
+              className="px-5 py-2.5 bg-[#1b1b20] hover:bg-[#24242c] text-zinc-200 text-xs font-semibold rounded-full border border-[#2f2f38] hover:border-emerald-500/50 transition-all flex items-center gap-1.5 cursor-pointer shadow-sm"
+            >
+              <BookmarkPlus className="w-3.5 h-3.5 text-emerald-400" />
+              <span>Save to Opportunity Backlog</span>
+            </button>
+
             <button
               onClick={() =>
                 sendToStudio({
@@ -274,6 +318,84 @@ export const TopicValidator = () => {
         </div>
       )}
 
+      {/* Recent Validations History Drawer */}
+      {validationHistory && validationHistory.length > 0 && (
+        <div className="bg-[#16161a] p-6 rounded-3xl border border-[#26262b] shadow-xl">
+          <div className="flex items-center justify-between mb-4">
+            <div className="flex items-center gap-2">
+              <History className="w-4 h-4 text-[#ff6a52]" />
+              <h3 className="text-sm font-bold text-zinc-100 font-display">
+                Recent Validation History (Persistent Log)
+              </h3>
+            </div>
+            <span className="text-[10px] font-mono text-zinc-400">
+              {validationHistory.length} Validated Topics
+            </span>
+          </div>
+
+          <div className="divide-y divide-[#222228]">
+            {validationHistory.slice(0, 5).map((val) => (
+              <div key={val.id} className="py-3 flex flex-col sm:flex-row sm:items-center justify-between gap-3 group">
+                <div>
+                  <div className="flex items-center gap-2 text-[10px] font-mono text-zinc-400 mb-0.5">
+                    <span className="text-[#ff6a52]">{val.industry}</span>
+                    <span>•</span>
+                    <span>{val.geography}</span>
+                    <span>•</span>
+                    <span className="text-zinc-500 flex items-center gap-1">
+                      <Clock className="w-2.5 h-2.5" />
+                      <span>{new Date(val.timestamp).toLocaleDateString()}</span>
+                    </span>
+                  </div>
+                  <div className="text-xs font-semibold text-zinc-200 group-hover:text-[#ff6a52] transition-colors">
+                    "{val.winningAngle || val.rawIdea}"
+                  </div>
+                </div>
+
+                <div className="flex items-center gap-2 shrink-0">
+                  <span className="text-xs font-mono font-bold text-[#e43d25] mr-1">
+                    {val.opportunityScore}/100
+                  </span>
+                  <button
+                    onClick={() => {
+                      addToBacklog({
+                        title: val.winningAngle || val.rawIdea,
+                        industry: val.industry,
+                        classification: val.classification,
+                        opportunityScore: val.opportunityScore,
+                        geography: val.geography,
+                        status: 'validated'
+                      });
+                      setToastMessage(`Saved "${(val.winningAngle || val.rawIdea).slice(0, 40)}..." to Backlog!`);
+                      setTimeout(() => setToastMessage(null), 3000);
+                    }}
+                    title="Save to Backlog"
+                    className="p-1.5 bg-[#1b1b20] hover:bg-[#232328] text-zinc-400 hover:text-white rounded-lg border border-[#2a2a32] cursor-pointer"
+                  >
+                    <BookmarkPlus className="w-3.5 h-3.5" />
+                  </button>
+                  <button
+                    onClick={() =>
+                      sendToStudio({
+                        headline: val.winningAngle || val.rawIdea,
+                        geography: val.geography,
+                        suggestedContentAngle: val.classification,
+                        supportingEvidence: `Validated Topic: ${val.rawIdea}`
+                      })
+                    }
+                    className="px-3.5 py-1.5 bg-[#e43d25]/15 hover:bg-[#e43d25] text-[#ff6a52] hover:text-white text-[11px] font-semibold rounded-full border border-[#e43d25]/30 hover:border-transparent transition-all cursor-pointer flex items-center gap-1"
+                  >
+                    <span>Draft</span>
+                    <ArrowRight className="w-3 h-3" />
+                  </button>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+
+      {/* Autonomous Suggestions */}
       <div className="bg-[#16161a] p-6 rounded-3xl border border-[#26262b]">
         <div className="flex items-center justify-between mb-4">
           <div>

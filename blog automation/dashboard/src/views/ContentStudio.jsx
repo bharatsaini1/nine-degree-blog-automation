@@ -7,7 +7,14 @@ import {
   ChevronUp,
   FileText,
   HelpCircle,
-  Copy
+  Copy,
+  Download,
+  BookmarkPlus,
+  Send,
+  Edit3,
+  CheckCircle2,
+  Save,
+  Eye
 } from 'lucide-react';
 import { useIntelligence } from '../context/IntelligenceContext';
 
@@ -16,14 +23,19 @@ export const ContentStudio = () => {
     editorialBrief,
     setEditorialBrief,
     article,
+    setArticle,
     generateArticle,
     isGenerating,
-    aiModels
+    aiModels,
+    addToBacklog,
+    setActiveTab
   } = useIntelligence();
 
   const [activeDossierTab, setActiveDossierTab] = useState('summary');
   const [copied, setCopied] = useState(false);
   const [activeFaq, setActiveFaq] = useState(null);
+  const [isEditing, setIsEditing] = useState(false);
+  const [toastMessage, setToastMessage] = useState(null);
 
   const blogArchitectures = [
     'Thought Leadership',
@@ -54,7 +66,7 @@ export const ContentStudio = () => {
     'Standard Overview'
   ];
 
-  const handleCopyMarkdown = () => {
+  const buildMarkdown = () => {
     let md = `# ${article.title}\n\n*${article.subtitle}*\n\n**By ${article.author}** | ${article.readingTime} | Word Count: ~${article.wordCount} words\n\n## Executive Summary\n${article.executiveSummary}\n\n## Introduction\n${article.introduction}\n\n`;
 
     if (article.sections && Array.isArray(article.sections)) {
@@ -86,15 +98,61 @@ export const ContentStudio = () => {
       md += `## Strategic Fiduciary Verdict\n${article.strategicTakeaway}\n`;
     }
 
+    return md;
+  };
+
+  const handleCopyMarkdown = () => {
+    const md = buildMarkdown();
     navigator.clipboard.writeText(md);
     setCopied(true);
     setTimeout(() => setCopied(false), 2000);
   };
 
-  const isClaudeAvailable = aiModels.claude.status === 'connected';
+  const handleDownloadMarkdown = () => {
+    const md = buildMarkdown();
+    const blob = new Blob([md], { type: 'text/markdown;charset=utf-8' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `${(article.title || 'nine-degree-article').toLowerCase().replace(/[^a-z0-9]+/g, '-')}.md`;
+    a.click();
+    setToastMessage('Downloaded Markdown file!');
+    setTimeout(() => setToastMessage(null), 3000);
+  };
+
+  const handleSaveToBacklog = () => {
+    addToBacklog({
+      title: article.title,
+      industry: editorialBrief.blogType || 'Real Estate',
+      classification: editorialBrief.blogType,
+      opportunityScore: article.opportunityScore || 96,
+      status: 'in_production',
+      geography: editorialBrief.geographicFocus
+    });
+    setToastMessage('Article saved to Opportunity Backlog (In Production)!');
+    setTimeout(() => setToastMessage(null), 3000);
+  };
+
+  const handleSendToPublishingGate = () => {
+    setActiveTab('publishing');
+  };
+
+  const isClaudeAvailable = aiModels.claude && aiModels.claude.status === 'connected';
 
   return (
     <div className="space-y-6 max-w-7xl mx-auto">
+      {/* Toast Alert */}
+      {toastMessage && (
+        <div className="bg-gradient-to-r from-emerald-500/20 via-[#16161a] to-[#16161a] border border-emerald-500/40 px-5 py-3 rounded-2xl flex items-center justify-between shadow-lg text-xs font-mono text-emerald-300">
+          <div className="flex items-center gap-2">
+            <CheckCircle2 className="w-4 h-4 text-emerald-400" />
+            <span>{toastMessage}</span>
+          </div>
+          <span className="text-[10px] text-zinc-500">Editorial Studio</span>
+        </div>
+      )}
+
+      {/* Top Banner and Actions */}
       <div className="bg-[#111113] p-5 rounded-2xl border border-[#222226] shadow-xl flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>
           <div className="flex items-center gap-2 mb-1">
@@ -111,26 +169,64 @@ export const ContentStudio = () => {
           </p>
         </div>
 
-        <div className="flex items-center gap-2">
+        <div className="flex flex-wrap items-center gap-2">
+          <button
+            onClick={() => setIsEditing(!isEditing)}
+            className={`px-3.5 py-2 text-xs font-medium rounded-full transition-all flex items-center gap-1.5 border cursor-pointer ${
+              isEditing
+                ? 'bg-emerald-600 text-white border-emerald-500'
+                : 'bg-[#1c1c20] text-zinc-300 border-[#2e2e34] hover:bg-[#25252a]'
+            }`}
+          >
+            {isEditing ? <Eye className="w-3.5 h-3.5" /> : <Edit3 className="w-3.5 h-3.5" />}
+            <span>{isEditing ? 'Preview Mode' : 'Edit Text'}</span>
+          </button>
+
           <button
             onClick={handleCopyMarkdown}
-            className="px-4 py-2 bg-[#1c1c20] text-zinc-200 text-xs font-medium rounded-full hover:bg-[#25252a] hover:border-[#e43d25]/40 transition-all flex items-center gap-1.5 border border-[#2e2e34] cursor-pointer"
+            className="px-3.5 py-2 bg-[#1c1c20] text-zinc-200 text-xs font-medium rounded-full hover:bg-[#25252a] hover:border-[#e43d25]/40 transition-all flex items-center gap-1.5 border border-[#2e2e34] cursor-pointer"
           >
             <Copy className="w-3.5 h-3.5" />
-            <span>{copied ? 'Copied MD!' : 'Copy Markdown'}</span>
+            <span>{copied ? 'Copied MD!' : 'Copy MD'}</span>
           </button>
+
+          <button
+            onClick={handleDownloadMarkdown}
+            className="px-3.5 py-2 bg-[#1c1c20] text-zinc-200 text-xs font-medium rounded-full hover:bg-[#25252a] hover:border-[#e43d25]/40 transition-all flex items-center gap-1.5 border border-[#2e2e34] cursor-pointer"
+          >
+            <Download className="w-3.5 h-3.5" />
+            <span>Export MD</span>
+          </button>
+
+          <button
+            onClick={handleSaveToBacklog}
+            className="px-3.5 py-2 bg-[#1c1c20] text-zinc-200 text-xs font-medium rounded-full hover:bg-[#25252a] hover:border-[#e43d25]/40 transition-all flex items-center gap-1.5 border border-[#2e2e34] cursor-pointer"
+          >
+            <BookmarkPlus className="w-3.5 h-3.5 text-[#ff6a52]" />
+            <span>Save to Backlog</span>
+          </button>
+
+          <button
+            onClick={handleSendToPublishingGate}
+            className="px-4 py-2 bg-[#1c1c20] hover:bg-[#222228] text-emerald-400 text-xs font-semibold rounded-full border border-emerald-500/30 hover:border-emerald-500 transition-all flex items-center gap-1.5 cursor-pointer shadow-sm"
+          >
+            <Send className="w-3.5 h-3.5" />
+            <span>Publishing Gate</span>
+          </button>
+
           <button
             onClick={generateArticle}
             disabled={isGenerating}
-            className="px-5 py-2.5 bg-gradient-to-r from-[#e43d25] to-[#d8402a] text-white text-xs font-semibold rounded-full hover:shadow-lg hover:shadow-[#e43d25]/25 hover:brightness-105 transition-all flex items-center gap-2 shadow-md shadow-[#e43d25]/20 disabled:opacity-50 cursor-pointer"
+            className="px-5 py-2 bg-gradient-to-r from-[#e43d25] to-[#d8402a] text-white text-xs font-semibold rounded-full hover:shadow-lg hover:shadow-[#e43d25]/25 hover:brightness-105 transition-all flex items-center gap-2 shadow-md shadow-[#e43d25]/20 disabled:opacity-50 cursor-pointer"
           >
-            <Sparkles className={`w-4 h-4 ${isGenerating ? 'animate-spin' : ''}`} />
-            <span>{isGenerating ? 'Generating via 5-Dept Pipeline...' : 'Generate Article via n8n'}</span>
+            <Sparkles className={`w-3.5 h-3.5 ${isGenerating ? 'animate-spin' : ''}`} />
+            <span>{isGenerating ? 'Generating...' : 'Generate via n8n'}</span>
           </button>
         </div>
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+        {/* Left Column: Editorial Brief Input Controls */}
         <div className="lg:col-span-5 space-y-5">
           <div className="bg-[#111113] p-5 rounded-2xl border border-[#222226] shadow-xl space-y-4 text-xs">
             <div className="flex items-center justify-between border-b border-[#202024] pb-3">
@@ -249,260 +345,184 @@ export const ContentStudio = () => {
             <div>
               <div className="flex items-center justify-between mb-1">
                 <label className="text-zinc-300 font-medium">
-                  Expert Contribution & Insider Observations
+                  Expert Perspective & Ground Observations
                 </label>
-                <span className="text-[10px] font-mono text-[#e43d25] font-semibold">Swapnil Soni / VP Notes</span>
+                <span className="text-[10px] font-mono text-[#ff6a52]">Swapnil Soni Directive</span>
               </div>
               <textarea
                 rows={3}
-                placeholder="Add proprietary data, legal rulings, or on-ground deal statistics..."
                 value={editorialBrief.expertNotes}
                 onChange={(e) => setEditorialBrief({ ...editorialBrief, expertNotes: e.target.value })}
-                className="w-full bg-[#17171a] border border-[#2e2e34] rounded-xl px-3 py-2 text-zinc-100 outline-none focus:border-[#e43d25] text-xs font-sans leading-relaxed"
+                placeholder="Specific micro-market data points, client friction, or escrow audit details..."
+                className="w-full bg-[#17171a] border border-[#2e2e34] rounded-xl p-3 text-zinc-200 outline-none focus:border-[#e43d25] text-xs font-mono"
               />
-              <p className="text-[10px] text-zinc-500 mt-1">
-                The Master Writer will naturally weave these insider points into the core argument while keeping them distinct from external citations.
-              </p>
             </div>
-          </div>
-
-          <div className="bg-[#111113] p-5 rounded-2xl border border-[#222226] shadow-xl text-xs">
-            <div className="flex items-center justify-between border-b border-[#202024] pb-3 mb-3">
-              <div className="flex items-center gap-1 bg-[#17171a] p-1 rounded-full border border-[#28282e]">
-                {['summary', 'keywords', 'competitor', 'qa'].map((tab) => (
-                  <button
-                    key={tab}
-                    onClick={() => setActiveDossierTab(tab)}
-                    className={`px-3 py-1 rounded-full font-mono text-[10.5px] uppercase transition-all cursor-pointer ${
-                      activeDossierTab === tab
-                        ? 'bg-[#e43d25] text-white font-semibold shadow-sm shadow-[#e43d25]/30'
-                        : 'text-zinc-400 hover:text-zinc-200'
-                    }`}
-                  >
-                    {tab}
-                  </button>
-                ))}
-              </div>
-              <span className="text-[10px] font-mono text-emerald-400">DPT 2 + 5 Dossier</span>
-            </div>
-
-            {activeDossierTab === 'summary' && (
-              <div className="space-y-2 text-zinc-300">
-                <div className="text-[11px] font-medium text-zinc-200">
-                  Target Thesis: "{editorialBrief.topic}"
-                </div>
-                <div className="text-[11px] text-zinc-400">
-                  Verified across global intelligence briefs and market reports. Search intent classified as High Commercial Investigation.
-                </div>
-              </div>
-            )}
-
-            {activeDossierTab === 'keywords' && (
-              <div className="space-y-1.5 text-zinc-300 font-mono text-[11px]">
-                <div className="flex justify-between text-zinc-400 border-b border-[#222226] pb-1 text-[10px]">
-                  <span>Query</span>
-                  <span>Volume / KD</span>
-                </div>
-                <div className="flex justify-between">
-                  <span className="text-zinc-200">{editorialBrief.primaryKeyword}</span>
-                  <span className="text-emerald-400">2,900/mo (Low 22%)</span>
-                </div>
-                <div className="flex justify-between">
-                  <span className="text-zinc-400">how to advertise on chatgpt search</span>
-                  <span className="text-emerald-400">1,850/mo (Low 14%)</span>
-                </div>
-                <div className="flex justify-between">
-                  <span className="text-zinc-400">pune luxury penthouses investment yield</span>
-                  <span className="text-emerald-400">3,400/mo (Medium 32%)</span>
-                </div>
-              </div>
-            )}
-
-            {activeDossierTab === 'competitor' && (
-              <div className="space-y-2 text-zinc-300 text-[11px]">
-                <div className="font-semibold text-[#e43d25]">Competitor Gap Exploited:</div>
-                <p className="text-zinc-400">
-                  Competitor portals rely on broad aggregator statistics and lack fiduciary yield due diligence. Nine Degree provides the proprietary cross-border framework.
-                </p>
-              </div>
-            )}
-
-            {activeDossierTab === 'qa' && (
-              <div className="space-y-2 text-[11px]">
-                <div className="flex items-center justify-between font-mono">
-                  <span className="text-zinc-400">Editorial Quality Score:</span>
-                  <span className="text-[#e43d25] font-bold">{article.qualityScore}</span>
-                </div>
-                <div className="flex items-center justify-between font-mono">
-                  <span className="text-zinc-400">Readability Standard:</span>
-                  <span className="text-emerald-400">Grade 11.4 (Advisory Level)</span>
-                </div>
-                <div className="flex items-center justify-between font-mono">
-                  <span className="text-zinc-400">Banned Clichés Found:</span>
-                  <span className="text-emerald-400">0 (Zero Clichés)</span>
-                </div>
-              </div>
-            )}
           </div>
         </div>
 
-        <div className="lg:col-span-7 bg-[#0c0c0e] rounded-3xl border border-[#26262a] p-6 shadow-2xl relative overflow-hidden">
-          <div className="border-b border-[#202024] pb-5 mb-6">
-            <div className="flex items-center justify-between text-[11px] font-mono text-zinc-500 mb-2">
-              <span className="text-[#e43d25] uppercase tracking-widest font-semibold">
-                Nine Degree Editorial Release
+        {/* Right Column: Live Rendered Executive Publication */}
+        <div className="lg:col-span-7 bg-[#111113] p-6 lg:p-8 rounded-2xl border border-[#222226] shadow-xl relative">
+          {/* Header Info */}
+          <div className="border-b border-[#202024] pb-6 mb-6">
+            <div className="flex flex-wrap items-center gap-2 mb-3 text-[11px] font-mono">
+              <span className="px-2.5 py-0.5 rounded-full bg-[#e43d25]/15 text-[#ff6a52] font-semibold border border-[#e43d25]/30">
+                {editorialBrief.blogType}
               </span>
-              <div className="flex items-center gap-3">
-                <span className="flex items-center gap-1 text-zinc-400">
-                  <Clock className="w-3 h-3 text-[#e43d25]" />
-                  {article.readingTime}
-                </span>
-                <span className="text-emerald-400 font-semibold font-mono">
-                  {article.qualityScore}
-                </span>
+              <span className="text-zinc-500">•</span>
+              <span className="text-zinc-400 flex items-center gap-1">
+                <Clock className="w-3 h-3 text-zinc-500" />
+                {article.readingTime}
+              </span>
+              <span className="text-zinc-500">•</span>
+              <span className="text-emerald-400 font-semibold">{article.qualityScore}</span>
+              <span className="text-zinc-500">•</span>
+              <span className="text-zinc-400">~{article.wordCount} words</span>
+            </div>
+
+            {isEditing ? (
+              <div className="space-y-3">
+                <input
+                  type="text"
+                  value={article.title}
+                  onChange={(e) => setArticle({ ...article, title: e.target.value })}
+                  className="w-full bg-[#17171a] border border-[#e43d25]/50 text-xl font-display font-bold text-zinc-100 p-2.5 rounded-xl outline-none"
+                />
+                <textarea
+                  rows={2}
+                  value={article.subtitle}
+                  onChange={(e) => setArticle({ ...article, subtitle: e.target.value })}
+                  className="w-full bg-[#17171a] border border-[#2a2a32] text-xs italic text-zinc-300 p-2.5 rounded-xl outline-none"
+                />
+              </div>
+            ) : (
+              <>
+                <h1 className="text-xl lg:text-2xl font-display font-bold text-zinc-100 tracking-tight leading-snug">
+                  {article.title}
+                </h1>
+                <p className="text-xs text-zinc-400 font-sans italic mt-1.5 leading-relaxed">
+                  {article.subtitle}
+                </p>
+              </>
+            )}
+
+            <div className="mt-3 text-[11px] font-mono text-zinc-400">
+              By <span className="text-zinc-200 font-medium">{article.author}</span>
+            </div>
+          </div>
+
+          {/* Hero Cover Image Preview */}
+          {article.heroImage && (
+            <div className="mb-6 rounded-xl overflow-hidden border border-[#26262a] shadow-lg relative">
+              <img
+                src={article.heroImage}
+                alt="Architectural Cover"
+                className="w-full h-64 object-cover"
+              />
+              <div className="p-2.5 bg-[#141417] text-[10px] font-mono text-zinc-400 flex items-center justify-between">
+                <span>Figure: Verified 4K Editorial Asset</span>
+                <span className="text-emerald-400">100% Watermark Free</span>
               </div>
             </div>
+          )}
 
-            <h1 className="text-2xl sm:text-3xl font-display font-bold text-zinc-100 leading-tight tracking-tight">
-              {article.title}
-            </h1>
-            <p className="text-xs sm:text-sm text-zinc-400 mt-2 font-sans italic">
-              {article.subtitle}
-            </p>
-
-            <div className="flex items-center gap-3 mt-4 text-xs font-mono text-zinc-400">
-              <span className="font-semibold text-zinc-200">{article.author}</span>
-              <span>•</span>
-              <span className="text-zinc-500">Word Count: ~{article.wordCount} words</span>
-            </div>
+          {/* Executive Summary Dossier */}
+          <div className="mb-6 p-4 rounded-xl bg-gradient-to-r from-[#17171b] to-[#121215] border border-[#2a2a30]">
+            <h3 className="text-xs font-mono uppercase tracking-wider font-bold text-[#ff6a52] mb-1.5">
+              Executive Summary & Macro Thesis:
+            </h3>
+            {isEditing ? (
+              <textarea
+                rows={3}
+                value={article.executiveSummary}
+                onChange={(e) => setArticle({ ...article, executiveSummary: e.target.value })}
+                className="w-full bg-[#121215] border border-[#2a2a32] text-xs text-zinc-200 p-2.5 rounded-xl outline-none"
+              />
+            ) : (
+              <p className="text-xs text-zinc-200 font-serif leading-relaxed italic">
+                "{article.executiveSummary}"
+              </p>
+            )}
           </div>
 
-          <div className="rounded-2xl overflow-hidden border border-[#26262a] mb-6 shadow-xl relative group">
-            <img
-              src={article.heroImage}
-              alt="4K Architectural Cover"
-              className="w-full h-64 sm:h-80 object-cover group-hover:scale-102 transition-transform duration-700"
-            />
-            <div className="absolute bottom-0 inset-x-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent p-4">
-              <div className="text-[10px] font-mono text-zinc-300">
-                Visual Studio DPT 4 • Curated 4K Architectural Stream (Watermark-Free)
-              </div>
-            </div>
-          </div>
-
-          <div className="bg-gradient-to-r from-[#e43d25]/10 via-[#141417] to-[#141417] p-5 rounded-2xl border-l-4 border-[#e43d25] border-y border-r border-[#242428] mb-6">
-            <div className="text-[10px] font-mono uppercase tracking-widest text-[#e43d25] font-semibold mb-1">
-              Executive Summary & Macro Context
-            </div>
-            <p className="text-xs sm:text-sm text-zinc-200 font-sans leading-relaxed">
-              {article.executiveSummary}
-            </p>
-          </div>
-
-          <div className="space-y-6 text-xs sm:text-sm font-sans text-zinc-300 leading-relaxed">
-            <p className="first-letter:text-4xl first-letter:font-bold first-letter:text-[#e43d25] first-letter:mr-2 first-letter:float-left mb-4">
-              {article.introduction}
-            </p>
-
-            {article.sections && article.sections.map((sec, i) => (
-              <div key={i} className="space-y-3 pt-6 border-t border-[#1c1c20]">
-                <h2 className="text-lg font-display font-bold text-zinc-100 flex items-center gap-2">
+          {/* Sections List */}
+          <div className="space-y-6 text-xs text-zinc-300 font-sans leading-relaxed">
+            {article.sections && article.sections.map((sec, sIdx) => (
+              <div key={sIdx} className="space-y-2 border-b border-[#1c1c20] pb-5">
+                <h2 className="text-sm font-display font-bold text-zinc-100 flex items-center gap-2">
+                  <span className="text-[#e43d25] font-mono text-xs">§{sIdx + 1}.</span>
                   <span>{sec.heading}</span>
                 </h2>
+
                 {sec.subheading && (
-                  <div className="text-xs font-mono text-[#e43d25] italic mb-2">
-                    {sec.subheading}
-                  </div>
+                  <p className="text-[11px] text-zinc-400 italic">{sec.subheading}</p>
                 )}
 
-                {Array.isArray(sec.paragraphs) ? (
-                  sec.paragraphs.map((para, pIdx) => (
-                    <p key={pIdx} className="text-zinc-300 leading-relaxed mb-3">
-                      {para}
-                    </p>
-                  ))
-                ) : (
-                  <p className="text-zinc-300 leading-relaxed mb-3">{sec.content}</p>
-                )}
+                {sec.paragraphs && sec.paragraphs.map((para, pIdx) => (
+                  <p key={pIdx} className="text-zinc-300 leading-relaxed font-sans">
+                    {para}
+                  </p>
+                ))}
 
                 {sec.metric && (
-                  <div className="my-4 p-4 rounded-xl bg-[#141417] border border-[#26262c] flex items-center justify-between">
-                    <div>
-                      <span className="text-[10px] font-mono uppercase tracking-wider text-[#e43d25] block font-semibold">
-                        {sec.metric.label}
-                      </span>
-                      <span className="text-xs text-zinc-400 font-sans">
-                        {sec.metric.detail}
-                      </span>
-                    </div>
-                    <span className="text-sm sm:text-base font-mono font-bold text-emerald-400 ml-4 shrink-0">
-                      {sec.metric.value}
-                    </span>
-                  </div>
-                )}
-
-                {sec.figure && (
-                  <div className="my-5 rounded-2xl overflow-hidden border border-[#26262a] shadow-lg">
-                    <img
-                      src={sec.figure.url}
-                      alt={sec.figure.alt || 'Architectural Figure'}
-                      className="w-full h-48 sm:h-64 object-cover"
-                    />
-                    <div className="p-2.5 bg-[#121214] text-[10px] font-mono text-zinc-400 text-center border-t border-[#1a1a1e]">
-                      {sec.figure.caption}
-                    </div>
+                  <div className="p-3 bg-[#18181d] rounded-xl border border-[#2b2b34] flex items-center justify-between text-xs mt-2">
+                    <span className="text-zinc-400">{sec.metric.label}:</span>
+                    <span className="font-bold text-[#ff6a52] font-mono">{sec.metric.value}</span>
                   </div>
                 )}
               </div>
             ))}
           </div>
 
-          {article.strategicTakeaway && (
-            <div className="mt-8 p-5 rounded-2xl bg-gradient-to-br from-[#1b1212] to-[#0f0f12] border border-[#e43d25]/30 shadow-xl">
-              <div className="text-[10px] font-mono uppercase tracking-widest text-[#e43d25] font-semibold mb-2 flex items-center gap-2">
-                <span>★ Strategic Fiduciary Verdict</span>
+          {/* FAQ Accordion */}
+          {article.faq && article.faq.length > 0 && (
+            <div className="mt-8 pt-6 border-t border-[#202024]">
+              <h3 className="text-base font-display font-bold text-zinc-100 mb-4 flex items-center gap-2">
+                <HelpCircle className="w-4 h-4 text-[#e43d25]" />
+                <span>Frequently Asked Strategic Questions</span>
+              </h3>
+
+              <div className="space-y-2">
+                {article.faq.map((item, index) => {
+                  const isOpen = activeFaq === index;
+                  return (
+                    <div
+                      key={index}
+                      className="border border-[#222226] rounded-xl overflow-hidden bg-[#121215]"
+                    >
+                      <button
+                        onClick={() => setActiveFaq(isOpen ? null : index)}
+                        className="w-full p-3.5 text-left text-xs font-semibold text-zinc-200 flex items-center justify-between hover:text-[#e43d25] transition-colors cursor-pointer"
+                      >
+                        <span>{item.q}</span>
+                        {isOpen ? (
+                          <ChevronUp className="w-4 h-4 text-[#e43d25]" />
+                        ) : (
+                          <ChevronDown className="w-4 h-4 text-zinc-500" />
+                        )}
+                      </button>
+                      {isOpen && (
+                        <div className="px-3.5 pb-3.5 text-xs text-zinc-400 font-sans leading-relaxed border-t border-[#1a1a1e] pt-2">
+                          {item.a}
+                        </div>
+                      )}
+                    </div>
+                  );
+                })}
               </div>
-              <p className="text-xs sm:text-sm text-zinc-200 font-sans leading-relaxed italic">
-                "{article.strategicTakeaway}"
-              </p>
             </div>
           )}
 
-          <div className="mt-8 pt-6 border-t border-[#202024]">
-            <h3 className="text-base font-display font-bold text-zinc-100 mb-4 flex items-center gap-2">
-              <HelpCircle className="w-4 h-4 text-[#e43d25]" />
-              <span>Frequently Asked Strategic Questions</span>
-            </h3>
-
-            <div className="space-y-2">
-              {article.faq.map((item, index) => {
-                const isOpen = activeFaq === index;
-                return (
-                  <div
-                    key={index}
-                    className="border border-[#222226] rounded-xl overflow-hidden bg-[#121215]"
-                  >
-                    <button
-                      onClick={() => setActiveFaq(isOpen ? null : index)}
-                      className="w-full p-3.5 text-left text-xs font-semibold text-zinc-200 flex items-center justify-between hover:text-[#e43d25] transition-colors cursor-pointer"
-                    >
-                      <span>{item.q}</span>
-                      {isOpen ? (
-                        <ChevronUp className="w-4 h-4 text-[#e43d25]" />
-                      ) : (
-                        <ChevronDown className="w-4 h-4 text-zinc-500" />
-                      )}
-                    </button>
-                    {isOpen && (
-                      <div className="px-3.5 pb-3.5 text-xs text-zinc-400 font-sans leading-relaxed border-t border-[#1a1a1e] pt-2">
-                        {item.a}
-                      </div>
-                    )}
-                  </div>
-                );
-              })}
+          {/* Strategic Takeaway Verdict */}
+          {article.strategicTakeaway && (
+            <div className="mt-6 p-4 rounded-xl bg-[#1c1313] border border-[#e43d25]/30 text-xs">
+              <span className="font-mono uppercase text-[10px] tracking-wider text-[#ff6a52] font-semibold block mb-1">
+                Strategic Fiduciary Verdict:
+              </span>
+              <p className="text-zinc-200 leading-relaxed font-sans">
+                {article.strategicTakeaway}
+              </p>
             </div>
-          </div>
+          )}
 
           <div className="mt-8 pt-6 border-t border-[#202024] flex items-center justify-between text-xs text-zinc-500 font-mono">
             <div>Nine Degree Strategic Fiduciary Advisory</div>
