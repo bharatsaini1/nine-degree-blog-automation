@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   Sparkles,
   TrendingUp,
@@ -10,12 +10,184 @@ import {
   Clock,
   Compass,
   Zap,
-  Users
+  Users,
+  RefreshCw
 } from 'lucide-react';
 import { useIntelligence } from '../context/IntelligenceContext';
 
 export const ExecutiveOverview = () => {
-  const { trends, competitors, backlog, setActiveTab, sendToStudio } = useIntelligence();
+  const { trends, competitors, backlog, setActiveTab, sendToStudio, perspective } = useIntelligence();
+  const [isRefreshing, setIsRefreshing] = useState(false);
+  const [refreshDelta, setRefreshDelta] = useState(0);
+
+  const currentDate = new Date().toLocaleDateString('en-GB', {
+    day: 'numeric',
+    month: 'short',
+    year: 'numeric'
+  });
+
+  const handleRefresh = () => {
+    setIsRefreshing(true);
+    setTimeout(() => {
+      setRefreshDelta((prev) => prev + 1);
+      setIsRefreshing(false);
+    }, 800);
+  };
+
+  const perspectiveData = {
+    cmo: {
+      badge: 'CMO & Brand Growth Cockpit',
+      dateLabel: currentDate,
+      title: 'Global Real Estate Brand Positioning, Media Allocation & GEO Dominance',
+      summary:
+        'Cross-border capital allocators and luxury developers are abandoning volume classified ads for discreet fiduciary advisory and Generative Engine Optimization (GEO). Competitors remain trapped in superficial portal listicles.',
+      insights: [
+        {
+          label: 'Global Luxury Divergence',
+          icon: TrendingUp,
+          color: 'text-[#ff6a52]',
+          headline: 'Ultra-luxury buyers discount portal discount ads by 40% (Dubai / Mumbai / Pune / Jaipur)',
+          detail: 'Discreet media buying and architectural restraint outperform promotional noise.'
+        },
+        {
+          label: 'Generative Search Shift (GEO)',
+          icon: AlertCircle,
+          color: 'text-indigo-400',
+          headline: '34% of HNI Property Queries Initiated in ChatGPT Search & Perplexity',
+          detail: 'Developers must optimize for LLM citation benchmarks rather than basic Google blue links.'
+        },
+        {
+          label: 'Nine Degree Advisory Moat',
+          icon: ShieldCheck,
+          color: 'text-emerald-400',
+          headline: 'Zero competitors offer independent Fiduciary Escrow & Land Due Diligence',
+          detail: 'Opportunity to capture high-intent capital allocators via research-grade publications.'
+        }
+      ],
+      deltas: [
+        {
+          tag: 'Generative AI Search Policy Shift',
+          color: 'text-[#ff8f7d]',
+          title: 'OpenAI expanded conversational ads and sponsored links in ChatGPT Search.',
+          source: 'Source: Search Engine Land / Nine Degree Tech Desk.'
+        },
+        {
+          tag: 'Competitor Positioning Shift',
+          color: 'text-emerald-400',
+          title: 'Housing.com added 4 new sponsored broker banners without title due diligence.',
+          source: 'Content Gap remains: Zero legal title due-diligence provided to prospective buyers.'
+        },
+        {
+          tag: 'Search Velocity Spike',
+          color: 'text-amber-400',
+          title: '"luxury real estate marketing strategy 2026" search velocity grew +48% week-over-week.',
+          source: 'High commercial investigation volume from agency and developer CMOs.'
+        }
+      ]
+    },
+    strategist: {
+      badge: 'Chief Strategist & Editorial Underwriting',
+      dateLabel: currentDate,
+      title: 'Micro-Market Land Economics, Raj-RERA Escrow Audits & Competitive Moats',
+      summary:
+        'Ground-level corridor economics, RERA milestone compliance, and title transparency dictate sales velocity. Independent fiduciary advisory replaces generic broker listicles across Jaipur, Pune, and Mumbai.',
+      insights: [
+        {
+          label: 'Micro-Market Land Bank Friction',
+          icon: TrendingUp,
+          color: 'text-[#ff6a52]',
+          headline: 'Jaipur Jagatpura & Pune IT corridor land prices surged +32% YoY',
+          detail: 'Pragmatic buyers verify carpet area ratios and RERA escrow accounts before site visits.'
+        },
+        {
+          label: 'Regulatory Governance Wave',
+          icon: ShieldCheck,
+          color: 'text-emerald-400',
+          headline: 'Raj-RERA issued notices to 14 unregistered satellite corridor projects',
+          detail: 'Independent fiduciary advice on verifying RERA certificates builds immediate high-ticket trust.'
+        },
+        {
+          label: 'Competitor Content Moat',
+          icon: AlertCircle,
+          color: 'text-indigo-400',
+          headline: 'Knight Frank and PropTiger lack localized corridor yield granularity',
+          detail: 'Nine Degree captures high-intent traffic by auditing micro-markets competitors overlook.'
+        }
+      ],
+      deltas: [
+        {
+          tag: 'RERA Regulatory Enforcement',
+          color: 'text-emerald-400',
+          title: 'Rajasthan RERA mandates strict disclosure of developer escrow balances.',
+          source: 'Source: Rajasthan RERA Regulatory Authority Guidelines & Judicial Orders.'
+        },
+        {
+          tag: 'Competitor Reporting Gap',
+          color: 'text-[#ff8f7d]',
+          title: 'Housing.com published generic national price charts ignoring micro-corridors.',
+          source: 'Opportunity: Release Jagatpura vs Tonk Road Developer Economics Playbook.'
+        },
+        {
+          tag: 'Fiduciary Query Growth',
+          color: 'text-amber-400',
+          title: '"rera escrow account compliance audit checklist" query volume surged +62% YoY.',
+          source: 'High-intent search traffic ready for Nine Degree legal checklist.'
+        }
+      ]
+    },
+    vc: {
+      badge: 'Institutional Capital Allocator & VC View',
+      dateLabel: currentDate,
+      title: 'Cross-Border NRI Capital Inflows, Rental Yields & Land Bank Predictability',
+      summary:
+        'Institutional family offices and NRI allocators from Dubai, London, and Singapore are bypassing speculative highway plots in favor of low-density plotted enclaves and audited Grade-A developers.',
+      insights: [
+        {
+          label: 'Cross-Border Remittance Inflows',
+          icon: TrendingUp,
+          color: 'text-[#ff6a52]',
+          headline: 'NRI capital deployment in Indian luxury residential real estate grew +28% YoY',
+          detail: 'Foreign inward remittances demand tax transparency and clear legal repatriation.'
+        },
+        {
+          label: 'Yield Arbitrage Spread',
+          icon: AlertCircle,
+          color: 'text-indigo-400',
+          headline: 'Prime central enclaves yield 4.5% vs 2.2% on speculative peripheral plots',
+          detail: 'Capital allocators require corridor-level yield comparisons before deploying equity.'
+        },
+        {
+          label: 'Fiduciary Due-Diligence Premium',
+          icon: ShieldCheck,
+          color: 'text-emerald-400',
+          headline: 'Gated plotted communities with JDA/RERA clear titles command 35% higher liquidity',
+          detail: 'Institutional allocators avoid unapproved agricultural plot flips.'
+        }
+      ],
+      deltas: [
+        {
+          tag: 'Cross-Border Tax Policy Shift',
+          color: 'text-[#ff8f7d]',
+          title: 'RBI issued updated cross-border remittance guidelines for overseas buyers.',
+          source: 'Source: Reserve Bank of India Capital Outflow & Remittance Review.'
+        },
+        {
+          tag: 'Peripheral Resale Liquidity Gap',
+          color: 'text-amber-400',
+          title: 'Speculative plots without master plan connectivity face 18-month resale cycles.',
+          source: 'Advisory: Direct HNI capital toward approved Ring Road logistics corridors.'
+        },
+        {
+          tag: 'Institutional Investor Surge',
+          color: 'text-emerald-400',
+          title: '"cross border property investment advisory dubai india" grew 3.4x in search volume.',
+          source: 'High-net-worth allocators seeking verified Nine Degree fiduciary advisory.'
+        }
+      ]
+    }
+  };
+
+  const activeBriefing = perspectiveData[perspective] || perspectiveData.cmo;
 
   return (
     <div className="space-y-6 max-w-7xl mx-auto">
@@ -29,16 +201,27 @@ export const ExecutiveOverview = () => {
               <span className="text-[11px] uppercase tracking-widest text-[#ff6a52] font-mono font-semibold">
                 Autonomous Morning Briefing
               </span>
-              <span className="text-zinc-500 font-mono text-[11px]">| 16 Nov 2026</span>
+              <span className="text-zinc-500 font-mono text-[11px]">| {activeBriefing.dateLabel}</span>
+              <span className="text-[10px] font-mono px-2 py-0.5 rounded-full bg-[#e43d25]/15 text-[#ff8f7d] border border-[#e43d25]/30">
+                {activeBriefing.badge}
+              </span>
             </div>
             <h2 className="text-xl lg:text-2xl font-display font-bold text-zinc-100 tracking-tight">
-              Global Real Estate, Brand Strategy & AI Search Movements
+              {activeBriefing.title}
             </h2>
             <p className="text-sm text-zinc-400 mt-1 max-w-2xl leading-relaxed">
-              Cross-border capital allocators and luxury developers are abandoning volume classified ads for discreet fiduciary advisory and Generative Engine Optimization (GEO). Competitors remain trapped in superficial portal listicles.
+              {activeBriefing.summary}
             </p>
           </div>
           <div className="flex items-center gap-2.5 shrink-0">
+            <button
+              onClick={handleRefresh}
+              disabled={isRefreshing}
+              className="p-2.5 bg-[#18181c] text-zinc-300 hover:text-white rounded-full border border-[#2b2b32] hover:border-[#e43d25]/40 transition-all cursor-pointer shadow-sm"
+              title="Refresh Intelligence Briefing"
+            >
+              <RefreshCw className={`w-3.5 h-3.5 ${isRefreshing ? 'animate-spin text-[#e43d25]' : ''}`} />
+            </button>
             <button
               onClick={() => setActiveTab('topicValidator')}
               className="px-5 py-2.5 bg-[#e43d25] hover:bg-[#d8402a] text-white text-xs font-semibold rounded-full hover:shadow-lg hover:shadow-[#e43d25]/30 transition-all flex items-center gap-2 shadow-md shadow-[#e43d25]/20 cursor-pointer"
@@ -56,46 +239,27 @@ export const ExecutiveOverview = () => {
           </div>
         </div>
 
-        {/* 3 Executive Bullet Insights */}
+        {/* 3 Executive Bullet Insights (Perspective Driven) */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-6 pt-5 border-t border-[#291b1b] relative z-10">
-          <div className="bg-[#141418]/90 p-4 rounded-2xl border border-[#24242c]">
-            <div className="text-[11px] font-mono text-[#ff6a52] mb-1 flex items-center gap-1.5 font-medium">
-              <TrendingUp className="w-3.5 h-3.5 text-[#e43d25]" />
-              <span>Global Luxury Divergence</span>
-            </div>
-            <div className="text-xs text-zinc-200 font-medium">
-              Ultra-luxury buyers discount portal discount ads by 40% (Dubai / Mumbai / Pune)
-            </div>
-            <div className="text-[11px] text-zinc-500 mt-1">
-              Discreet media buying and architectural restraint outperform promotional noise.
-            </div>
-          </div>
-
-          <div className="bg-[#141418]/90 p-4 rounded-2xl border border-[#24242c]">
-            <div className="text-[11px] font-mono text-indigo-400 mb-1 flex items-center gap-1.5 font-medium">
-              <AlertCircle className="w-3.5 h-3.5" />
-              <span>Generative Search Shift (GEO)</span>
-            </div>
-            <div className="text-xs text-zinc-200 font-medium">
-              34% of HNI Property Queries Initiated in ChatGPT Search & Perplexity
-            </div>
-            <div className="text-[11px] text-zinc-500 mt-1">
-              Developers must optimize for LLM citation benchmarks rather than basic Google blue links.
-            </div>
-          </div>
-
-          <div className="bg-[#141418]/90 p-4 rounded-2xl border border-[#24242c]">
-            <div className="text-[11px] font-mono text-emerald-400 mb-1 flex items-center gap-1.5 font-medium">
-              <ShieldCheck className="w-3.5 h-3.5" />
-              <span>Nine Degree Advisory Moat</span>
-            </div>
-            <div className="text-xs text-zinc-200 font-medium">
-              Zero competitors offer independent Fiduciary Escrow & Land Due Diligence
-            </div>
-            <div className="text-[11px] text-zinc-500 mt-1">
-              Opportunity to capture high-intent capital allocators via research-grade publications.
-            </div>
-          </div>
+          {activeBriefing.insights.map((ins, i) => {
+            const IconComponent = ins.icon;
+            return (
+              <div key={i} className="bg-[#141418]/90 p-4 rounded-2xl border border-[#24242c] flex flex-col justify-between">
+                <div>
+                  <div className={`text-[11px] font-mono ${ins.color} mb-1 flex items-center gap-1.5 font-medium`}>
+                    <IconComponent className="w-3.5 h-3.5" />
+                    <span>{ins.label}</span>
+                  </div>
+                  <div className="text-xs text-zinc-200 font-medium leading-snug">
+                    {ins.headline}
+                  </div>
+                </div>
+                <div className="text-[11px] text-zinc-500 mt-2">
+                  {ins.detail}
+                </div>
+              </div>
+            );
+          })}
         </div>
       </div>
 
@@ -165,7 +329,7 @@ export const ExecutiveOverview = () => {
             {trends.slice(0, 3).map((item, idx) => (
               <div
                 key={item.id}
-                className="p-4 bg-[#1b1b20] rounded-2xl border border-[#282830] hover:border-[#e43d25]/40 transition-all flex items-start justify-between gap-3 group"
+                className="p-4 bg-[#1b1b20] rounded-2xl border border-[#282830] hover:border-[#e43d25]/40 transition-all flex items-start justify-between gap-3 group shadow-sm"
               >
                 <div>
                   <div className="flex items-center gap-2 text-[10px] font-mono text-zinc-400 mb-1">
@@ -175,17 +339,17 @@ export const ExecutiveOverview = () => {
                     <span>•</span>
                     <span className="text-emerald-400">{item.confidenceLevel}</span>
                   </div>
-                  <div className="text-xs font-semibold text-zinc-200 group-hover:text-[#ff6a52] transition-colors">
+                  <div className="text-xs font-semibold text-zinc-200 group-hover:text-[#ff6a52] transition-colors leading-snug">
                     {item.recommendedAction}
                   </div>
-                  <div className="text-[11px] text-zinc-500 mt-1 line-clamp-1">
-                    Angle: {item.suggestedContentAngle}
+                  <div className="text-[11px] text-zinc-400 mt-1 line-clamp-1 italic">
+                    "{item.suggestedContentAngle || item.headline}"
                   </div>
                 </div>
 
                 <button
                   onClick={() => sendToStudio(item)}
-                  className="px-3.5 py-1.5 bg-[#e43d25]/15 hover:bg-[#e43d25] text-[#ff6a52] hover:text-white text-[11px] font-semibold rounded-full transition-all shrink-0 flex items-center gap-1 cursor-pointer border border-[#e43d25]/30 hover:border-transparent"
+                  className="px-4 py-1.5 bg-[#e43d25]/15 hover:bg-[#e43d25] text-[#ff6a52] hover:text-white text-[11px] font-semibold rounded-full transition-all shrink-0 flex items-center gap-1 cursor-pointer border border-[#e43d25]/30 hover:border-transparent shadow-sm"
                 >
                   <span>Draft</span>
                   <ArrowRight className="w-3 h-3" />
@@ -201,45 +365,23 @@ export const ExecutiveOverview = () => {
               <Clock className="w-4 h-4 text-[#ff573d]" />
               <span>What Changed? (Intelligence Delta Since Yesterday)</span>
             </h3>
-            <span className="text-[10px] font-mono text-zinc-500">Persistent Memory</span>
+            <span className="text-[10px] font-mono text-zinc-500">Live Delta Feed</span>
           </div>
 
           <div className="space-y-3">
-            <div className="p-3.5 bg-[#1b1b20] rounded-2xl border border-[#282830]">
-              <div className="text-[10px] font-mono text-[#ff8f7d] uppercase tracking-wider mb-0.5 font-semibold">
-                Generative AI Search Policy Shift
+            {activeBriefing.deltas.map((del, dIdx) => (
+              <div key={dIdx} className="p-3.5 bg-[#1b1b20] rounded-2xl border border-[#282830]">
+                <div className={`text-[10px] font-mono ${del.color} uppercase tracking-wider mb-0.5 font-semibold`}>
+                  {del.tag}
+                </div>
+                <div className="text-xs text-zinc-300 font-medium leading-snug">
+                  {del.title}
+                </div>
+                <div className="text-[11px] text-zinc-500 mt-1 font-mono">
+                  {del.source}
+                </div>
               </div>
-              <div className="text-xs text-zinc-300 font-medium">
-                OpenAI expanded conversational ads and sponsored links in ChatGPT Search.
-              </div>
-              <div className="text-[11px] text-zinc-500 mt-1">
-                Source: Search Engine Land / Nine Degree Tech Desk.
-              </div>
-            </div>
-
-            <div className="p-3.5 bg-[#1b1b20] rounded-2xl border border-[#282830]">
-              <div className="text-[10px] font-mono text-emerald-400 uppercase tracking-wider mb-0.5 font-semibold">
-                Competitor Positioning Shift
-              </div>
-              <div className="text-xs text-zinc-300 font-medium">
-                Housing.com updated portal listings with 4 new sponsored broker banners.
-              </div>
-              <div className="text-[11px] text-zinc-500 mt-1">
-                Content Gap remains: Zero legal title due-diligence provided to prospective buyers.
-              </div>
-            </div>
-
-            <div className="p-3.5 bg-[#1b1b20] rounded-2xl border border-[#282830]">
-              <div className="text-[10px] font-mono text-amber-400 uppercase tracking-wider mb-0.5 font-semibold">
-                Search Intent Spike
-              </div>
-              <div className="text-xs text-zinc-300 font-medium">
-                "luxury real estate marketing strategy 2026" search velocity grew +48% week-over-week.
-              </div>
-              <div className="text-[11px] text-zinc-500 mt-1">
-                High commercial investigation volume from agency and developer CMOs.
-              </div>
-            </div>
+            ))}
           </div>
         </div>
       </div>
